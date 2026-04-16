@@ -3,7 +3,7 @@
 <img src="icon.png" width="64px" height="64px" style="image-rendering: pixelated;">
 
 ***WORK-IN-PROGRESS !!***
-<br>(Current status: Just showing hello world from fennel)
+<br>(Current status: showing hello world from fennel, basic 3d template)
 
 Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
