@@ -32,6 +32,8 @@ After installing addons, godot restart may need twice (for editor script loading
 
 ## Dev (compile fennel script)
 
+You need to [install fennel](https://fennel-lang.org/setup#downloading-a-fennel-binary) before run.
+
 ```bash
 $ make
 ```
