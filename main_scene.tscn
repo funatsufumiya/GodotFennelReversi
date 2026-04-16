@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hhx2veokexwn"]
 
 [ext_resource type="Script" uid="uid://dwn8rd0bx254c" path="res://src/test_script.lua" id="1_0f027"]
-[ext_resource type="Texture2D" uid="uid://b0uf6w5jdby1p" path="res://big_files/nathan-dumlao-J2gEgTPM_OA-unsplash-middle.jpg" id="2_2c62f"]
+[ext_resource type="Texture2D" uid="uid://di6d44yrvhx5q" path="res://big_files/nathan-dumlao-J2gEgTPM_OA-unsplash-processed-min.jpg" id="2_2c62f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0f027"]
 albedo_color = Color(0.028159996, 0.12, 0.0216, 1)
