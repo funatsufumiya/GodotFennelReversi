@@ -1,5 +1,7 @@
 # GodotFennelReversi
 
+<img src="icon.png" width="64px" height="64px" style="image-rendering: pixelated;">
+
 Reversi game made with Godot 4.6 and Fennel language.
 
 ## Git submodule
