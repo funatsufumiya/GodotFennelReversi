@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GodotFennelReversi"
+run/main_scene="uid://hhx2veokexwn"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+DebugCam="*res://addons/debug_camera/scripts/DebugCamAutoload.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.gd"
+Finder="*res://addons/finder/finder.gd"
+DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
+
+[dotnet]
+
+project/assembly_name="GodotFennelReversi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_camera/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/dotenv/plugin.cfg", "res://addons/finder/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/instant-realistic-light/plugin.cfg")
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"

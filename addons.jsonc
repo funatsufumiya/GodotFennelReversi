@@ -1,0 +1,92 @@
+// Godot addons configuration file for use with the GodotEnv tool.
+// See https://github.com/chickensoft-games/GodotEnv for more info.
+// -------------------------------------------------------------------- //
+// Note: this is a JSONC file, so you can use comments!
+// If using Rider, see https://youtrack.jetbrains.com/issue/RIDER-41716
+// for any issues with JSONC.
+// -------------------------------------------------------------------- //
+{
+  "$schema": "https://chickensoft.games/schemas/addons.schema.json",
+  // "path": "addons", // default
+  // "cache": ".addons", // default
+  "addons": {
+    // "osc": {
+    //   "url": "https://github.com/funatsufumiya/godot_osc_bin",
+    //   "checkout": "v0.1.3"
+    // },
+    "instant-realistic-light": {
+      "url": "https://github.com/soykhaler/Instant-Realistic-Light-Godot-Engine",
+      "source": "remote",
+      // "checkout": "main", // default
+      "subfolder": "addons/instant-realistic-light"
+    },
+    "debug_camera": {
+      "url": "https://github.com/kcfresh53/Godot-Debug-Camera/",
+      "source": "remote",
+      "checkout": "master",
+      "subfolder": "addons/debug_camera"
+    },
+    // "debug_draw_3d": {
+    //   "url": "https://github.com/funatsufumiya/godot_debug_draw_3d_bin",
+    //   "source": "remote",
+    //   "checkout": "main",
+    //   //"subfolder": ""
+    // },
+    "zylann.debug_draw": {
+      "url": "https://github.com/Zylann/godot_debug_draw",
+      "source": "remote",
+      "checkout": "master",
+      "subfolder": "addons/zylann.debug_draw"
+    },
+    // "camera360": {
+    //   "url": "https://github.com/BastiaanOlij/godot_camera_360",
+    //   "source": "remote",
+    //   "checkout": "master",
+    //   "subfolder": "addons/camera360"
+    // },
+    // "gv_video": { // name must match the folder name in the repository
+    //   "url": "https://github.com/funatsufumiya/godot_gv_video_extension_bin",
+    //   // "source": "remote", // default
+    //   // "checkout": "main", // default
+    //   "checkout": "78f050e"
+    //   // "subfolder": "addons/imrp"
+    // },
+    "shaderV": {
+      "url": "https://github.com/arkology/ShaderV",
+      // "checkout": "master",
+      "checkout": "6325563",
+      "subfolder": "addons/shaderV"
+    },
+    "finder": {
+      "url": "https://github.com/funatsufumiya/godot_finder_bin",
+      "checkout": "v0.2.0",
+    },
+    "debug_menu": {
+      "url": "https://github.com/godot-extended-libraries/godot-debug-menu",
+      "checkout": "v1.2.0",
+      // "checkout": "3211673",
+      "subfolder": "addons/debug_menu"
+    },
+    "dotenv": {
+      "url": "https://github.com/TheLsbt/godot_dotenv",
+      "checkout": "main",
+      "subfolder": "addons/dotenv"
+    },
+    // "SunshineClouds2": {
+    //   "url": "https://github.com/Bonkahe/SunshineClouds2",
+    //   "source": "remote",
+    //   "checkout": "main",
+    //   "subfolder": "addons/SunshineClouds2"
+    // },
+    // "lua-gdextension": {
+    //   "url": "https://github.com/gilzoide/lua-gdextension/releases/download/0.6.1/lua-gdextension+luajit.zip",
+    //   "source": "zip",
+    //   "subfolder": "addons/lua-gdextension"
+    // }
+    "gdUnit4": {
+      "url": "https://github.com/funatsufumiya/gdUnit4",
+      "checkout": "v6.1.2-a",
+      "subfolder": "addons/gdUnit4"
+    },
+  }
+}
