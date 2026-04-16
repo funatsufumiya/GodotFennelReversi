@@ -2,6 +2,8 @@
 
 <img src="icon.png" width="64px" height="64px" style="image-rendering: pixelated;">
 
+***WORK-IN-PROGRESS !!***
+
 Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
 ## Git submodule
