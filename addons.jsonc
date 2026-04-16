@@ -78,11 +78,11 @@
     //   "checkout": "main",
     //   "subfolder": "addons/SunshineClouds2"
     // },
-    // "lua-gdextension": {
-    //   "url": "https://github.com/gilzoide/lua-gdextension/releases/download/0.6.1/lua-gdextension+luajit.zip",
-    //   "source": "zip",
-    //   "subfolder": "addons/lua-gdextension"
-    // }
+    "lua-gdextension": {
+      "url": "https://github.com/gilzoide/lua-gdextension/releases/download/0.8.0/lua-gdextension+luajit.zip",
+      "source": "zip",
+      "subfolder": "addons/lua-gdextension"
+    },
     "gdUnit4": {
       "url": "https://github.com/funatsufumiya/gdUnit4",
       "checkout": "v6.1.2-a",
