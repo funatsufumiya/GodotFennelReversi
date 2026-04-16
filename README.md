@@ -2,6 +2,14 @@
 
 Reversi game made with Godot 4.6 and Fennel language.
 
+## Git submodule
+
+Some resources may be managed by git submodule.
+
+```bash
+$ git submodule update --init --recursive --jobs 8
+```
+
 ## Godot addon management
 
 Using [godotenv](https://github.com/chickensoft-games/GodotEnv).
