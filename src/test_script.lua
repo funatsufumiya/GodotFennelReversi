@@ -1,10 +1,5 @@
-local TestScript = {
-	extends = Node,
-}
-
--- Called when the node enters the scene tree for the first time.
-function TestScript:_ready()
-	print("hello from lua!")
+local TestScript = {extends = Node}
+TestScript._ready = function(self)
+  return print("Hello from fennel!")
 end
-
 return TestScript

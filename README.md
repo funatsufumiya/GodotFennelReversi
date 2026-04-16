@@ -29,3 +29,9 @@ $ godotenv addons install
 ```
 
 After installing addons, godot restart may need twice (for editor script loading).
+
+## Dev (compile fennel script)
+
+```bash
+$ make
+```
