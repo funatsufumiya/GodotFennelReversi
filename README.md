@@ -1,6 +1,6 @@
 # GodotFennelReversi
 
-Reversi game made with Godot 4.6 and fennel language.
+Reversi game made with Godot 4.6 and Fennel language.
 
 ## Godot addon management
 
