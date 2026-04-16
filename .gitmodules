@@ -1,0 +1,3 @@
+[submodule "big_files"]
+	path = big_files
+	url = https://github.com/funatsufumiya/GodotFennelReversi_BigFiles
