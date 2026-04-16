@@ -1,3 +1,8 @@
 [gd_scene format=3 uid="uid://hhx2veokexwn"]
 
+[ext_resource type="Script" uid="uid://dwn8rd0bx254c" path="res://src/test_script.lua" id="1_0f027"]
+
 [node name="MainScene" type="Node3D" unique_id=251194673]
+
+[node name="Node" type="Node" parent="." unique_id=513717051]
+script = ExtResource("1_0f027")
