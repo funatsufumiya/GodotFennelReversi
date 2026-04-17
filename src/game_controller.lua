@@ -25,8 +25,7 @@ GameController.move = function(self, disc, x, y)
   local gp = self:get_global_position(disc)
   gp.x = nx
   gp.z = ny
-  disc.global_position = gp
-  return nil
+  return Utils:set_global_position_deferred(disc, gp)
 end
 GameController.newDiscAt = function(self, x, y)
   local disc = self:newDisc()

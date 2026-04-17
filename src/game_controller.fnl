@@ -27,7 +27,8 @@
     ; (print "nx" nx "ny" ny)
     (set gp.x nx)
     (set gp.z ny)
-    (set disc.global_position gp)
+    ; (set disc.global_position gp)
+    (Utils:set_global_position_deferred disc gp)
     ))
 
 (fn GameController.newDiscAt [self x y]
@@ -39,6 +40,7 @@
   (let [disc (self:newDisc)]
     (self:move disc x y)
     (disc:flip)
+    ; (Utils:flip_disc_deferred disc)
     disc))
 
 (fn GameController.newDisc [self]
