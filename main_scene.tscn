@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://hhx2veokexwn"]
 
-[ext_resource type="Script" uid="uid://dwn8rd0bx254c" path="res://src/test_script.lua" id="1_0f027"]
+[ext_resource type="Script" uid="uid://dgab7dhmedhbr" path="res://src/game_controller.lua" id="1_d5x1h"]
 [ext_resource type="Texture2D" uid="uid://di6d44yrvhx5q" path="res://big_files/nathan-dumlao-J2gEgTPM_OA-unsplash-processed-min.jpg" id="2_2c62f"]
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
 [ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
@@ -60,33 +60,33 @@ auto_exposure_min_sensitivity = 8.01
 
 [node name="MainScene" type="Node3D" unique_id=251194673]
 
-[node name="Node" type="Node" parent="." unique_id=513717051]
-script = ExtResource("1_0f027")
+[node name="GameController" type="Node" parent="." unique_id=513717051]
+script = ExtResource("1_d5x1h")
 
 [node name="Board" type="MeshInstance3D" parent="." unique_id=2138596118]
-transform = Transform3D(3, 0, 0, 0, 0.074, 0, 0, 0, 3, 0, 0.037199616, 0)
+transform = Transform3D(3, 0, 0, 0, 0.074, 0, 0, 0, 3, 0, 0.008671571, 0)
 material_override = ExtResource("2_gyfs4")
 mesh = SubResource("PlaneMesh_gyfs4")
 
 [node name="BoardOuter" type="MeshInstance3D" parent="." unique_id=1932512874]
-transform = Transform3D(3.1248605, 0, 0, 0, 0.074, 0, 0, 0, 3.105513, 0, -0.00799346, 0)
+transform = Transform3D(3.1248605, 0, 0, 0, 0.074, 0, 0, 0, 3.105513, 0, -0.036521506, 0)
 mesh = SubResource("BoxMesh_d5x1h")
 
 [node name="Table" type="MeshInstance3D" parent="." unique_id=1337469893]
-transform = Transform3D(8.351327, 0, 0, 0, 0.074, 0, 0, 0, 6.6835275, 0.06326872, -0.041337788, 0.18076277)
+transform = Transform3D(8.351327, 0, 0, 0, 0.074, 0, 0, 0, 6.6835275, 0.06326872, -0.06986584, 0.18076277)
 mesh = SubResource("BoxMesh_gyfs4")
 
 [node name="Disc" parent="." unique_id=2064708973 instance=ExtResource("4_d5x1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18841311, 0.055668592, 0.18919194)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18841311, 0.027140547, 0.18919194)
 
 [node name="Disc3" parent="." unique_id=564080133 instance=ExtResource("4_d5x1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18663779, 0.055668592, -0.18585904)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18663779, 0.027140547, -0.18585904)
 
 [node name="Disc2" parent="." unique_id=1648305326 instance=ExtResource("4_d5x1h")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0.18875408, 0.055668592, 0.1877329)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0.18875408, 0.027140547, 0.1877329)
 
 [node name="Disc4" parent="." unique_id=1764837802 instance=ExtResource("4_d5x1h")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.18629682, 0.055668592, -0.18731785)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.18629682, 0.027140547, -0.18731785)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1561218923]
 environment = SubResource("Environment_f8w8m")
@@ -117,3 +117,9 @@ transform = Transform3D(-0.124212004, 0.17662352, -0.9764095, -0.15666589, 0.968
 light_color = Color(3.898591e-06, 0.79813904, 0.29599303, 1)
 light_energy = 1.701
 light_indirect_energy = 0.299
+
+[node name="LeftTopMarker" type="Marker3D" parent="." unique_id=2087336413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4959166, 0, -1.4952506)
+
+[node name="RightBottomMarker" type="Marker3D" parent="." unique_id=1648233247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4976461, 0, 1.4953723)
