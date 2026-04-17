@@ -255,7 +255,7 @@
       true)))
 
 (fn GameController.is_in_range [self x y]
-  (and (> x 0) (y > 0) (<= x N) (<= y N)))
+  (and (> x 0) (> y 0) (<= x N) (<= y N)))
 
 (fn GameController.accum_states [self start_x start_y start_state incl_f]
   (var result [start_state])
@@ -270,11 +270,11 @@
       (set x (. v 1))
       (set y (. v 2)))
     ; (print "x" x "y" y)
-    (let [disc (self:get_state x y)]
-      (if (not is_in_range)
+    (let [disc (if (self:is_in_range x y) (self:get_state x y) nil)]
+      (if (or (not (self:is_in_range x y)) (= disc nil))
         (set done? true))
       (if (not done?)
-        (if (or (= disc nil) (= disc start_state))
+        (if (= disc start_state)
           (do
             (if (= disc start_state) (table.insert result disc))
             (set done? true))
