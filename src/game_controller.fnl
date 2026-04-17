@@ -418,7 +418,40 @@
   (let [d self.disc_for_indicate]
     (d:flip)))
 
+(fn GameController.check_need_pass [self]
+  (var flag? false)
+  (var done? false)
+  (var first? true)
+  (var x 1)
+  (var y 1)
+
+  (print "check pass")
+
+  (while (not done?)
+    (if (not first?)
+      (if (< x N)
+        (set x (+ x 1))
+        (do
+          (set x 1)
+          (set y (+ y 1))))
+
+    (print "x" x "y" y)
+    
+    (if (not (self:is_in_range x y))
+      (do
+        (set flag? true)
+        (set done? true))
+      (do
+        (if (self:is_able_to_put x y self.cur_turn_state)
+          (set done? true))))
+
+    (set first? false)))
+  
+  (print "need_pass" flag?)
+  flag?)
+
 (fn GameController.check_finished [self]
+  ; TODO: check all the same color or not
   (let [sum (accumulate [sm 0 _ v (pairs states)]
               (if (not (= v nil)) (+ sm 1) sm))]
     ; (print "sum" sum)
@@ -453,6 +486,13 @@
         (self:flip_indicate_disc)
         (self:judge_finished)
         (set self.cur_turn_state (not self.cur_turn_state))
+
+        (if (self:check_need_pass)
+          ; TODO: show pass message
+          (self:flip_indicate_disc)
+          (self:judge_finished)
+          (set self.cur_turn_state (not self.cur_turn_state)))
+
           ))))
 
 (fn GameController.try_raycast [self]

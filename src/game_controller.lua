@@ -465,6 +465,38 @@ GameController.flip_indicate_disc = function(self)
   local d = self.disc_for_indicate
   return d:flip()
 end
+GameController.check_need_pass = function(self)
+  local flag_3f = false
+  local done_3f = false
+  local first_3f = true
+  local x = 1
+  local y = 1
+  print("check pass")
+  while not done_3f do
+	if not first_3f then
+	  if (x < N) then
+		x = (x + 1)
+	  else
+		x = 1
+		y = (y + 1)
+	  end
+	elseif print("x", x, "y", y) then
+	  if not self:is_in_range(x, y) then
+		flag_3f = true
+		done_3f = true
+	  else
+		if self:is_able_to_put(x, y, self.cur_turn_state) then
+		  done_3f = true
+		else
+		end
+	  end
+	else
+	  first_3f = false
+	end
+  end
+  print("need_pass", flag_3f)
+  return flag_3f
+end
 GameController.check_finished = function(self)
   local sum
   do
@@ -507,7 +539,14 @@ GameController.judge_next_touch = function(self, position)
 	self:flip_indicate_disc()
 	self:judge_finished()
 	self.cur_turn_state = not self.cur_turn_state
-	return nil
+	if self:check_need_pass() then
+	  return self:flip_indicate_disc()
+	elseif self:judge_finished() then
+	  self.cur_turn_state = not self.cur_turn_state
+	  return nil
+	else
+	  return nil
+	end
   else
 	return nil
   end
@@ -525,12 +564,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_46_ = (nil ~= event)
-  if and_46_ then
+  local and_51_ = (nil ~= event)
+  if and_51_ then
 	local e = event
-	and_46_ = Variant.is(e, InputEventMouseButton)
+	and_51_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_46_ then
+  if and_51_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()
