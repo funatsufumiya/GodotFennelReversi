@@ -8,13 +8,17 @@
 ; (local cur_turn_state true)
 
 (fn GameController.get_state [self x y]
-  (. states (+ x (* y N))))
+  (if (self:is_in_range x y)
+    (. states (+ x (* y N)))
+    nil))
 
 (fn GameController.set_state [self x y b]
   (tset states (+ x (* y N)) b))
 
 (fn GameController.get_disc [self x y]
-  (. discs (+ x (* y N))))
+  (if (self:is_in_range x y)
+    (. discs (+ x (* y N)))
+    nil))
 
 (fn GameController.set_disc [self x y disc]
   (tset discs (+ x (* y N)) disc))
