@@ -146,6 +146,7 @@ GameController._ready = function(self)
   self.root = Finder:get_root()
   self.disc_prefab = self.preloaded.disc_prefab
   self.left_top_marker = Finder:find_child_by_name(self.root, "LeftTopMarker")
+  self.camera = Finder:find_child_by_name(self.root, "Camera3D")
   self.right_bottom_marker = Finder:find_child_by_name(self.root, "RightBottomMarker")
   self.left_top_pos = self.left_top_marker.global_position
   self.right_bottom_pos = self.right_bottom_marker.global_position
@@ -183,8 +184,24 @@ GameController.get_timestamp = function(self)
   local now = Time:get_datetime_dict_from_system()
   return Utils:format("%04d-%02d-%02d %02d:%02d:%02d", to_array({now.year, now.month, now.day, now.hour, now.minute, now.second}))
 end
+GameController.get_raycast_result = function(self)
+  local root = self.root
+  local w3d = root:get_world_3d()
+  local space_state = w3d.direct_space_state
+  local viewport = self:get_viewport()
+  local mousepos = viewport:get_mouse_position()
+  local cam = self.camera
+  local origin = cam:project_ray_origin(mousepos)
+  local ray_end = (origin + (cam:project_ray_normal(mousepos) * 1000))
+  local query = PhysicsRayQueryParameters3D:create(origin, ray_end)
+  local _
+  query.collide_with_areas = true
+  _ = nil
+  local result = space_state:intersect_ray(query)
+  return result
+end
 GameController.try_raycast = function(self)
-  return print("raycast not implemented yet")
+  return print(self:get_raycast_result())
 end
 GameController._input = function(self, event)
   local and_6_ = (nil ~= event)

@@ -8,6 +8,8 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_d5x1h"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyfs4"]
 albedo_color = Color(0, 0, 0, 1)
 roughness = 0.0
@@ -67,6 +69,11 @@ script = ExtResource("1_d5x1h")
 transform = Transform3D(3, 0, 0, 0, 0.074, 0, 0, 0, 3, 0, -0.026442599, 0)
 material_override = ExtResource("2_gyfs4")
 mesh = SubResource("PlaneMesh_gyfs4")
+
+[node name="BoardArea" type="Area3D" parent="Board" unique_id=264325031]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/BoardArea" unique_id=1976601478]
+shape = SubResource("BoxShape3D_d5x1h")
 
 [node name="BoardOuter" type="MeshInstance3D" parent="." unique_id=1932512874]
 transform = Transform3D(3.1248605, 0, 0, 0, 0.074, 0, 0, 0, 3.105513, 0, -0.07163568, 0)

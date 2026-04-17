@@ -146,6 +146,7 @@
   (set self.disc_prefab self.preloaded.disc_prefab)
 
   (set self.left_top_marker (Finder:find_child_by_name self.root "LeftTopMarker"))
+  (set self.camera (Finder:find_child_by_name self.root "Camera3D"))
   (set self.right_bottom_marker (Finder:find_child_by_name self.root "RightBottomMarker"))
   (set self.left_top_pos self.left_top_marker.global_position)
   (set self.right_bottom_pos self.right_bottom_marker.global_position)
@@ -200,8 +201,24 @@
         now.second])
       )))
 
+(fn GameController.get_raycast_result [self]
+  (let [
+    root self.root
+    w3d (root:get_world_3d)
+    space_state w3d.direct_space_state
+    viewport (self:get_viewport)
+    mousepos (viewport:get_mouse_position)
+    cam self.camera
+    origin (cam:project_ray_origin mousepos)
+    ray_end (+ origin (* (cam:project_ray_normal mousepos) 1000))
+    query (PhysicsRayQueryParameters3D:create origin ray_end)
+    _  (set query.collide_with_areas true)
+    result (space_state:intersect_ray query)
+    ]
+    result))
+
 (fn GameController.try_raycast [self]
-  (print "raycast not implemented yet"))
+  (print (self:get_raycast_result)))
 
 (fn GameController._input [self event]
   (match event
