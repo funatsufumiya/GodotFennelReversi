@@ -17,7 +17,7 @@
   (+ self.y0 (* (- y 0.5) self.dh)))
 
 (fn GameController.get_global_position [self disc]
-  (if self.is_dirty (Vector3 0 0 0) disc:global_position))
+  (if self.is_dirty (Vector3 0 0 0) disc.global_position))
 
 (fn GameController.move [self disc x y]
   (let [nx (self:get_pos_x x)
@@ -56,6 +56,14 @@
       ; (print disc)
       )))
 
+(fn GameController.initDiscs [self]
+  (self:newDiscFlippedAt 4 4)
+  (self:newDiscFlippedAt 5 5)
+  (self:newDiscAt 4 5)
+  (self:newDiscAt 5 4)
+  ; (self:newDiscFlippedAt 1 1)
+  )
+
 (fn GameController._ready [self]
   (set self.is_dirty true)
   (set self.preloaded (Preloaded:singleton))
@@ -77,10 +85,12 @@
   ; (print self.left_top_marker)
   ; (print self.right_bottom_marker)
   (self:clearDiscs)
-  (self:newDiscFlippedAt 4 4)
-  (self:newDiscAt 4 5)
-  (self:newDiscAt 5 4)
+  (self:initDiscs))
 
-  (set self.is_dirty false))
+(fn GameController._process [self delta]
+  (if self.is_dirty
+    (do
+      (set self.is_dirty false)
+    )))
 
 GameController

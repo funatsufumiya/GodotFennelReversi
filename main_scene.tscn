@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://di6d44yrvhx5q" path="res://big_files/nathan-dumlao-J2gEgTPM_OA-unsplash-processed-min.jpg" id="2_2c62f"]
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
 [ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
-[ext_resource type="Script" uid="uid://dqmt57a3piqc6" path="res://addons/debug_camera/scripts/DebugCamera3D.gd" id="5_8mm7a"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
@@ -103,7 +102,6 @@ size = Vector3(10000, 10000, 1000)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1984357098]
 transform = Transform3D(1, 0, 0, 0, 0.33880362, 0.9408572, 0, -0.9408572, 0.33880362, 0, 1.9008328, 1.0376109)
-script = ExtResource("5_8mm7a")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=575819913]
 transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 1.8298912, 1.472254, -0.08772373)
