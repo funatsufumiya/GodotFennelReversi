@@ -229,6 +229,10 @@
   ;     (self:flipDisc disc)
   ;   ))))
 
+(fn GameController.is_able_to_put [self position state]
+  (print "WARN: is_able_to_put not implmented yet!")
+  true)
+
 (fn GameController.judge_next_touch [self position]
   ; (print position)
   (let [
@@ -239,9 +243,10 @@
     nx (+ (floor (* px N)) 1)
     ny (+ (floor (* py N)) 1)
     already_exist (not (= (self:get_state nx ny) nil))
+    ok_to_put (self:is_able_to_put nx ny self.cur_turn_state)
     ]
     ; (print nx ny)
-    (if (not already_exist)
+    (if (and (not already_exist) ok_to_put)
       (do
         ; (print "current state" self.cur_turn_state)
         (if self.cur_turn_state

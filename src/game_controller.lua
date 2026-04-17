@@ -206,6 +206,10 @@ end
 GameController.flip_discs = function(self, x, y, state)
   return print("flip discs not implemented yet: ", x, y, state)
 end
+GameController.is_able_to_put = function(self, position, state)
+  print("WARN: is_able_to_put not implmented yet!")
+  return true
+end
 GameController.judge_next_touch = function(self, position)
   local x = position.x
   local y = position.z
@@ -214,7 +218,8 @@ GameController.judge_next_touch = function(self, position)
   local nx = (floor((px * N)) + 1)
   local ny = (floor((py * N)) + 1)
   local already_exist = not (self:get_state(nx, ny) == nil)
-  if not already_exist then
+  local ok_to_put = self:is_able_to_put(nx, ny, self.cur_turn_state)
+  if (not already_exist and ok_to_put) then
 	if self.cur_turn_state then
 	  self:newDiscFlippedAt(nx, ny)
 	else
