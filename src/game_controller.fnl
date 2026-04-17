@@ -174,7 +174,7 @@
   (self:clearDiscs)
   (self:initDiscs)
 
-  (self:print_states)
+  ; (self:print_states)
 
   (set self.cur_turn_state true))
 

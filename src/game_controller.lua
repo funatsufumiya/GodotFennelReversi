@@ -176,7 +176,6 @@ GameController._ready = function(self)
   self.finished = false
   self:clearDiscs()
   self:initDiscs()
-  self:print_states()
   self.cur_turn_state = true
   return nil
 end
