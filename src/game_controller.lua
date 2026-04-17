@@ -21,9 +21,9 @@ GameController.get_state_str = function(self, x, y)
   if (st == nil) then
 	return "."
   elseif (st == true) then
-	return "x"
-  elseif (st == false) then
 	return "o"
+  elseif (st == false) then
+	return "x"
   else
 	return nil
   end
@@ -161,7 +161,7 @@ GameController._ready = function(self)
   self:clearDiscs()
   self:initDiscs()
   self:print_states()
-  self.cur_turn_state = false
+  self.cur_turn_state = true
   return nil
 end
 GameController._process = function(self, delta)
@@ -207,8 +207,63 @@ end
 GameController.flip_discs = function(self, x, y, state)
   return print("flip discs not implemented yet: ", x, y, state)
 end
-GameController.is_able_to_put = function(self, x, y, state)
-  print("WARN: is_able_to_put not implmented yet!")
+GameController.accum_states = function(self, start_x, start_y, start_state, incl_f)
+  local result = {start_state}
+  local done_3f = false
+  local x = start_x
+  local y = start_y
+  while not done_3f do
+	do
+	  local v = incl_f(x, y)
+	  x = v[1]
+	  y = v[2]
+	end
+	local disc = self:get_state(x, y)
+	if ((disc == nil) or (disc == start_state)) then
+	  if (disc == start_state) then
+		table.insert(result, disc)
+	  else
+	  end
+	  done_3f = true
+	else
+	  table.insert(result, disc)
+	end
+  end
+  return Array(result)
+end
+GameController.is_accum_center_all_ok = function(self, accum, start_state)
+  local n = accum:size()
+  local begin_index = 1
+  local end_index = (n - 2)
+  local i = begin_index
+  local result = nil
+  while ((result == nil) and (i <= end_index)) do
+	if not (accum[i] == not start_state) then
+	  result = false
+	else
+	end
+	i = (i + 1)
+  end
+  if (result == nil) then
+	return true
+  else
+	return false
+  end
+end
+GameController.check_accum_states = function(self, start_x, start_y, start_state, incl_f)
+  local accum = self:accum_states(start_x, start_y, start_state, incl_f)
+  local n = accum:size()
+  if (n < 3) then
+	return false
+  else
+	local a = accum[0]
+	local b = accum[(n - 1)]
+	local bridge_ok = (a == b)
+	local center_ok = self:is_accum_center_all_ok(accum, start_state)
+	return (bridge_ok and center_ok)
+  end
+end
+GameController.able_judge1 = function(self, x, y, state)
   local disc1 = self:get_disc((x - 1), y)
   local disc2 = self:get_disc(x, (y - 1))
   local disc3 = self:get_disc((x + 1), y)
@@ -218,11 +273,72 @@ GameController.is_able_to_put = function(self, x, y, state)
   local disc7 = self:get_disc((x - 1), (y + 1))
   local disc8 = self:get_disc((x + 1), (y + 1))
   local n
-  local function _6_(e)
+  local function _11_(e)
 	return not not e
   end
-  n = _6_
+  n = _11_
   return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
+end
+GameController.is_able_to_put = function(self, x, y, state)
+  if not self:able_judge1(x, y, state) then
+	return false
+  else
+	local s = state
+	local n
+	local function _12_(e)
+	  return not not e
+	end
+	n = _12_
+	local f1
+	local function _13_(x0, y0)
+	  return {(x0 - 1), y0}
+	end
+	f1 = _13_
+	local f2
+	local function _14_(x0, y0)
+	  return {x0, (y0 - 1)}
+	end
+	f2 = _14_
+	local f3
+	local function _15_(x0, y0)
+	  return {(x0 + 1), y0}
+	end
+	f3 = _15_
+	local f4
+	local function _16_(x0, y0)
+	  return {x0, (y0 + 1)}
+	end
+	f4 = _16_
+	local f5
+	local function _17_(x0, y0)
+	  return {(x0 - 1), (y0 - 1)}
+	end
+	f5 = _17_
+	local f6
+	local function _18_(x0, y0)
+	  return {(x0 + 1), (y0 - 1)}
+	end
+	f6 = _18_
+	local f7
+	local function _19_(x0, y0)
+	  return {(x0 - 1), (y0 + 1)}
+	end
+	f7 = _19_
+	local f8
+	local function _20_(x0, y0)
+	  return {(x0 + 1), (y0 + 1)}
+	end
+	f8 = _20_
+	local c1 = self:check_accum_states(x, y, s, f1)
+	local c2 = self:check_accum_states(x, y, s, f2)
+	local c3 = self:check_accum_states(x, y, s, f3)
+	local c4 = self:check_accum_states(x, y, s, f4)
+	local c5 = self:check_accum_states(x, y, s, f5)
+	local c6 = self:check_accum_states(x, y, s, f6)
+	local c7 = self:check_accum_states(x, y, s, f7)
+	local c8 = self:check_accum_states(x, y, s, f8)
+	return (n(c1) or n(c2) or n(c3) or n(c4) or n(c5) or n(c6) or n(c7) or n(c8))
+  end
 end
 GameController.check_finished = function(self)
   local sum
@@ -258,9 +374,9 @@ GameController.judge_next_touch = function(self, position)
   local ok_to_put = self:is_able_to_put(nx, ny, self.cur_turn_state)
   if (not already_exist and ok_to_put) then
 	if self.cur_turn_state then
-	  self:newDiscFlippedAt(nx, ny)
-	else
 	  self:newDiscAt(nx, ny)
+	else
+	  self:newDiscFlippedAt(nx, ny)
 	end
 	self:flip_discs(nx, ny, self.cur_turn_state)
 	self:judge_finished()
@@ -283,12 +399,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_13_ = (nil ~= event)
-  if and_13_ then
+  local and_28_ = (nil ~= event)
+  if and_28_ then
 	local e = event
-	and_13_ = Variant.is(e, InputEventMouseButton)
+	and_28_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_13_ then
+  if and_28_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()

@@ -5,7 +5,7 @@
 (local N 8)
 (local states {})
 (local discs {})
-; (local cur_turn_state false)
+; (local cur_turn_state true)
 
 (fn GameController.get_state [self x y]
   (. states (+ x (* y N))))
@@ -21,7 +21,7 @@
 
 (fn GameController.get_state_str [self x y]
   (let [st (self:get_state x y)]
-    (case st nil "." true "x" false "o")))
+    (case st nil "." true "o" false "x")))
 
 (fn GameController.init_states [self]
   (for [i 1 (* N N)]
@@ -168,7 +168,7 @@
 
   (self:print_states)
 
-  (set self.cur_turn_state false))
+  (set self.cur_turn_state true))
 
 (fn GameController._process [self delta]
   (if self.is_dirty
@@ -230,9 +230,65 @@
   ;     (self:flipDisc disc)
   ;   ))))
 
-(fn GameController.is_able_to_put [self x y state]
-  (print "WARN: is_able_to_put not implmented yet!")
-  ; WORKAROUND
+(fn GameController.accum_states [self start_x start_y start_state incl_f]
+  (var result [start_state])
+  (var done? false)
+  (var x start_x)
+  (var y start_y)
+
+  ; (print "x" x "y" y)
+
+  (while (not done?) (do
+    (let [v (incl_f x y)]
+      (set x (. v 1))
+      (set y (. v 2)))
+    ; (print "x" x "y" y)
+    (let [disc (self:get_state x y)]
+      (if (or (= disc nil) (= disc start_state))
+        (do
+          (if (= disc start_state) (table.insert result disc))
+          (set done? true))
+        (do
+          (table.insert result disc))))))
+
+  ; (print "end")
+  (Array result))
+
+(fn GameController.is_accum_center_all_ok [self accum start_state]
+  (let [
+    n (accum:size)
+    begin_index 1
+    end_index (- n 2)]
+
+    (var i begin_index)
+    (var result nil)
+
+    (while (and (= result nil) (<= i end_index))
+      ; (print "i" i ", v" (. accum i))
+      (if (not (= (. accum i) (not start_state)))
+        (set result false))
+      (set i (+ i 1)))
+
+    (if (= result nil) true false)))
+
+(fn GameController.check_accum_states [self start_x start_y start_state incl_f]
+  (let [
+    accum (self:accum_states start_x start_y start_state incl_f)
+    n (accum:size)]
+    ; (print accum n)
+    (if (< n 3) false
+      (let [
+        a (. accum 0)
+        b (. accum (- n 1))
+        bridge_ok (= a b)
+        center_ok (self:is_accum_center_all_ok accum start_state)
+        ]
+        ; (print "bridge_ok" bridge_ok "center_ok" center_ok)
+        ; (print accum)
+        (and bridge_ok center_ok)
+      ))))
+
+(fn GameController.able_judge1 [self x y state]
   (let [
     disc1 (self:get_disc (- x 1) y)
     disc2 (self:get_disc x (- y 1))
@@ -254,7 +310,41 @@
       (n disc7)
       (n disc8)
       )))
-  ; true)
+
+(fn GameController.is_able_to_put [self x y state]
+  ; (print "WARN: is_able_to_put not implmented yet!")
+  (if (not (self:able_judge1 x y state))
+    false
+    (let [
+      s state
+      n (fn [e] (not (not e)))
+      f1 (fn [x y] [(- x 1) y])
+      f2 (fn [x y] [x (- y 1)])
+      f3 (fn [x y] [(+ x 1) y])
+      f4 (fn [x y] [x (+ y 1)])
+      f5 (fn [x y] [(- x 1) (- y 1)])
+      f6 (fn [x y] [(+ x 1) (- y 1)])
+      f7 (fn [x y] [(- x 1) (+ y 1)])
+      f8 (fn [x y] [(+ x 1) (+ y 1)])
+      c1 (self:check_accum_states x y s f1)
+      c2 (self:check_accum_states x y s f2)
+      c3 (self:check_accum_states x y s f3)
+      c4 (self:check_accum_states x y s f4)
+      c5 (self:check_accum_states x y s f5)
+      c6 (self:check_accum_states x y s f6)
+      c7 (self:check_accum_states x y s f7)
+      c8 (self:check_accum_states x y s f8)
+      ]
+      (or
+        (n c1)
+        (n c2)
+        (n c3)
+        (n c4)
+        (n c5)
+        (n c6)
+        (n c7)
+        (n c8)
+        ))))
 
 (fn GameController.check_finished [self]
   (let [sum (accumulate [sm 0 _ v (pairs states)]
@@ -285,8 +375,8 @@
       (do
         ; (print "current state" self.cur_turn_state)
         (if self.cur_turn_state
-          (self:newDiscFlippedAt nx ny)
-          (self:newDiscAt nx ny))
+          (self:newDiscAt nx ny)
+          (self:newDiscFlippedAt nx ny))
         (self:flip_discs nx ny self.cur_turn_state)
         (self:judge_finished)
         (set self.cur_turn_state (not self.cur_turn_state))
