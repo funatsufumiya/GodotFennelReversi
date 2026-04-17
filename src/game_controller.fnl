@@ -159,6 +159,7 @@
   (set self.height (self:get_height))
   (set self.dw (/ self.width N))
   (set self.dh (/ self.height N))
+  (set self.finished false)
 
   ; (print self.left_top_marker)
   ; (print self.right_bottom_marker)
@@ -229,9 +230,43 @@
   ;     (self:flipDisc disc)
   ;   ))))
 
-(fn GameController.is_able_to_put [self position state]
+(fn GameController.is_able_to_put [self x y state]
   (print "WARN: is_able_to_put not implmented yet!")
-  true)
+  ; WORKAROUND
+  (let [
+    disc1 (self:get_disc (- x 1) y)
+    disc2 (self:get_disc x (- y 1))
+    disc3 (self:get_disc (+ x 1) y)
+    disc4 (self:get_disc x (+ y 1))
+    disc5 (self:get_disc (- x 1) (- y 1))
+    disc6 (self:get_disc (+ x 1) (- y 1))
+    disc7 (self:get_disc (- x 1) (+ y 1))
+    disc8 (self:get_disc (+ x 1) (+ y 1))
+    n (fn [e] (not (not e)))
+    ]
+    (or
+      (n disc1)
+      (n disc2)
+      (n disc3)
+      (n disc4)
+      (n disc5)
+      (n disc6)
+      (n disc7)
+      (n disc8)
+      )))
+  ; true)
+
+(fn GameController.check_finished [self]
+  (let [sum (accumulate [sm 0 _ v (pairs states)]
+              (if (not (= v nil)) (+ sm 1) sm))]
+    ; (print "sum" sum)
+    (= sum (* N N))))
+
+(fn GameController.judge_finished [self]
+  (if (self:check_finished)
+    (do
+      (set self.finished true)
+      (print "finished!!!!!!!"))))
 
 (fn GameController.judge_next_touch [self position]
   ; (print position)
@@ -253,6 +288,7 @@
           (self:newDiscFlippedAt nx ny)
           (self:newDiscAt nx ny))
         (self:flip_discs nx ny self.cur_turn_state)
+        (self:judge_finished)
         (set self.cur_turn_state (not self.cur_turn_state))
           ))))
 

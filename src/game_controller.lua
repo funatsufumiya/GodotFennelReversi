@@ -157,6 +157,7 @@ GameController._ready = function(self)
   self.height = self:get_height()
   self.dw = (self.width / N)
   self.dh = (self.height / N)
+  self.finished = false
   self:clearDiscs()
   self:initDiscs()
   self:print_states()
@@ -206,9 +207,45 @@ end
 GameController.flip_discs = function(self, x, y, state)
   return print("flip discs not implemented yet: ", x, y, state)
 end
-GameController.is_able_to_put = function(self, position, state)
+GameController.is_able_to_put = function(self, x, y, state)
   print("WARN: is_able_to_put not implmented yet!")
-  return true
+  local disc1 = self:get_disc((x - 1), y)
+  local disc2 = self:get_disc(x, (y - 1))
+  local disc3 = self:get_disc((x + 1), y)
+  local disc4 = self:get_disc(x, (y + 1))
+  local disc5 = self:get_disc((x - 1), (y - 1))
+  local disc6 = self:get_disc((x + 1), (y - 1))
+  local disc7 = self:get_disc((x - 1), (y + 1))
+  local disc8 = self:get_disc((x + 1), (y + 1))
+  local n
+  local function _6_(e)
+	return not not e
+  end
+  n = _6_
+  return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
+end
+GameController.check_finished = function(self)
+  local sum
+  do
+	local sm = 0
+	for _, v in pairs(states) do
+	  if not (v == nil) then
+		sm = (sm + 1)
+	  else
+		sm = sm
+	  end
+	end
+	sum = sm
+  end
+  return (sum == (N * N))
+end
+GameController.judge_finished = function(self)
+  if self:check_finished() then
+	self.finished = true
+	return print("finished!!!!!!!")
+  else
+	return nil
+  end
 end
 GameController.judge_next_touch = function(self, position)
   local x = position.x
@@ -226,6 +263,7 @@ GameController.judge_next_touch = function(self, position)
 	  self:newDiscAt(nx, ny)
 	end
 	self:flip_discs(nx, ny, self.cur_turn_state)
+	self:judge_finished()
 	self.cur_turn_state = not self.cur_turn_state
 	return nil
   else
@@ -245,12 +283,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_10_ = (nil ~= event)
-  if and_10_ then
+  local and_13_ = (nil ~= event)
+  if and_13_ then
 	local e = event
-	and_10_ = Variant.is(e, InputEventMouseButton)
+	and_13_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_10_ then
+  if and_13_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()
