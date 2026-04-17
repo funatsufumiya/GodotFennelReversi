@@ -1,0 +1,78 @@
+[gd_resource type="VisualShader" format=3 uid="uid://cnyktyp7jy501"]
+
+[ext_resource type="Texture2D" uid="uid://b4oerwbhupoqq" path="res://big_files/reversi_grid.png" id="1_ivta6"]
+[ext_resource type="Script" uid="uid://djysjqn55uwdy" path="res://addons/shaderV/rgba/noise/perlin2d.gd" id="2_adscm"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_adscm"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_2yye2"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_ioukf"]
+constant = -1.0
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_2yye2"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_ioukf"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_olik7"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_adscm"]
+function = 31
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ivta6"]
+texture = ExtResource("1_ivta6")
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_adscm"]
+constant = 1.0
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_2yye2"]
+constant = Color(0, 0.02, 0, 1)
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_adscm"]
+output_port_for_preview = 0
+default_input_values = [1, Vector3(0, 0, 0), 2, 7.0, 3, Vector3(0, 0, 0)]
+initialized = true
+script = ExtResource("2_adscm")
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_2yye2"]
+constant = 0.005
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_olik7"]
+operator = 2
+
+[resource]
+nodes/vertex/0/position = Vector2(420, 160)
+nodes/fragment/0/position = Vector2(520, 140)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_ivta6")
+nodes/fragment/2/position = Vector2(-580, 80)
+nodes/fragment/3/node = SubResource("VisualShaderNodeFloatConstant_adscm")
+nodes/fragment/3/position = Vector2(220, 460)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorConstant_2yye2")
+nodes/fragment/4/position = Vector2(-440, 500)
+nodes/fragment/5/node = SubResource("VisualShaderNodeCustom_adscm")
+nodes/fragment/5/position = Vector2(-900, 620)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatConstant_2yye2")
+nodes/fragment/7/position = Vector2(-700, 860)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_olik7")
+nodes/fragment/9/position = Vector2(-500, 760)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorOp_adscm")
+nodes/fragment/10/position = Vector2(-80, 560)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatOp_2yye2")
+nodes/fragment/11/position = Vector2(-280, 860)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFloatConstant_ioukf")
+nodes/fragment/12/position = Vector2(-480, 980)
+nodes/fragment/13/node = SubResource("VisualShaderNodeVectorOp_2yye2")
+nodes/fragment/13/position = Vector2(60, 220)
+nodes/fragment/14/node = SubResource("VisualShaderNodeVectorDecompose_ioukf")
+nodes/fragment/14/position = Vector2(-340, 80)
+nodes/fragment/15/node = SubResource("VisualShaderNodeInput_olik7")
+nodes/fragment/15/position = Vector2(-980, 240)
+nodes/fragment/16/node = SubResource("VisualShaderNodeFloatFunc_adscm")
+nodes/fragment/16/position = Vector2(-140, 180)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 3, 5, 0, 9, 0, 7, 0, 9, 1, 4, 0, 10, 0, 9, 0, 11, 0, 12, 0, 11, 1, 11, 0, 10, 1, 10, 0, 13, 1, 13, 0, 0, 0, 2, 0, 14, 0, 15, 0, 2, 0, 14, 3, 16, 0, 16, 0, 13, 0)

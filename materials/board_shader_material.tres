@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c8qn64qmwcccm"]
+
+[ext_resource type="Shader" uid="uid://cnyktyp7jy501" path="res://materials/board_visu_shader.tres" id="1_es02p"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_es02p")
