@@ -25,16 +25,25 @@ GameController.move = function(self, disc, x, y)
   local gp = self:get_global_position(disc)
   gp.x = nx
   gp.z = ny
+  disc.global_position = gp
+  return nil
+end
+GameController.move_deferred = function(self, disc, x, y)
+  local nx = self:get_pos_x(x)
+  local ny = self:get_pos_y(y)
+  local gp = self:get_global_position(disc)
+  gp.x = nx
+  gp.z = ny
   return Utils:set_global_position_deferred(disc, gp)
 end
 GameController.newDiscAt = function(self, x, y)
   local disc = self:newDisc()
-  self:move(disc, x, y)
+  self:move_deferred(disc, x, y)
   return disc
 end
 GameController.newDiscFlippedAt = function(self, x, y)
   local disc = self:newDisc()
-  self:move(disc, x, y)
+  self:move_deferred(disc, x, y)
   disc:flip()
   return disc
 end

@@ -27,18 +27,30 @@
     ; (print "nx" nx "ny" ny)
     (set gp.x nx)
     (set gp.z ny)
+    (set disc.global_position gp)
+    ; (Utils:set_global_position_deferred disc gp)
+    ))
+
+(fn GameController.move_deferred [self disc x y]
+  (let [nx (self:get_pos_x x)
+        ny (self:get_pos_y y)
+        gp (self:get_global_position disc)]
+
+    ; (print "nx" nx "ny" ny)
+    (set gp.x nx)
+    (set gp.z ny)
     ; (set disc.global_position gp)
     (Utils:set_global_position_deferred disc gp)
     ))
 
 (fn GameController.newDiscAt [self x y]
   (let [disc (self:newDisc)]
-    (self:move disc x y)
+    (self:move_deferred disc x y)
     disc))
 
 (fn GameController.newDiscFlippedAt [self x y]
   (let [disc (self:newDisc)]
-    (self:move disc x y)
+    (self:move_deferred disc x y)
     (disc:flip)
     ; (Utils:flip_disc_deferred disc)
     disc))
