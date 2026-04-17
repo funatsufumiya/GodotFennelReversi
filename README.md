@@ -39,7 +39,7 @@ $ godotenv addons install
 
 After installing addons, godot restart may need twice (for editor script loading).
 
-## Development only (compile fennel script)
+## Development (compile fennel script)
 
 NOTE: This process is only needed when modifying sources.
 
