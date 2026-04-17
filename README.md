@@ -52,3 +52,8 @@ $ make
 $ pip install watchfiles # first time only
 $ python scripts/watch.py
 ```
+
+## Development info
+
+- Game Controller: [src/game_controller.fnl](src/game_controller.fnl)
+- Disc: [src/disc.fnl](src/disc.fnl)
