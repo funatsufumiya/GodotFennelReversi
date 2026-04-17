@@ -4,9 +4,6 @@
 
 ![docs/screenshot.png](docs/screenshot.png)
 
-***WORK-IN-PROGRESS !!***
-<br>(Current status: disc flipping not implemented yet)
-
 Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
 Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2026

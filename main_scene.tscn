@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://di6d44yrvhx5q" path="res://big_files/nathan-dumlao-J2gEgTPM_OA-unsplash-processed-min.jpg" id="2_2c62f"]
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
 [ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
+[ext_resource type="Script" uid="uid://denamml3n2jol" path="res://src/disc_for_indicate.lua" id="5_8mm7a"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
@@ -96,6 +97,10 @@ visible = false
 
 [node name="Disc4" parent="." unique_id=1764837802 instance=ExtResource("4_d5x1h")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.18629682, 0, -0.18731785)
+
+[node name="DiscForIndicate" parent="." unique_id=241352973 instance=ExtResource("4_d5x1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0463128, 0, 0.07813442)
+script = ExtResource("5_8mm7a")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1561218923]
 environment = SubResource("Environment_f8w8m")

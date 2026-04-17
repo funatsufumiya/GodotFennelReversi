@@ -147,6 +147,7 @@
   (set self.root (Finder:get_root))
   (set self.disc_prefab self.preloaded.disc_prefab)
 
+  (set self.disc_for_indicate (Finder:find_child_by_name self.root "DiscForIndicate"))
   (set self.left_top_marker (Finder:find_child_by_name self.root "LeftTopMarker"))
   (set self.camera (Finder:find_child_by_name self.root "Camera3D"))
   (set self.right_bottom_marker (Finder:find_child_by_name self.root "RightBottomMarker"))
@@ -403,6 +404,10 @@
         (n c8)
         ))))
 
+(fn GameController.flip_indicate_disc [self]
+  (let [d self.disc_for_indicate]
+    (d:flip)))
+
 (fn GameController.check_finished [self]
   (let [sum (accumulate [sm 0 _ v (pairs states)]
               (if (not (= v nil)) (+ sm 1) sm))]
@@ -435,6 +440,7 @@
           (self:newDiscAt nx ny)
           (self:newDiscFlippedAt nx ny))
         (self:flip_discs nx ny self.cur_turn_state)
+        (self:flip_indicate_disc)
         (self:judge_finished)
         (set self.cur_turn_state (not self.cur_turn_state))
           ))))
