@@ -5,7 +5,7 @@
 ![docs/screenshot.png](docs/screenshot.png)
 
 ***WORK-IN-PROGRESS !!***
-<br>(Current status: showing hello world from fennel, basic 3d template)
+<br>(Current status: showing hello world from fennel, 3d board, disc bases)
 
 Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
@@ -13,7 +13,7 @@ Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2
 
 ## Git submodule
 
-Some resources may be managed by git submodule.
+Some resources are managed by git submodule. Be sure to update submodule also.
 
 ```bash
 $ git submodule update --init --recursive --jobs 8
