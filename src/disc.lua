@@ -25,4 +25,18 @@ end
 Disc.is_placed = function(self)
   return not not self.placed
 end
+Disc.set_x = function(self, x)
+  self.x = x
+  return nil
+end
+Disc.set_y = function(self, y)
+  self.y = y
+  return nil
+end
+Disc.get_x = function(self)
+  return self.x
+end
+Disc.get_y = function(self)
+  return self.y
+end
 return Disc

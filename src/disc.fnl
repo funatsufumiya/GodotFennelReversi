@@ -29,4 +29,16 @@
   ; WORKAROUND
   (not (not self.placed)))
 
+(fn Disc.set_x [self x]
+  (set self.x x))
+
+(fn Disc.set_y [self y]
+  (set self.y y))
+
+(fn Disc.get_x [self]
+  self.x)
+
+(fn Disc.get_y [self]
+  self.y)
+
 Disc
