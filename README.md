@@ -11,6 +11,10 @@ Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language
 
 Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2026
 
+## Prebuilt executables
+
+(Sorry but prebuilt binary is not ready. I'll put here if it's ready.)
+
 ## Git submodule
 
 Some resources are managed by git submodule. Be sure to update submodule also.
