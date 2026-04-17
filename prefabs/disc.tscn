@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bmd3ajq7un23"]
 
+[ext_resource type="Script" uid="uid://bg0l51tpwb3ln" path="res://src/disc.lua" id="1_8m7cm"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k1qkk"]
 roughness = 0.12
 
@@ -14,6 +16,7 @@ roughness = 0.12
 material = SubResource("StandardMaterial3D_1xcp8")
 
 [node name="Disc" type="Node3D" unique_id=2064708973]
+script = ExtResource("1_8m7cm")
 
 [node name="Scaler" type="Node3D" parent="." unique_id=1000265250]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
