@@ -4,6 +4,9 @@
 
 ![docs/screenshot.png](docs/screenshot.png)
 
+
+[![docs/playing_anim.gif](docs/playing_anim.gif)](docs/playing_anim.gif) (Animation GIF)
+
 Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
 Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2026
