@@ -34,7 +34,7 @@
 (fn GameController.get_state_raw [self x]
   (var s "")
   (for [i 1 N]
-    (set s (.. s " " (self:get_state_str x i))))
+    (set s (.. s " " (self:get_state_str i x))))
   s)
 
 (fn GameController.print_states [self]
@@ -102,7 +102,9 @@
 
 (fn GameController.flipDisc [self disc]
   (disc:flip)
-  (self:set_state x y (not (self:get_state x y))))
+  (let [x (disc:get_x)
+        y (disc:get_y)]
+    (self:set_state x y (not (self:get_state x y)))))
 
 (fn GameController.flipDiscAt [self x y]
   (let [disc (self:get_disc x y)]
@@ -222,6 +224,10 @@
 
 (fn GameController.flip_discs [self x y state]
   (print "flip discs not implemented yet: " x y state))
+  ; (let [disc (self:get_disc (- x 1) y)]
+  ;   (if disc (do
+  ;     (self:flipDisc disc)
+  ;   ))))
 
 (fn GameController.judge_next_touch [self position]
   ; (print position)

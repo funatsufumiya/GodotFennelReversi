@@ -43,7 +43,7 @@ end
 GameController.get_state_raw = function(self, x)
   local s = ""
   for i = 1, N do
-	s = (s .. " " .. self:get_state_str(x, i))
+	s = (s .. " " .. self:get_state_str(i, x))
   end
   return s
 end
@@ -110,6 +110,8 @@ GameController.newDiscFlippedAt = function(self, x, y)
 end
 GameController.flipDisc = function(self, disc)
   disc:flip()
+  local x = disc:get_x()
+  local y = disc:get_y()
   return self:set_state(x, y, not self:get_state(x, y))
 end
 GameController.flipDiscAt = function(self, x, y)
