@@ -45,4 +45,8 @@ You need to [install fennel](https://fennel-lang.org/setup#downloading-a-fennel-
 
 ```bash
 $ make
+
+# (option) Auto run make when file updated
+$ pip install watchfiles # first time only
+$ python scripts/watch.py
 ```
