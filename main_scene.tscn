@@ -78,12 +78,14 @@ mesh = SubResource("BoxMesh_gyfs4")
 
 [node name="Disc" parent="." unique_id=2064708973 instance=ExtResource("4_d5x1h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18841311, 0, 0.18919194)
+visible = false
 
 [node name="Disc3" parent="." unique_id=564080133 instance=ExtResource("4_d5x1h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18663779, 0, -0.18585904)
 
 [node name="Disc2" parent="." unique_id=1648305326 instance=ExtResource("4_d5x1h")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0.18875408, 0, 0.1877329)
+visible = false
 
 [node name="Disc4" parent="." unique_id=1764837802 instance=ExtResource("4_d5x1h")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.18629682, 0, -0.18731785)
