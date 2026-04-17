@@ -2,7 +2,6 @@ local GameController = {extends = Node, class_name = "GameController"}
 local N = 8
 local states = {}
 local discs = {}
-local cur_turn_state = false
 GameController.get_state = function(self, x, y)
   return states[(x + (y * N))]
 end
@@ -158,7 +157,9 @@ GameController._ready = function(self)
   self.dh = (self.height / N)
   self:clearDiscs()
   self:initDiscs()
-  return self:print_states()
+  self:print_states()
+  self.cur_turn_state = false
+  return nil
 end
 GameController._process = function(self, delta)
   if self.is_dirty then
@@ -200,16 +201,49 @@ GameController.get_raycast_result = function(self)
   local result = space_state:intersect_ray(query)
   return result
 end
+GameController.flip_discs = function(self, x, y, state)
+  return print("flip discs not implemented yet: ", x, y, state)
+end
+GameController.judge_next_touch = function(self, position)
+  local x = position.x
+  local y = position.z
+  local px = ((x - self.x0) / self.width)
+  local py = ((y - self.y0) / self.height)
+  local nx = (floor((px * N)) + 1)
+  local ny = (floor((py * N)) + 1)
+  local already_exist = not (self:get_state(nx, ny) == nil)
+  if not already_exist then
+	if self.cur_turn_state then
+	  self:newDiscFlippedAt(nx, ny)
+	else
+	  self:newDiscAt(nx, ny)
+	end
+	self:flip_discs(nx, ny, self.cur_turn_state)
+	self.cur_turn_state = not self.cur_turn_state
+	return nil
+  else
+	return nil
+  end
+end
 GameController.try_raycast = function(self)
-  return print(self:get_raycast_result())
+  local result = self:get_raycast_result()
+  if not not result then
+	if (result.collider.name == "BoardArea") then
+	  return self:judge_next_touch(result.position)
+	else
+	  return nil
+	end
+  else
+	return nil
+  end
 end
 GameController._input = function(self, event)
-  local and_6_ = (nil ~= event)
-  if and_6_ then
+  local and_10_ = (nil ~= event)
+  if and_10_ then
 	local e = event
-	and_6_ = Variant.is(e, InputEventMouseButton)
+	and_10_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_6_ then
+  if and_10_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()

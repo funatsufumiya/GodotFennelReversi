@@ -5,7 +5,7 @@
 (local N 8)
 (local states {})
 (local discs {})
-(local cur_turn_state false)
+; (local cur_turn_state false)
 
 (fn GameController.get_state [self x y]
   (. states (+ x (* y N))))
@@ -163,7 +163,9 @@
   (self:clearDiscs)
   (self:initDiscs)
 
-  (self:print_states))
+  (self:print_states)
+
+  (set self.cur_turn_state false))
 
 (fn GameController._process [self delta]
   (if self.is_dirty
@@ -217,8 +219,42 @@
     ]
     result))
 
+
+(fn GameController.flip_discs [self x y state]
+  (print "flip discs not implemented yet: " x y state))
+
+(fn GameController.judge_next_touch [self position]
+  ; (print position)
+  (let [
+    x position.x
+    y position.z
+    px (/ (- x self.x0) self.width)
+    py (/ (- y self.y0) self.height)
+    nx (+ (floor (* px N)) 1)
+    ny (+ (floor (* py N)) 1)
+    already_exist (not (= (self:get_state nx ny) nil))
+    ]
+    ; (print nx ny)
+    (if (not already_exist)
+      (do
+        ; (print "current state" self.cur_turn_state)
+        (if self.cur_turn_state
+          (self:newDiscFlippedAt nx ny)
+          (self:newDiscAt nx ny))
+        (self:flip_discs nx ny self.cur_turn_state)
+        (set self.cur_turn_state (not self.cur_turn_state))
+          ))))
+
 (fn GameController.try_raycast [self]
-  (print (self:get_raycast_result)))
+  (let [result (self:get_raycast_result)]
+    ; (print result)
+    (if (not (not result))
+      (do 
+        (if (= result.collider.name "BoardArea")
+          (do
+            ; (print "hit!" result)
+            (self:judge_next_touch result.position)
+          ))))))
 
 (fn GameController._input [self event]
   (match event
