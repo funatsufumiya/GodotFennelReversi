@@ -224,11 +224,30 @@
 
 
 (fn GameController.flip_discs [self x y state]
-  (print "flip discs not implemented yet: " x y state))
-  ; (let [disc (self:get_disc (- x 1) y)]
-  ;   (if disc (do
-  ;     (self:flipDisc disc)
-  ;   ))))
+  (if (not (self:able_judge1 x y state))
+    false
+    (let [
+      s state
+      n (fn [e] (not (not e)))
+      f1 (fn [x y] [(- x 1) y])
+      f2 (fn [x y] [x (- y 1)])
+      f3 (fn [x y] [(+ x 1) y])
+      f4 (fn [x y] [x (+ y 1)])
+      f5 (fn [x y] [(- x 1) (- y 1)])
+      f6 (fn [x y] [(+ x 1) (- y 1)])
+      f7 (fn [x y] [(- x 1) (+ y 1)])
+      f8 (fn [x y] [(+ x 1) (+ y 1)])
+      c1 (self:check_and_flip_accum_states x y s f1)
+      c2 (self:check_and_flip_accum_states x y s f2)
+      c3 (self:check_and_flip_accum_states x y s f3)
+      c4 (self:check_and_flip_accum_states x y s f4)
+      c5 (self:check_and_flip_accum_states x y s f5)
+      c6 (self:check_and_flip_accum_states x y s f6)
+      c7 (self:check_and_flip_accum_states x y s f7)
+      c8 (self:check_and_flip_accum_states x y s f8)
+      ]
+      
+      true)))
 
 (fn GameController.accum_states [self start_x start_y start_state incl_f]
   (var result [start_state])
@@ -288,6 +307,45 @@
         (and bridge_ok center_ok)
       ))))
 
+(fn GameController.apply_flip_on_accum_states [self accum start_x start_y start_state incl_f]
+  (let [
+    n (accum:size)
+    begin_index 1
+    end_index (- n 2)]
+
+    (var i begin_index)
+    (var x start_x)
+    (var y start_y)
+    (var need_stop false)
+
+    (while (and (= need_stop false) (<= i end_index))
+      (local v (incl_f x y))
+      (set x (. v 1))
+      (set y (. v 2))
+      (self:flipDiscAt x y)
+      (if (not (= (. accum i) (not start_state)))
+        (set need_stop true))
+      (set i (+ i 1)))))
+
+(fn GameController.check_and_flip_accum_states [self start_x start_y start_state incl_f]
+  (let [
+    accum (self:accum_states start_x start_y start_state incl_f)
+    n (accum:size)]
+    ; (print accum n)
+    (if (< n 3) false
+      (let [
+        a (. accum 0)
+        b (. accum (- n 1))
+        bridge_ok (= a b)
+        center_ok (self:is_accum_center_all_ok accum start_state)
+        ]
+        (if (and bridge_ok center_ok)
+          (do
+            (self:apply_flip_on_accum_states accum start_x start_y start_state incl_f)
+          true)
+          false)
+      ))))
+
 (fn GameController.able_judge1 [self x y state]
   (let [
     disc1 (self:get_disc (- x 1) y)
@@ -312,7 +370,6 @@
       )))
 
 (fn GameController.is_able_to_put [self x y state]
-  ; (print "WARN: is_able_to_put not implmented yet!")
   (if (not (self:able_judge1 x y state))
     false
     (let [
