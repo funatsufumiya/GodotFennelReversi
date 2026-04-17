@@ -13,7 +13,7 @@ Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2
 
 ## Prebuilt executables
 
-(Sorry but prebuilt binary is not ready. I'll put here if it's ready.)
+Please check [Releases](https://github.com/funatsufumiya/GodotFennelReversi/releases) page.
 
 ## Git submodule
 
