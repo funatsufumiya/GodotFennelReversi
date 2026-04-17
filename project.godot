@@ -18,7 +18,6 @@ config/icon="res://icon.png"
 [autoload]
 
 DebugCam="*res://addons/debug_camera/scripts/DebugCamAutoload.gd"
-DebugMenu="*res://addons/debug_menu/debug_menu.gd"
 Finder="*res://addons/finder/finder.gd"
 DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
 

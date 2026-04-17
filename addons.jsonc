@@ -61,12 +61,6 @@
       "url": "https://github.com/funatsufumiya/godot_finder_bin",
       "checkout": "v0.2.0",
     },
-    "debug_menu": {
-      "url": "https://github.com/godot-extended-libraries/godot-debug-menu",
-      "checkout": "v1.2.0",
-      // "checkout": "3211673",
-      "subfolder": "addons/debug_menu"
-    },
     "dotenv": {
       "url": "https://github.com/TheLsbt/godot_dotenv",
       "checkout": "main",
