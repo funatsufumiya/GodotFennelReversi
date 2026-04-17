@@ -2,6 +2,13 @@ local GameController = {extends = Node, class_name = "GameController"}
 local N = 8
 local states = {}
 local discs = {}
+GameController.get_turn_name = function(self)
+  if (self.cur_turn_state == true) then
+	return "black"
+  else
+	return "white"
+  end
+end
 GameController.get_state = function(self, x, y)
   if self:is_in_range(x, y) then
 	return states[(x + (y * N))]
@@ -219,50 +226,50 @@ GameController.flip_discs = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _8_(e)
+	local function _9_(e)
 	  return not not e
 	end
-	n = _8_
+	n = _9_
 	local f1
-	local function _9_(x0, y0)
+	local function _10_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _9_
+	f1 = _10_
 	local f2
-	local function _10_(x0, y0)
+	local function _11_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _10_
+	f2 = _11_
 	local f3
-	local function _11_(x0, y0)
+	local function _12_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _11_
+	f3 = _12_
 	local f4
-	local function _12_(x0, y0)
+	local function _13_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _12_
+	f4 = _13_
 	local f5
-	local function _13_(x0, y0)
+	local function _14_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _13_
+	f5 = _14_
 	local f6
-	local function _14_(x0, y0)
+	local function _15_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _14_
+	f6 = _15_
 	local f7
-	local function _15_(x0, y0)
+	local function _16_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _15_
+	f7 = _16_
 	local f8
-	local function _16_(x0, y0)
+	local function _17_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _16_
+	f8 = _17_
 	local c1 = self:check_and_flip_accum_states(x, y, s, f1)
 	local c2 = self:check_and_flip_accum_states(x, y, s, f2)
 	local c3 = self:check_and_flip_accum_states(x, y, s, f3)
@@ -394,10 +401,10 @@ GameController.able_judge1 = function(self, x, y, state)
   local disc7 = self:get_disc((x - 1), (y + 1))
   local disc8 = self:get_disc((x + 1), (y + 1))
   local n
-  local function _29_(e)
+  local function _30_(e)
 	return not not e
   end
-  n = _29_
+  n = _30_
   return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
 end
 GameController.is_able_to_put = function(self, x, y, state)
@@ -406,50 +413,50 @@ GameController.is_able_to_put = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _30_(e)
+	local function _31_(e)
 	  return not not e
 	end
-	n = _30_
+	n = _31_
 	local f1
-	local function _31_(x0, y0)
+	local function _32_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _31_
+	f1 = _32_
 	local f2
-	local function _32_(x0, y0)
+	local function _33_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _32_
+	f2 = _33_
 	local f3
-	local function _33_(x0, y0)
+	local function _34_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _33_
+	f3 = _34_
 	local f4
-	local function _34_(x0, y0)
+	local function _35_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _34_
+	f4 = _35_
 	local f5
-	local function _35_(x0, y0)
+	local function _36_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _35_
+	f5 = _36_
 	local f6
-	local function _36_(x0, y0)
+	local function _37_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _36_
+	f6 = _37_
 	local f7
-	local function _37_(x0, y0)
+	local function _38_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _37_
+	f7 = _38_
 	local f8
-	local function _38_(x0, y0)
+	local function _39_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _38_
+	f8 = _39_
 	local c1 = self:check_accum_states(x, y, s, f1)
 	local c2 = self:check_accum_states(x, y, s, f2)
 	local c3 = self:check_accum_states(x, y, s, f3)
@@ -471,7 +478,6 @@ GameController.check_need_pass = function(self)
   local first_3f = true
   local x = 1
   local y = 1
-  print("check pass")
   while not done_3f do
 	if not first_3f then
 	  if (x < N) then
@@ -480,21 +486,23 @@ GameController.check_need_pass = function(self)
 		x = 1
 		y = (y + 1)
 	  end
-	elseif print("x", x, "y", y) then
-	  if not self:is_in_range(x, y) then
-		flag_3f = true
-		done_3f = true
-	  else
+	else
+	end
+	if not self:is_in_range(x, y) then
+	  flag_3f = true
+	  done_3f = true
+	else
+	  if (self:get_state(x, y) == nil) then
 		if self:is_able_to_put(x, y, self.cur_turn_state) then
+		  flag_3f = false
 		  done_3f = true
 		else
 		end
+	  else
 	  end
-	else
-	  first_3f = false
 	end
+	first_3f = false
   end
-  print("need_pass", flag_3f)
   return flag_3f
 end
 GameController.check_finished = function(self)
@@ -539,11 +547,16 @@ GameController.judge_next_touch = function(self, position)
 	self:flip_indicate_disc()
 	self:judge_finished()
 	self.cur_turn_state = not self.cur_turn_state
-	if self:check_need_pass() then
-	  return self:flip_indicate_disc()
-	elseif self:judge_finished() then
-	  self.cur_turn_state = not self.cur_turn_state
-	  return nil
+	if not self.finished then
+	  if self:check_need_pass() then
+		print(self:get_turn_name(), "pass!!")
+		self:flip_indicate_disc()
+		self:judge_finished()
+		self.cur_turn_state = not self.cur_turn_state
+		return nil
+	  else
+		return nil
+	  end
 	else
 	  return nil
 	end
@@ -564,12 +577,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_51_ = (nil ~= event)
-  if and_51_ then
+  local and_54_ = (nil ~= event)
+  if and_54_ then
 	local e = event
-	and_51_ = Variant.is(e, InputEventMouseButton)
+	and_54_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_51_ then
+  if and_54_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()

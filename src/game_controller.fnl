@@ -7,6 +7,9 @@
 (local discs {})
 ; (local cur_turn_state true)
 
+(fn GameController.get_turn_name [self]
+  (if (= self.cur_turn_state true) "black" "white"))
+
 (fn GameController.get_state [self x y]
   (if (self:is_in_range x y)
     (. states (+ x (* y N)))
@@ -425,7 +428,7 @@
   (var x 1)
   (var y 1)
 
-  (print "check pass")
+  ; (print "check pass for" (self:get_turn_name))
 
   (while (not done?)
     (if (not first?)
@@ -433,21 +436,27 @@
         (set x (+ x 1))
         (do
           (set x 1)
-          (set y (+ y 1))))
+          (set y (+ y 1)))))
 
-    (print "x" x "y" y)
+    ; (print "x" x "y" y " / in_range" (self:is_in_range x y))
+    ; (print "is state null?" (= (self:get_state x y) nil))
+    ; (print "state" (self:get_state_str x y))
     
     (if (not (self:is_in_range x y))
       (do
         (set flag? true)
         (set done? true))
       (do
-        (if (self:is_able_to_put x y self.cur_turn_state)
-          (set done? true))))
+        (if (= (self:get_state x y) nil)
+          (do
+            (if (self:is_able_to_put x y self.cur_turn_state)
+              (do
+                (set flag? false)
+                (set done? true)))))))
 
-    (set first? false)))
+    (set first? false))
   
-  (print "need_pass" flag?)
+  ; (print "need_pass" flag?)
   flag?)
 
 (fn GameController.check_finished [self]
@@ -487,11 +496,14 @@
         (self:judge_finished)
         (set self.cur_turn_state (not self.cur_turn_state))
 
-        (if (self:check_need_pass)
-          ; TODO: show pass message
-          (self:flip_indicate_disc)
-          (self:judge_finished)
-          (set self.cur_turn_state (not self.cur_turn_state)))
+        (if (not self.finished)
+          (if (self:check_need_pass)
+            (do
+              ; TODO: show pass message
+              (print (self:get_turn_name) "pass!!")
+              (self:flip_indicate_disc)
+              (self:judge_finished)
+              (set self.cur_turn_state (not self.cur_turn_state)))))
 
           ))))
 
