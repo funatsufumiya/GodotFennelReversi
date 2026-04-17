@@ -162,16 +162,38 @@ end
 GameController._process = function(self, delta)
   if self.is_dirty then
 	self.is_dirty = false
-	return nil
+  else
+  end
+  if Input:is_action_just_pressed("DoDebug") then
+	print(self:get_timestamp())
+	self:print_states()
+  else
+  end
+  if Input:is_action_just_pressed("Exit") then
+	local tree = self:get_tree()
+	return tree:quit()
   else
 	return nil
   end
+end
+local function to_array(arr)
+  return Array(arr)
+end
+GameController.get_timestamp = function(self)
+  local now = Time:get_datetime_dict_from_system()
+  return Utils:format("%04d-%02d-%02d %02d:%02d:%02d", to_array({now.year, now.month, now.day, now.hour, now.minute, now.second}))
 end
 GameController.try_raycast = function(self)
   return print("raycast not implemented yet")
 end
 GameController._input = function(self, event)
-  if Variant.is(event, InputEventMouseButton) then
+  local and_6_ = (nil ~= event)
+  if and_6_ then
+	local e = event
+	and_6_ = Variant.is(e, InputEventMouseButton)
+  end
+  if and_6_ then
+	local e = event
 	if event.pressed then
 	  return self:try_raycast()
 	else

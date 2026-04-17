@@ -7,6 +7,9 @@ static func add_child_deferred(parent, child):
 # static func flip_disc_deferred(disc):
 # 	disc.flip.call_deferred()
 
+static func format(s, v):
+	return ("" + s) % v
+
 static func set_global_position_deferred(parent, gp):
 	parent.set_deferred("global_position", gp)
 

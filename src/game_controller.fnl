@@ -168,15 +168,46 @@
   (if self.is_dirty
     (do
       (set self.is_dirty false)
-    )))
+    ))
+  
+  (if (Input:is_action_just_pressed "DoDebug")
+    (do
+      (print (self:get_timestamp))
+      (self:print_states)
+    ))
+
+  (if (Input:is_action_just_pressed "Exit")
+    (do
+      (let [tree (self:get_tree)]
+        (tree:quit)))))
+
+(fn to_array [arr]
+  ; (var a (Array))
+  ; (each [_ e (ipairs arr)]
+  ;   (a:push_back e))
+  ; a)
+  (Array arr))
+
+(fn GameController.get_timestamp [self]
+  (let [now (Time:get_datetime_dict_from_system)]
+    (Utils:format "%04d-%02d-%02d %02d:%02d:%02d"
+      (to_array [
+        now.year
+        now.month
+        now.day
+        now.hour
+        now.minute
+        now.second])
+      )))
 
 (fn GameController.try_raycast [self]
   (print "raycast not implemented yet"))
 
 (fn GameController._input [self event]
-  (if (Variant.is event InputEventMouseButton)
-    ; (print "MouseButton Event" event)
+  (match event
+    (where e (Variant.is e InputEventMouseButton))
     (do 
+      ; (print "MouseButton Event" event)
       (if event.pressed
         (do
           (self:try_raycast)
