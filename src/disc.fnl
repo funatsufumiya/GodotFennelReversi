@@ -8,8 +8,15 @@
 
 (fn Disc._ready [self]
   ;(print "disc ready")
+  (set self.placed false)
   (set self.flipped false)
   )
+
+(fn Disc._process [self delta]
+  (if (not self.placed)
+    (do
+      (set self.placed true)
+    )))
 
 (fn Disc.is_black [self]
   (not self.flipped))
@@ -17,5 +24,9 @@
 (fn Disc.is_white [self]
   ; WORKAROUND
   (not (not self.flipped)))
+
+(fn Disc.is_placed [self]
+  ; WORKAROUND
+  (not (not self.placed)))
 
 Disc

@@ -17,7 +17,7 @@
   (+ self.y0 (* (- y 0.5) self.dh)))
 
 (fn GameController.get_global_position [self disc]
-  (if self.is_dirty (Vector3 0 0 0) disc.global_position))
+  (if (not (disc:is_placed)) (Vector3 0 0 0) disc.global_position))
 
 (fn GameController.move [self disc x y]
   (let [nx (self:get_pos_x x)

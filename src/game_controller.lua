@@ -13,7 +13,7 @@ GameController.get_pos_y = function(self, y)
   return (self.y0 + ((y - 0.5) * self.dh))
 end
 GameController.get_global_position = function(self, disc)
-  if self.is_dirty then
+  if not disc:is_placed() then
 	return Vector3(0, 0, 0)
   else
 	return disc.global_position
