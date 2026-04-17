@@ -2,6 +2,8 @@
 
 <img src="icon.png" width="64px" height="64px" style="image-rendering: pixelated;">
 
+![docs/screenshot.png](docs/screenshot.png)
+
 ***WORK-IN-PROGRESS !!***
 <br>(Current status: showing hello world from fennel, basic 3d template)
 

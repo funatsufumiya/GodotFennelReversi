@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dwn8rd0bx254c" path="res://src/test_script.lua" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://di6d44yrvhx5q" path="res://big_files/nathan-dumlao-J2gEgTPM_OA-unsplash-processed-min.jpg" id="2_2c62f"]
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
+[ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
@@ -75,6 +76,18 @@ mesh = SubResource("BoxMesh_d5x1h")
 transform = Transform3D(8.351327, 0, 0, 0, 0.074, 0, 0, 0, 6.6835275, 0.06326872, -0.041337788, 0.18076277)
 mesh = SubResource("BoxMesh_gyfs4")
 
+[node name="Disc" parent="." unique_id=2064708973 instance=ExtResource("4_d5x1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18841311, 0.055668592, 0.18919194)
+
+[node name="Disc3" parent="." unique_id=564080133 instance=ExtResource("4_d5x1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18663779, 0.055668592, -0.18585904)
+
+[node name="Disc2" parent="." unique_id=1648305326 instance=ExtResource("4_d5x1h")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0.18875408, 0.055668592, 0.1877329)
+
+[node name="Disc4" parent="." unique_id=1764837802 instance=ExtResource("4_d5x1h")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.18629682, 0.055668592, -0.18731785)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1561218923]
 environment = SubResource("Environment_f8w8m")
 camera_attributes = SubResource("CameraAttributesPractical_qo5hu")
@@ -92,3 +105,15 @@ transform = Transform3D(1, 0, 0, 0, 0.33880362, 0.9408572, 0, -0.9408572, 0.3388
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=575819913]
 transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 1.8298912, 1.472254, -0.08772373)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1651017351]
+transform = Transform3D(0.9571529, 0, 0.289583, -0.124436006, 0.9029681, 0.4112958, -0.26148424, -0.42970753, 0.86427855, 0.81068015, 1.4653584, 3.0830667)
+light_color = Color(0.72594416, 0.67732334, 0.11382944, 1)
+light_energy = 1.701
+light_indirect_energy = 0.299
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=1628098837]
+transform = Transform3D(-0.124212004, 0.17662352, -0.9764095, -0.15666589, 0.9681965, 0.1950678, 0.97980976, 0.17719984, -0.09259074, -2.3480058, 0.70545757, -0.3787881)
+light_color = Color(3.898591e-06, 0.79813904, 0.29599303, 1)
+light_energy = 1.701
+light_indirect_energy = 0.299
