@@ -5,7 +5,7 @@
 ![docs/screenshot.png](docs/screenshot.png)
 
 ***WORK-IN-PROGRESS !!***
-<br>(Current status: can put discs incompletedly)
+<br>(Current status: disc flipping not implemented yet)
 
 Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
