@@ -130,7 +130,7 @@
   (self:newDiscFlippedAt 5 5)
   (self:newDiscAt 4 5)
   (self:newDiscAt 5 4)
-  (self:newDiscFlippedAt 1 1)
+  ; (self:newDiscFlippedAt 1 1)
   ; (self:flipDiscAt 1 1)
   )
 

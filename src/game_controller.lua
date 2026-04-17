@@ -19,37 +19,37 @@ end
 GameController.get_state_str = function(self, x, y)
   local st = self:get_state(x, y)
   if (st == nil) then
-    return "."
+	return "."
   elseif (st == true) then
-    return "x"
+	return "x"
   elseif (st == false) then
-    return "o"
+	return "o"
   else
-    return nil
+	return nil
   end
 end
 GameController.init_states = function(self)
   for i = 1, (N * N) do
-    table.insert(states, nil)
+	table.insert(states, nil)
   end
   return nil
 end
 GameController.init_discs = function(self)
   for i = 1, (N * N) do
-    table.insert(states, nil)
+	table.insert(states, nil)
   end
   return nil
 end
 GameController.get_state_raw = function(self, x)
   local s = ""
   for i = 1, N do
-    s = (s .. " " .. self:get_state_str(x, i))
+	s = (s .. " " .. self:get_state_str(x, i))
   end
   return s
 end
 GameController.print_states = function(self)
   for i = 1, N do
-    print(self:get_state_raw(i))
+	print(self:get_state_raw(i))
   end
   return nil
 end
@@ -67,9 +67,9 @@ GameController.get_pos_y = function(self, y)
 end
 GameController.get_global_position = function(self, disc)
   if not disc:is_placed() then
-    return Vector3(0, 0, 0)
+	return Vector3(0, 0, 0)
   else
-    return disc.global_position
+	return disc.global_position
   end
 end
 GameController.move = function(self, disc, x, y)
@@ -127,7 +127,7 @@ end
 GameController.clearDiscs = function(self)
   local discs0 = Finder:find_children_by_type(self.root, "Disc")
   for _, disc in pairs(discs0) do
-    disc:queue_free()
+	disc:queue_free()
   end
   return nil
 end
@@ -135,8 +135,7 @@ GameController.initDiscs = function(self)
   self:newDiscFlippedAt(4, 4)
   self:newDiscFlippedAt(5, 5)
   self:newDiscAt(4, 5)
-  self:newDiscAt(5, 4)
-  return self:newDiscFlippedAt(1, 1)
+  return self:newDiscAt(5, 4)
 end
 GameController._ready = function(self)
   self.is_dirty = true
@@ -161,10 +160,10 @@ GameController._ready = function(self)
 end
 GameController._process = function(self, delta)
   if self.is_dirty then
-    self.is_dirty = false
-    return nil
+	self.is_dirty = false
+	return nil
   else
-    return nil
+	return nil
   end
 end
 return GameController
