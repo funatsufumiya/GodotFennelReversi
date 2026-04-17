@@ -2,6 +2,7 @@ local GameController = {extends = Node, class_name = "GameController"}
 local N = 8
 local states = {}
 local discs = {}
+local cur_turn_state = false
 GameController.get_state = function(self, x, y)
   return states[(x + (y * N))]
 end
@@ -162,6 +163,20 @@ GameController._process = function(self, delta)
   if self.is_dirty then
 	self.is_dirty = false
 	return nil
+  else
+	return nil
+  end
+end
+GameController.try_raycast = function(self)
+  return print("raycast not implemented yet")
+end
+GameController._input = function(self, event)
+  if Variant.is(event, InputEventMouseButton) then
+	if event.pressed then
+	  return self:try_raycast()
+	else
+	  return nil
+	end
   else
 	return nil
   end

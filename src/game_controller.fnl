@@ -5,6 +5,7 @@
 (local N 8)
 (local states {})
 (local discs {})
+(local cur_turn_state false)
 
 (fn GameController.get_state [self x y]
   (. states (+ x (* y N))))
@@ -168,5 +169,18 @@
     (do
       (set self.is_dirty false)
     )))
+
+(fn GameController.try_raycast [self]
+  (print "raycast not implemented yet"))
+
+(fn GameController._input [self event]
+  (if (Variant.is event InputEventMouseButton)
+    ; (print "MouseButton Event" event)
+    (do 
+      (if event.pressed
+        (do
+          (self:try_raycast)
+          ; (print "mouse pressed event!" event)
+        )))))
 
 GameController
