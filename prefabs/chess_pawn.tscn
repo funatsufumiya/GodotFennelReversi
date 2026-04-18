@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cxd8iremns1vw"]
+
+[ext_resource type="PackedScene" uid="uid://bpmp55ohl2efq" path="res://big_files/chess_pawn.gltf" id="1_wcgvo"]
+[ext_resource type="Texture2D" uid="uid://ditbln5d267ig" path="res://big_files/chess_pawn_0.png" id="2_6gsgu"]
+[ext_resource type="Texture2D" uid="uid://bggd8ms57y02v" path="res://big_files/chess_pawn_4.jpg" id="3_fn5jv"]
+[ext_resource type="Texture2D" uid="uid://hcigr3vrb53j" path="res://big_files/chess_pawn_2.jpg" id="4_opp5q"]
+[ext_resource type="Texture2D" uid="uid://ely5q5crqd7p" path="res://big_files/chess_pawn_1.jpg" id="5_ld43i"]
+[ext_resource type="Texture2D" uid="uid://cavb2xk7cmqn3" path="res://big_files/chess_pawn_3.png" id="6_e1fhd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3nup5"]
+resource_name = "material_0"
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+albedo_texture = ExtResource("2_6gsgu")
+metallic = 1.0
+metallic_texture = ExtResource("5_ld43i")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("5_ld43i")
+roughness_texture_channel = 1
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("4_opp5q")
+normal_enabled = true
+normal_texture = ExtResource("6_e1fhd")
+ao_enabled = true
+ao_texture = ExtResource("3_fn5jv")
+
+[node name="chess_pawn" unique_id=818460834 instance=ExtResource("1_wcgvo")]
+
+[node name="Cylinder" parent="." index="0" unique_id=548102839]
+surface_material_override/0 = SubResource("StandardMaterial3D_3nup5")

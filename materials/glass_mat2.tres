@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d3gioevpvlocv"]
+
+[ext_resource type="Shader" uid="uid://dawbmklvxhhqs" path="res://materials/glass.gdshader" id="1_ybsfh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ybsfh")
+shader_parameter/transparency_colour = Color(1, 1, 1, 1)
+shader_parameter/AirIOR = 1.0
+shader_parameter/IOR = 1.5
+shader_parameter/uv1_scale = Vector2(1, 1)
+shader_parameter/uv1_offset = Vector2(0, 0)
+shader_parameter/normalstrength = 1.0
+shader_parameter/refraction_type = 1
+shader_parameter/simple_refraction_amount = 0.1
+shader_parameter/traced_refraction_far_clip = 50.0
+shader_parameter/traced_refraction_steps = 512
+shader_parameter/ssr_type = 2
+shader_parameter/traced_ssr_far_clip = 50.0
+shader_parameter/traced_ssr_steps = 512
+shader_parameter/ssr_screen_fade = 0.05

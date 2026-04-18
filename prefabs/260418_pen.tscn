@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dhr2o2capn8tp"]
+
+[ext_resource type="PackedScene" uid="uid://cemj3n6su2bhu" path="res://big_files/260418_pen.glb" id="1_6wuya"]
+[ext_resource type="Material" uid="uid://bxfhj87xgrr2p" path="res://materials/glass_mat.tres" id="2_o5mgw"]
+[ext_resource type="Material" uid="uid://d3gioevpvlocv" path="res://materials/glass_mat2.tres" id="3_7kuwr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5mgw"]
+albedo_color = Color(1, 1, 1, 0.18431373)
+
+[node name="260418_pen" unique_id=1223415019 instance=ExtResource("1_6wuya")]
+
+[node name="Cone" parent="." index="0" unique_id=1604213768]
+transform = Transform3D(-3.4881687e-08, -1.026, 0, 0.798, -4.4847884e-08, 0, 0, 0, 0.798, -0.98605925, 0.0026807673, 0)
+material_override = ExtResource("2_o5mgw")
+surface_material_override/0 = SubResource("StandardMaterial3D_o5mgw")
+
+[node name="Cylinder" parent="." index="1" unique_id=478268867]
+material_override = ExtResource("3_7kuwr")

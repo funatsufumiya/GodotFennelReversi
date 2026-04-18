@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dknmbbq6ot0kb"]
+
+[ext_resource type="PackedScene" uid="uid://baasfib8k8lda" path="res://big_files/260418_chess_pawn.glb" id="1_uhi6q"]
+[ext_resource type="Material" uid="uid://6adqt2p4g2dg" path="res://materials/glass_mat3.tres" id="2_umrst"]
+
+[node name="260418_chess_pawn" unique_id=1007831857 instance=ExtResource("1_uhi6q")]
+
+[node name="Cylinder" parent="." index="0" unique_id=1191815816]
+material_override = ExtResource("2_umrst")

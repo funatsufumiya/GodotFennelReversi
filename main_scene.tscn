@@ -5,6 +5,8 @@
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
 [ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
 [ext_resource type="Script" uid="uid://denamml3n2jol" path="res://src/disc_for_indicate.lua" id="5_8mm7a"]
+[ext_resource type="PackedScene" uid="uid://dhr2o2capn8tp" path="res://prefabs/260418_pen.tscn" id="6_hq1ik"]
+[ext_resource type="PackedScene" uid="uid://cxd8iremns1vw" path="res://prefabs/chess_pawn.tscn" id="7_nfk4m"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
@@ -83,7 +85,7 @@ transform = Transform3D(3.1248605, 0, 0, 0, 0.074, 0, 0, 0, 3.105513, 0, -0.0716
 mesh = SubResource("BoxMesh_d5x1h")
 
 [node name="Table" type="MeshInstance3D" parent="." unique_id=1337469893]
-transform = Transform3D(8.351327, 0, 0, 0, 0.074, 0, 0, 0, 6.6835275, 0.06326872, -0.10498001, 0.18076277)
+transform = Transform3D(8.351327, 0, 0, 0, 0.074, 0, 0, 0, 6.6835275, 0.066374004, -0.10286392, 0.1785438)
 mesh = SubResource("BoxMesh_gyfs4")
 
 [node name="Disc" parent="." unique_id=2064708973 instance=ExtResource("4_d5x1h")]
@@ -101,7 +103,7 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.18629682, 0, -0.18731785)
 
 [node name="DiscForIndicate" parent="." unique_id=241352973 instance=ExtResource("4_d5x1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0463128, 0, 0.07813442)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0463128, -0.04143946, 0.07813442)
 script = ExtResource("5_8mm7a")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1561218923]
@@ -139,6 +141,13 @@ light_indirect_energy = 0.416
 light_size = 0.059
 shadow_enabled = true
 
+[node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=1770068254]
+transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 1.9765465, -0.02436614, -0.5431825)
+light_energy = 0.182
+light_indirect_energy = 0.416
+light_size = 0.059
+shadow_enabled = true
+
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1651017351]
 transform = Transform3D(0.9571529, 0, 0.289583, -0.124436006, 0.9029681, 0.4112958, -0.26148424, -0.42970753, 0.86427855, 0.81068015, 1.4653584, 3.0830667)
 light_color = Color(0.72594416, 0.67732334, 0.11382944, 1)
@@ -156,3 +165,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4959166, 0, -1.4952506)
 
 [node name="RightBottomMarker" type="Marker3D" parent="." unique_id=1648233247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4976461, 0, 1.4953723)
+
+[node name="260418_pen" parent="." unique_id=1223415019 instance=ExtResource("6_hq1ik")]
+transform = Transform3D(0.054109044, 0, -0.10710841, 0, 0.12, 0, 0.10710841, 0, 0.054109044, 1.9636216, 0.015329331, -0.92723215)
+
+[node name="pawn_" type="Node3D" parent="." unique_id=1369947900]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -2.885628, 0, -1.0111055)
+
+[node name="pawn" type="Node3D" parent="pawn_" unique_id=2105613993]
+transform = Transform3D(0.12, 0, 0, 0, -5.2453664e-09, -0.12, 0, 0.12, -5.2453664e-09, 73.47899, 0, 0)
+
+[node name="chess_pawn" parent="pawn_/pawn" unique_id=818460834 instance=ExtResource("7_nfk4m")]
+transform = Transform3D(0.010000001, 0, 0, 0, 0.010000001, 2.7755576e-17, 0, -2.7755576e-17, 0.010000001, 0, 0, 53.95762)
