@@ -1,16 +1,21 @@
 [gd_scene format=3 uid="uid://bmd3ajq7un23"]
 
 [ext_resource type="Script" uid="uid://bg0l51tpwb3ln" path="res://src/disc.lua" id="1_8m7cm"]
+[ext_resource type="Texture2D" uid="uid://b0yknosery45b" path="res://big_files/grey-grainy-swirl-texture-background_78370-3633-blurred.png" id="2_1xcp8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k1qkk"]
-roughness = 0.12
+metallic_specular = 0.32
+roughness = 0.56
+roughness_texture = ExtResource("2_1xcp8")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_8m7cm"]
 material = SubResource("StandardMaterial3D_k1qkk")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xcp8"]
 albedo_color = Color(0, 0, 0, 1)
-roughness = 0.12
+metallic_specular = 0.45
+roughness = 0.79
+roughness_texture = ExtResource("2_1xcp8")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qk65b"]
 material = SubResource("StandardMaterial3D_1xcp8")

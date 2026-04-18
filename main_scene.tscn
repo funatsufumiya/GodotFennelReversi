@@ -36,8 +36,10 @@ radiance_size = 2
 background_mode = 2
 background_intensity = 100000.0
 sky = SubResource("Sky_tyhie")
+ambient_light_color = Color(0.103743516, 0.10374353, 0.103743516, 1)
 tonemap_mode = 3
-tonemap_white = 8.0
+tonemap_exposure = 0.94
+tonemap_white = 7.85
 ssao_enabled = true
 ssao_detail = 2.0
 sdfgi_enabled = true
@@ -118,7 +120,24 @@ size = Vector3(10000, 10000, 1000)
 transform = Transform3D(1, 0, 0, 0, 0.33880362, 0.9408572, 0, -0.9408572, 0.33880362, 0, 1.9008328, 1.0376109)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=575819913]
-transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 1.8298912, 1.472254, -0.08772373)
+transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 0.333022, 1.3847661, -1.4686856)
+light_energy = 0.182
+light_indirect_energy = 0.766
+light_size = 0.015
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=829193048]
+transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, -1.4813347, 1.2114532, 0.38896286)
+light_energy = 0.766
+light_indirect_energy = 0.0
+shadow_enabled = true
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=1992271740]
+transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, -0.70909345, 1.1319458, -0.5431825)
+light_energy = 0.182
+light_indirect_energy = 0.416
+light_size = 0.059
+shadow_enabled = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1651017351]
 transform = Transform3D(0.9571529, 0, 0.289583, -0.124436006, 0.9029681, 0.4112958, -0.26148424, -0.42970753, 0.86427855, 0.81068015, 1.4653584, 3.0830667)
