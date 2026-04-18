@@ -15,7 +15,7 @@ Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2
 
 Please check [Releases](https://github.com/funatsufumiya/GodotFennelReversi/releases) page for the latest version.
 
-### v1.0.0
+### v1.1.0
 
 - Windows: [GodotFennelReversi_windows_x64.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.1.0/GodotFennelReversi_windows_x64.zip)
 - Mac: [GodotFennelReversi_mac.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.1.0/GodotFennelReversi_mac.zip)
