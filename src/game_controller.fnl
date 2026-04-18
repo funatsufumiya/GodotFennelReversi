@@ -168,6 +168,8 @@
   (set self.dw (/ self.width N))
   (set self.dh (/ self.height N))
   (set self.finished false)
+  (set self.show_assist false)
+  (set self.b_animation true)
 
   ; (print self.left_top_marker)
   ; (print self.right_bottom_marker)
@@ -188,6 +190,18 @@
     (do
       (print (self:get_timestamp))
       (self:print_states)
+    ))
+
+  (if (Input:is_action_just_pressed "ToggleAssist")
+    (do
+      (set self.show_assist (not self.show_assist))
+      (print "assist" self.show_assist)
+    ))
+
+  (if (Input:is_action_just_pressed "ToggleAnimation")
+    (do
+      (set self.b_animation (not self.b_animation))
+      (print "animation" self.b_animation)
     ))
 
   (if (Input:is_action_just_pressed "Exit")
