@@ -3,6 +3,7 @@ local init_offset_y = 0.1
 local flip_offset_y = 0.2
 local init_anim_duration = 0.3
 local flip_anim_duration = 0.3
+local flip_anim_delay_dt = 0.05
 local pi = 3.141592
 local two_pi = (2.0 * 3.141592)
 Disc.flip = function(self, opt)
@@ -16,7 +17,13 @@ Disc.flip = function(self, opt)
   if not (opt == nil) then
 	if not (opt.dist == nil) then
 	  self.flip_dist = opt.dist
-	  return nil
+	  self.flip_anim_delay = (self.flip_dist * flip_anim_delay_dt)
+	  if (self.flip_anim_delay > 0) then
+		self.flip_anim_elapsed = nil
+		return nil
+	  else
+		return nil
+	  end
 	else
 	  return nil
 	end
@@ -44,6 +51,7 @@ Disc._ready = function(self)
   else
   end
   self.elapsed = 0
+  self.flip_anim_delay = 0
   self.flip_anim_elapsed = nil
   self.flip_anim_started = false
   return nil
@@ -61,6 +69,18 @@ Disc.update_flip_anim = function(self, delta)
 	local h = (flip_offset_y * sin((2 * angle)))
 	Utils:update_y(self, h)
 	Utils:set_rotated_x(self.rot_node, angle)
+  else
+  end
+  if self.flip_anim_started then
+	if (self.flip_anim_delay > 0) then
+	  self.flip_anim_delay = (self.flip_anim_delay - delta)
+	  if (self.flip_anim_delay <= 0) then
+		self.flip_anim_delay = 0
+		self.flip_anim_elapsed = 0
+	  else
+	  end
+	else
+	end
   else
   end
   if not (self.flip_anim_elapsed == nil) then

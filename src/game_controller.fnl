@@ -342,7 +342,7 @@
     begin_index 1
     end_index (- n 2)]
 
-    (var dist 1)
+    (var dist 0)
     (var i begin_index)
     (var x start_x)
     (var y start_y)

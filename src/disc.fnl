@@ -6,6 +6,7 @@
 (local flip_offset_y 0.2)
 (local init_anim_duration 0.3)
 (local flip_anim_duration 0.3)
+(local flip_anim_delay_dt 0.05)
 (local pi 3.141592)
 (local two_pi (* 2.0 3.141592))
 
@@ -20,6 +21,9 @@
   (if (not (= opt nil)) (do
     (if (not (= opt.dist nil)) (do
       (set self.flip_dist opt.dist)
+      (set self.flip_anim_delay (* self.flip_dist flip_anim_delay_dt))
+      (if (> self.flip_anim_delay 0)
+        (set self.flip_anim_elapsed nil))
       ; (print "flip_dist" self.flip_dist)
       )))))
 
@@ -44,6 +48,7 @@
   (if (= self.flipped nil)
     (set self.flipped false))
   (set self.elapsed 0)
+  (set self.flip_anim_delay 0)
   (set self.flip_anim_elapsed nil)
   (set self.flip_anim_started false))
 
@@ -57,6 +62,13 @@
       ; (print "angle" angle)
       (Utils:update_y self h)
       (Utils:set_rotated_x self.rot_node angle))))
+
+  (if self.flip_anim_started (do
+    (if (> self.flip_anim_delay 0) (do
+      (set self.flip_anim_delay (- self.flip_anim_delay delta))
+      (if (<= self.flip_anim_delay 0) (do
+        (set self.flip_anim_delay 0)
+        (set self.flip_anim_elapsed 0)))))))
 
   (if (not (= self.flip_anim_elapsed nil)) (do
     (set self.flip_anim_elapsed (+ self.flip_anim_elapsed delta))
