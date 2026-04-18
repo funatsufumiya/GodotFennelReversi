@@ -2,10 +2,10 @@
 
 <img src="icon.png" width="64px" height="64px" style="image-rendering: pixelated;">
 
-![docs/screenshot.png](docs/screenshot.png)
+![docs/screenshot2.png](docs/screenshot2.png)
 
 
-[![docs/playing_anim.gif](docs/playing_anim.gif)](docs/playing_anim.gif) (Animation GIF)
+[![docs/playing_anim2.gif](docs/playing_anim2.gif)](docs/playing_anim2.gif) (Animation GIF)
 
 Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
@@ -15,10 +15,10 @@ Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2
 
 Please check [Releases](https://github.com/funatsufumiya/GodotFennelReversi/releases) page for the latest version.
 
-### v1.0.0
+### v1.1.0
 
-- Windows: [GodotFennelReversi_windows_x64.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.0.0/GodotFennelReversi_windows_x64.zip)
-- Mac: [GodotFennelReversi_mac.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.0.0/GodotFennelReversi_mac.zip)
+- Windows: [GodotFennelReversi_windows_x64.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.1.0/GodotFennelReversi_windows_x64.zip)
+- Mac: [GodotFennelReversi_mac.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.1.0/GodotFennelReversi_mac.zip)
 
 ## Git submodule
 
