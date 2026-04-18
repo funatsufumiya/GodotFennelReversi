@@ -62,3 +62,7 @@ $ python scripts/watch.py
 
 - Game Controller: [src/game_controller.fnl](src/game_controller.fnl)
 - Disc: [src/disc.fnl](src/disc.fnl)
+
+## License
+
+Please see [LICENSE](./LICENSE) and also [./big_files/LICENSE](https://github.com/funatsufumiya/GodotFennelReversi_BigFiles/tree/b56da803c483812e6337b1b0a4472f29f9a798fc?tab=License-1-ov-file) and [./big_files/README.md](https://github.com/funatsufumiya/GodotFennelReversi_BigFiles/tree/b56da803c483812e6337b1b0a4472f29f9a798fc?tab=readme-ov-file)
