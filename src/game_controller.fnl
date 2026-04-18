@@ -122,6 +122,7 @@
   (let [disc (self.disc_prefab:instantiate)]
     ; (print self.root)
     (Utils:add_child_deferred self.root disc)
+    (disc:set_game_controller self)
     (disc:set_x nil)
     (disc:set_y nil)
     disc))

@@ -24,13 +24,19 @@ material = SubResource("StandardMaterial3D_1xcp8")
 [node name="Disc" type="Node3D" unique_id=2064708973]
 script = ExtResource("1_8m7cm")
 
-[node name="Scaler" type="Node3D" parent="." unique_id=1000265250]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+[node name="Offset" type="Node3D" parent="." unique_id=1937274685]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 
-[node name="White" type="MeshInstance3D" parent="Scaler" unique_id=1271850804]
-transform = Transform3D(1, 0, 0, 0, 0.040258765, 0, 0, 0, 1, 0, -0.040815778, 0)
+[node name="Scaler" type="Node3D" parent="Offset" unique_id=1000265250]
+transform = Transform3D(0.30000004, 0, 0, 0, 0.30000004, 0, 0, 0, 0.30000004, 0, 0, 0)
+
+[node name="Rot" type="Node3D" parent="Offset/Scaler" unique_id=877869348]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="White" type="MeshInstance3D" parent="Offset/Scaler/Rot" unique_id=1271850804]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.04025877, 0, 0, 0, 1.0000001, 0, -0.04081578, 0)
 mesh = SubResource("CylinderMesh_8m7cm")
 
-[node name="Black" type="MeshInstance3D" parent="Scaler" unique_id=345787475]
-transform = Transform3D(1, 0, 0, 0, 0.040258765, 0, 0, 0, 1, 0, 0.04044178, 0)
+[node name="Black" type="MeshInstance3D" parent="Offset/Scaler/Rot" unique_id=345787475]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.04025877, 0, 0, 0, 1.0000001, 0, 0.040441785, 0)
 mesh = SubResource("CylinderMesh_qk65b")

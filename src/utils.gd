@@ -27,3 +27,18 @@ static func update_gz(parent, z):
 	var g = parent.global_position
 	g.z = z
 	parent.global_position = g
+
+static func update_x(parent, x):
+	var g = parent.position
+	g.x = x
+	parent.position = g
+
+static func update_y(parent, y):
+	var g = parent.position
+	g.y = y
+	parent.position = g
+
+static func update_z(parent, z):
+	var g = parent.position
+	g.z = z
+	parent.position = g

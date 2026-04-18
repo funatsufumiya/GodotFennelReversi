@@ -137,6 +137,7 @@ end
 GameController.newDisc = function(self)
   local disc = self.disc_prefab:instantiate()
   Utils:add_child_deferred(self.root, disc)
+  disc:set_game_controller(self)
   disc:set_x(nil)
   disc:set_y(nil)
   return disc
