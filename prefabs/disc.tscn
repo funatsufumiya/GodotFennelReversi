@@ -5,7 +5,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k1qkk"]
 albedo_color = Color(0.46, 0.46, 0.46, 1)
-metallic_specular = 0.32
+metallic_specular = 0.15
 roughness = 0.56
 roughness_texture = ExtResource("2_1xcp8")
 
@@ -14,7 +14,7 @@ material = SubResource("StandardMaterial3D_k1qkk")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xcp8"]
 albedo_color = Color(0, 0, 0, 1)
-metallic_specular = 0.22
+metallic_specular = 0.09
 roughness = 0.79
 roughness_texture = ExtResource("2_1xcp8")
 
