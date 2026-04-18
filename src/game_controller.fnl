@@ -107,15 +107,15 @@
     ; (Utils:flip_disc_deferred disc)
     disc))
 
-(fn GameController.flipDisc [self disc]
-  (disc:flip)
+(fn GameController.flipDisc [self disc opt]
+  (disc:flip opt)
   (let [x (disc:get_x)
         y (disc:get_y)]
     (self:set_state x y (not (self:get_state x y)))))
 
-(fn GameController.flipDiscAt [self x y]
+(fn GameController.flipDiscAt [self x y opt]
   (let [disc (self:get_disc x y)]
-    (disc:flip)
+    (disc:flip opt)
     (self:set_state x y (not (self:get_state x y)))))
 
 (fn GameController.newDisc [self]
@@ -342,6 +342,7 @@
     begin_index 1
     end_index (- n 2)]
 
+    (var dist 1)
     (var i begin_index)
     (var x start_x)
     (var y start_y)
@@ -351,10 +352,11 @@
       (local v (incl_f x y))
       (set x (. v 1))
       (set y (. v 2))
-      (self:flipDiscAt x y)
+      (self:flipDiscAt x y (Dictionary {:dist dist}))
       (if (not (= (. accum i) (not start_state)))
         (set need_stop true))
-      (set i (+ i 1)))))
+      (set i (+ i 1))
+      (set dist (+ dist 1)))))
 
 (fn GameController.check_and_flip_accum_states [self start_x start_y start_state incl_f]
   (let [

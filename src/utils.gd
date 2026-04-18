@@ -42,3 +42,18 @@ static func update_z(parent, z):
 	var g = parent.position
 	g.z = z
 	parent.position = g
+
+static func set_rotated_x(parent, x):
+	# parent.basis = Quaternion.IDENTITY
+	parent.basis = Basis(Quaternion.from_euler(Vector3(x, 0, 0)))
+	# parent.rotation = Vector3(x, 0, 0)
+
+static func set_rotated_y(parent, y):
+	# parent.basis = Quaternion.IDENTITY
+	parent.basis = Basis(Quaternion.from_euler(Vector3(0, y, 0)))
+	# parent.rotation = Vector3(0, y, 0)
+
+static func set_rotated_z(parent, z):
+	# parent.basis = Quaternion.IDENTITY
+	parent.basis = Basis(Quaternion.from_euler(Vector3(0, 0, z)))
+	# parent.rotation = Vector3(0, 0, z)

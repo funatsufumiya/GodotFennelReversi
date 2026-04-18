@@ -123,15 +123,15 @@ GameController.newDiscFlippedAt = function(self, x, y)
   self:set_disc(x, y, disc)
   return disc
 end
-GameController.flipDisc = function(self, disc)
-  disc:flip()
+GameController.flipDisc = function(self, disc, opt)
+  disc:flip(opt)
   local x = disc:get_x()
   local y = disc:get_y()
   return self:set_state(x, y, not self:get_state(x, y))
 end
-GameController.flipDiscAt = function(self, x, y)
+GameController.flipDiscAt = function(self, x, y, opt)
   local disc = self:get_disc(x, y)
-  disc:flip()
+  disc:flip(opt)
   return self:set_state(x, y, not self:get_state(x, y))
 end
 GameController.newDisc = function(self)
@@ -368,6 +368,7 @@ GameController.apply_flip_on_accum_states = function(self, accum, start_x, start
   local n = accum:size()
   local begin_index = 1
   local end_index = (n - 2)
+  local dist = 1
   local i = begin_index
   local x = start_x
   local y = start_y
@@ -376,12 +377,13 @@ GameController.apply_flip_on_accum_states = function(self, accum, start_x, start
 	local v = incl_f(x, y)
 	x = v[1]
 	y = v[2]
-	self:flipDiscAt(x, y)
+	self:flipDiscAt(x, y, Dictionary({dist = dist}))
 	if not (accum[i] == not start_state) then
 	  need_stop = true
 	else
 	end
 	i = (i + 1)
+	dist = (dist + 1)
   end
   return nil
 end
