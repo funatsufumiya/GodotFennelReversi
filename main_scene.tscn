@@ -5,8 +5,9 @@
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
 [ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
 [ext_resource type="Script" uid="uid://denamml3n2jol" path="res://src/disc_for_indicate.lua" id="5_8mm7a"]
-[ext_resource type="PackedScene" uid="uid://dhr2o2capn8tp" path="res://prefabs/260418_pen.tscn" id="6_hq1ik"]
 [ext_resource type="PackedScene" uid="uid://cxd8iremns1vw" path="res://prefabs/chess_pawn.tscn" id="7_nfk4m"]
+[ext_resource type="PackedScene" uid="uid://kc0mx4yvmr4t" path="res://prefabs/pen.tscn" id="8_7ycvg"]
+[ext_resource type="PackedScene" uid="uid://bqunn1a835h1u" path="res://big_files/coin.gltf" id="8_66tet"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
@@ -21,7 +22,7 @@ roughness = 0.0
 material = SubResource("StandardMaterial3D_gyfs4")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2c62f"]
-shading_mode = 0
+albedo_color = Color(0.62, 0.62, 0.62, 1)
 albedo_texture = ExtResource("2_2c62f")
 
 [sub_resource type="BoxMesh" id="BoxMesh_gyfs4"]
@@ -40,8 +41,8 @@ background_intensity = 100000.0
 sky = SubResource("Sky_tyhie")
 ambient_light_color = Color(0.103743516, 0.10374353, 0.103743516, 1)
 tonemap_mode = 3
-tonemap_exposure = 0.94
-tonemap_white = 7.85
+tonemap_exposure = 0.97
+tonemap_white = 8.64
 ssao_enabled = true
 ssao_detail = 2.0
 sdfgi_enabled = true
@@ -85,7 +86,7 @@ transform = Transform3D(3.1248605, 0, 0, 0, 0.074, 0, 0, 0, 3.105513, 0, -0.0716
 mesh = SubResource("BoxMesh_d5x1h")
 
 [node name="Table" type="MeshInstance3D" parent="." unique_id=1337469893]
-transform = Transform3D(8.351327, 0, 0, 0, 0.074, 0, 0, 0, 6.6835275, 0.066374004, -0.10286392, 0.1785438)
+transform = Transform3D(8.351327, 0, 0, 0, 0.074, 0, 0, 0, 6.6835275, 0.070059955, -0.100687996, 0.17575651)
 mesh = SubResource("BoxMesh_gyfs4")
 
 [node name="Disc" parent="." unique_id=2064708973 instance=ExtResource("4_d5x1h")]
@@ -112,6 +113,7 @@ camera_attributes = SubResource("CameraAttributesPractical_qo5hu")
 
 [node name="Sun3" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=2045342987]
 transform = Transform3D(1, 0, 0, 0, 0.605197, 0.796076, 0, -0.796076, 0.605197, -4.86868, 8.33126, 2.18251)
+light_energy = 0.299
 shadow_enabled = true
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="WorldEnvironment" unique_id=1897567512]
@@ -122,8 +124,15 @@ size = Vector3(10000, 10000, 1000)
 transform = Transform3D(1, 0, 0, 0, 0.33880362, 0.9408572, 0, -0.9408572, 0.33880362, 0, 1.9008328, 1.0376109)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=575819913]
-transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 0.333022, 1.3847661, -1.4686856)
-light_energy = 0.182
+transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 0.333022, 1.3847661, -0.49460804)
+light_energy = 1.934
+light_indirect_energy = 0.766
+light_size = 0.015
+shadow_enabled = true
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="." unique_id=1247073363]
+transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 0.333022, 1.3847661, 1.37218)
+light_energy = 0.0
 light_indirect_energy = 0.766
 light_size = 0.015
 shadow_enabled = true
@@ -143,6 +152,7 @@ shadow_enabled = true
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=1770068254]
 transform = Transform3D(1, 0, 0, 0, 0.60519695, 0.7960759, 0, -0.7960759, 0.60519695, 1.9765465, -0.02436614, -0.5431825)
+visible = false
 light_energy = 0.182
 light_indirect_energy = 0.416
 light_size = 0.059
@@ -166,9 +176,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4959166, 0, -1.4952506)
 [node name="RightBottomMarker" type="Marker3D" parent="." unique_id=1648233247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4976461, 0, 1.4953723)
 
-[node name="260418_pen" parent="." unique_id=1223415019 instance=ExtResource("6_hq1ik")]
-transform = Transform3D(0.054109044, 0, -0.10710841, 0, 0.12, 0, 0.10710841, 0, 0.054109044, 1.9636216, 0.015329331, -0.92723215)
-
 [node name="pawn_" type="Node3D" parent="." unique_id=1369947900]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -2.885628, 0, -1.0111055)
 
@@ -177,3 +184,9 @@ transform = Transform3D(0.12, 0, 0, 0, -5.2453664e-09, -0.12, 0, 0.12, -5.245366
 
 [node name="chess_pawn" parent="pawn_/pawn" unique_id=818460834 instance=ExtResource("7_nfk4m")]
 transform = Transform3D(0.010000001, 0, 0, 0, 0.010000001, 2.7755576e-17, 0, -2.7755576e-17, 0.010000001, 0, 0, 53.95762)
+
+[node name="coin" parent="." unique_id=742358778 instance=ExtResource("8_66tet")]
+transform = Transform3D(8.6653806e-10, 0.019824084, -0.0026468607, 0.02, -8.7422786e-10, 6.911061e-17, -1.1569787e-10, -0.0026468607, -0.01982408, 2.5704987, -0.049280062, -1.3878038)
+
+[node name="pen" parent="." unique_id=503359214 instance=ExtResource("8_7ycvg")]
+transform = Transform3D(0.0036580323, 0, -0.012474728, 0, 0.012999999, 0, 0.012474728, 0, 0.0036580323, 2.1064222, 0.014719367, -0.6884514)

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://kc0mx4yvmr4t"]
+
+[ext_resource type="PackedScene" uid="uid://dw8hn1b1yul5r" path="res://big_files/pen.gltf" id="1_7rw3m"]
+[ext_resource type="Texture2D" uid="uid://dl6lu5s50ndl8" path="res://big_files/pen_0.png" id="2_04yla"]
+[ext_resource type="Texture2D" uid="uid://k2jc15ey1gw" path="res://big_files/pen_4.jpg" id="3_vcp1s"]
+[ext_resource type="Texture2D" uid="uid://3a5621wpupvb" path="res://big_files/pen_2.jpg" id="4_kbbc2"]
+[ext_resource type="Texture2D" uid="uid://dphuhmtxixfdt" path="res://big_files/pen_1.jpg" id="5_kd46h"]
+[ext_resource type="Texture2D" uid="uid://djxb7skap1grq" path="res://big_files/pen_3.png" id="6_gud33"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5eg1"]
+resource_name = "Material.001"
+albedo_color = Color(0.57, 0.57, 0.57, 1)
+albedo_texture = ExtResource("2_04yla")
+metallic = 1.0
+metallic_texture = ExtResource("5_kd46h")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("5_kd46h")
+roughness_texture_channel = 1
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("4_kbbc2")
+normal_enabled = true
+normal_texture = ExtResource("6_gud33")
+ao_enabled = true
+ao_texture = ExtResource("3_vcp1s")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tx25v"]
+resource_name = "Material.001"
+albedo_color = Color(0.65, 0.65, 0.65, 1)
+albedo_texture = ExtResource("2_04yla")
+metallic = 1.0
+metallic_specular = 0.25
+metallic_texture = ExtResource("5_kd46h")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("5_kd46h")
+roughness_texture_channel = 1
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("4_kbbc2")
+normal_enabled = true
+normal_texture = ExtResource("6_gud33")
+ao_enabled = true
+ao_texture = ExtResource("3_vcp1s")
+
+[node name="pen" unique_id=503359214 instance=ExtResource("1_7rw3m")]
+
+[node name="Cone" parent="." index="0" unique_id=1899617422]
+surface_material_override/0 = SubResource("StandardMaterial3D_a5eg1")
+
+[node name="Cylinder" parent="." index="1" unique_id=938134779]
+surface_material_override/0 = SubResource("StandardMaterial3D_tx25v")
