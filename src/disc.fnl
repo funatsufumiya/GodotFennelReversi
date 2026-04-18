@@ -8,11 +8,18 @@
 
 (fn Disc._ready [self]
   ;(print "disc ready")
+  (set self.root (Finder:get_root))
+  (set self.game_controller (Finder:find_child_by_name self.root "GameController"))
   (set self.placed false)
   (set self.flipped false)
   )
 
 (fn Disc._process [self delta]
+  ; (if (and (= self.x 4) (= self.y 4))
+  ;   ; (print self.game_controller)
+  ;   ; (print self.game_controller.b_animation)
+  ;   )
+
   (if (not self.placed)
     (do
       (set self.placed true)

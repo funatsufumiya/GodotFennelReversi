@@ -4,6 +4,8 @@ Disc.flip = function(self)
   return self:rotate_x(deg_to_rad(180))
 end
 Disc._ready = function(self)
+  self.root = Finder:get_root()
+  self.game_controller = Finder:find_child_by_name(self.root, "GameController")
   self.placed = false
   self.flipped = false
   return nil
