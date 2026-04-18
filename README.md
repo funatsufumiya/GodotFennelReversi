@@ -7,7 +7,7 @@
 
 [![docs/playing_anim3.gif](docs/playing_anim3.gif)](docs/playing_anim3.gif) (Animation GIF)
 
-Reversi game made with Godot 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
+Reversi game made with [Godot](https://godotengine.org/) 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
 Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2026
 
