@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b0yknosery45b" path="res://big_files/grey-grainy-swirl-texture-background_78370-3633-blurred.png" id="2_1xcp8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k1qkk"]
+albedo_color = Color(0.46, 0.46, 0.46, 1)
 metallic_specular = 0.32
 roughness = 0.56
 roughness_texture = ExtResource("2_1xcp8")
