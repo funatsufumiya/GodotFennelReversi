@@ -212,7 +212,10 @@
   (set self.toggle_animation_indicator (Finder:find_child_by_name self.root "ToggleAnimationIndicator"))
   (set self.toggle_score_indicator (Finder:find_child_by_name self.root "ToggleScoreIndicator"))
   (set self.toggle_assist_indicator (Finder:find_child_by_name self.root "ToggleAssistIndicator"))
-
+  (set self.toggle_option_area (Finder:find_child_by_name self.root "ToggleOptionArea"))
+  (set self.toggle_assist_area (Finder:find_child_by_name self.root "ToggleAssistArea"))
+  (set self.toggle_animation_area (Finder:find_child_by_name self.root "ToggleAnimationArea"))
+  (set self.toggle_score_view_area (Finder:find_child_by_name self.root "ToggleScoreViewArea"))
 
   (set self.x0 self.left_top_pos.x)
   (set self.y0 self.left_top_pos.z)
@@ -223,6 +226,10 @@
   (set self.finished false)
   (set self.show_assist false)
   (set self.b_animation true)
+
+  (if self.option_view.visible
+    (self:option_area_enabled true)
+    (self:option_area_enabled false))
 
   ; (print self.left_top_marker)
   ; (print self.right_bottom_marker)
@@ -275,8 +282,12 @@
       (print "toggle option view")
       ; (print self.option_view)
       (if self.option_view.visible
-        (set self.option_view.visible false)
-        (set self.option_view.visible true))))
+        (do
+          (self:option_area_enabled false)
+          (set self.option_view.visible false))
+        (do 
+          (self:option_area_enabled true)
+          (set self.option_view.visible true)))))
 
   (if (Input:is_action_just_pressed "ToggleAnimation")
     (do
@@ -296,6 +307,27 @@
     (do
       (let [tree (self:get_tree)]
         (tree:quit)))))
+
+(fn GameController.set_area_enabled [self area enabled]
+  (let [collider (area:get_child 0)]
+    (set collider.disabled (not enabled))))
+
+(fn GameController.option_area_enabled [self enabled]
+  (if enabled
+    (do
+      (self:set_area_enabled self.toggle_option_area true)
+      (self:set_area_enabled self.toggle_animation_area true)
+      (self:set_area_enabled self.toggle_score_view_area true)
+      (self:set_area_enabled self.toggle_assist_area true)
+      )
+    ; else
+    (do
+      (self:set_area_enabled self.toggle_option_area false)
+      (self:set_area_enabled self.toggle_animation_area false)
+      (self:set_area_enabled self.toggle_score_view_area false)
+      (self:set_area_enabled self.toggle_assist_area false)
+      ))
+  )
 
 (fn to_array [arr]
   ; (var a (Array))
@@ -635,13 +667,54 @@
 (fn GameController.try_raycast [self]
   (let [result (self:get_raycast_result)]
     ; (print result)
-    (if (not (not result))
+    (if (and (not (= result nil)) (not (= result.collider nil)))
       (do 
-        (if (= result.collider.name "BoardArea")
+        (case result.collider.name
+          "BoardArea"
           (do
             ; (print "hit!" result)
-            (self:judge_next_touch result.position)
-          ))))))
+            (self:judge_next_touch result.position))
+          "OptionArea"
+          (do
+            (print "option area hit")
+            (if (not self.option_view.visible) (do
+              (self:option_area_enabled true)
+              (set self.option_view.visible true))))
+          "ToggleOptionArea"
+          (do
+            (print "toggle option area hit")
+            (if self.option_view.visible (do
+              (self:option_area_enabled false)
+              (set self.option_view.visible false))))
+          "ToggleAssistArea"
+          (if self.option_view.visible
+            (do
+              (set self.show_assist (not self.show_assist))
+              (print "assist" self.show_assist)
+              (if self.show_assist
+                (set self.toggle_assist_indicator.visible true)
+                (set self.toggle_assist_indicator.visible false))))
+          "ToggleAnimationArea"
+          (if self.option_view.visible
+            (do
+              (set self.b_animation (not self.b_animation))
+              (if self.b_animation
+                (set self.toggle_animation_indicator.visible true)
+                (set self.toggle_animation_indicator.visible false))
+              (print "animation" self.b_animation)))
+          "ToggleScoreViewArea"
+          (if self.option_view.visible
+            (do
+              (print "toggle score view")
+              ; (print self.score_view)
+              (if self.score_view.visible
+                (do
+                  (set self.toggle_score_indicator.visible false)
+                  (set self.score_view.visible false))
+                (do
+                  (set self.toggle_score_indicator.visible true)
+                  (set self.score_view.visible true)))))
+          )))))
 
 (fn GameController._input [self event]
   (match event

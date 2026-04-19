@@ -222,6 +222,10 @@ GameController._ready = function(self)
   self.toggle_animation_indicator = Finder:find_child_by_name(self.root, "ToggleAnimationIndicator")
   self.toggle_score_indicator = Finder:find_child_by_name(self.root, "ToggleScoreIndicator")
   self.toggle_assist_indicator = Finder:find_child_by_name(self.root, "ToggleAssistIndicator")
+  self.toggle_option_area = Finder:find_child_by_name(self.root, "ToggleOptionArea")
+  self.toggle_assist_area = Finder:find_child_by_name(self.root, "ToggleAssistArea")
+  self.toggle_animation_area = Finder:find_child_by_name(self.root, "ToggleAnimationArea")
+  self.toggle_score_view_area = Finder:find_child_by_name(self.root, "ToggleScoreViewArea")
   self.x0 = self.left_top_pos.x
   self.y0 = self.left_top_pos.z
   self.width = self:get_width()
@@ -231,6 +235,11 @@ GameController._ready = function(self)
   self.finished = false
   self.show_assist = false
   self.b_animation = true
+  if self.option_view.visible then
+	self:option_area_enabled(true)
+  else
+	self:option_area_enabled(false)
+  end
   self:clearDiscs()
   self:initDiscs()
   self.cur_turn_state = true
@@ -271,8 +280,10 @@ GameController._process = function(self, delta)
   if Input:is_action_just_pressed("ToggleOptionView") then
 	print("toggle option view")
 	if self.option_view.visible then
+	  self:option_area_enabled(false)
 	  self.option_view.visible = false
 	else
+	  self:option_area_enabled(true)
 	  self.option_view.visible = true
 	end
   else
@@ -296,6 +307,24 @@ GameController._process = function(self, delta)
 	return tree:quit()
   else
 	return nil
+  end
+end
+GameController.set_area_enabled = function(self, area, enabled)
+  local collider = area:get_child(0)
+  collider.disabled = not enabled
+  return nil
+end
+GameController.option_area_enabled = function(self, enabled)
+  if enabled then
+	self:set_area_enabled(self.toggle_option_area, true)
+	self:set_area_enabled(self.toggle_animation_area, true)
+	self:set_area_enabled(self.toggle_score_view_area, true)
+	return self:set_area_enabled(self.toggle_assist_area, true)
+  else
+	self:set_area_enabled(self.toggle_option_area, false)
+	self:set_area_enabled(self.toggle_animation_area, false)
+	self:set_area_enabled(self.toggle_score_view_area, false)
+	return self:set_area_enabled(self.toggle_assist_area, false)
   end
 end
 local function to_array(arr)
@@ -327,50 +356,50 @@ GameController.flip_discs = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _20_(e)
+	local function _22_(e)
 	  return not not e
 	end
-	n = _20_
+	n = _22_
 	local f1
-	local function _21_(x0, y0)
+	local function _23_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _21_
+	f1 = _23_
 	local f2
-	local function _22_(x0, y0)
+	local function _24_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _22_
+	f2 = _24_
 	local f3
-	local function _23_(x0, y0)
+	local function _25_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _23_
+	f3 = _25_
 	local f4
-	local function _24_(x0, y0)
+	local function _26_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _24_
+	f4 = _26_
 	local f5
-	local function _25_(x0, y0)
+	local function _27_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _25_
+	f5 = _27_
 	local f6
-	local function _26_(x0, y0)
+	local function _28_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _26_
+	f6 = _28_
 	local f7
-	local function _27_(x0, y0)
+	local function _29_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _27_
+	f7 = _29_
 	local f8
-	local function _28_(x0, y0)
+	local function _30_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _28_
+	f8 = _30_
 	local c1 = self:check_and_flip_accum_states(x, y, s, f1)
 	local c2 = self:check_and_flip_accum_states(x, y, s, f2)
 	local c3 = self:check_and_flip_accum_states(x, y, s, f3)
@@ -504,10 +533,10 @@ GameController.able_judge1 = function(self, x, y, state)
   local disc7 = self:get_disc((x - 1), (y + 1))
   local disc8 = self:get_disc((x + 1), (y + 1))
   local n
-  local function _41_(e)
+  local function _43_(e)
 	return not not e
   end
-  n = _41_
+  n = _43_
   return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
 end
 GameController.is_able_to_put = function(self, x, y, state)
@@ -516,50 +545,50 @@ GameController.is_able_to_put = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _42_(e)
+	local function _44_(e)
 	  return not not e
 	end
-	n = _42_
+	n = _44_
 	local f1
-	local function _43_(x0, y0)
+	local function _45_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _43_
+	f1 = _45_
 	local f2
-	local function _44_(x0, y0)
+	local function _46_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _44_
+	f2 = _46_
 	local f3
-	local function _45_(x0, y0)
+	local function _47_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _45_
+	f3 = _47_
 	local f4
-	local function _46_(x0, y0)
+	local function _48_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _46_
+	f4 = _48_
 	local f5
-	local function _47_(x0, y0)
+	local function _49_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _47_
+	f5 = _49_
 	local f6
-	local function _48_(x0, y0)
+	local function _50_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _48_
+	f6 = _50_
 	local f7
-	local function _49_(x0, y0)
+	local function _51_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _49_
+	f7 = _51_
 	local f8
-	local function _50_(x0, y0)
+	local function _52_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _50_
+	f8 = _52_
 	local c1 = self:check_accum_states(x, y, s, f1)
 	local c2 = self:check_accum_states(x, y, s, f2)
 	local c3 = self:check_accum_states(x, y, s, f3)
@@ -693,9 +722,69 @@ GameController.judge_next_touch = function(self, position)
 end
 GameController.try_raycast = function(self)
   local result = self:get_raycast_result()
-  if not not result then
-	if (result.collider.name == "BoardArea") then
+  if (not (result == nil) and not (result.collider == nil)) then
+	local case_66_ = result.collider.name
+	if (case_66_ == "BoardArea") then
 	  return self:judge_next_touch(result.position)
+	elseif (case_66_ == "OptionArea") then
+	  print("option area hit")
+	  if not self.option_view.visible then
+		self:option_area_enabled(true)
+		self.option_view.visible = true
+		return nil
+	  else
+		return nil
+	  end
+	elseif (case_66_ == "ToggleOptionArea") then
+	  print("toggle option area hit")
+	  if self.option_view.visible then
+		self:option_area_enabled(false)
+		self.option_view.visible = false
+		return nil
+	  else
+		return nil
+	  end
+	elseif (case_66_ == "ToggleAssistArea") then
+	  if self.option_view.visible then
+		self.show_assist = not self.show_assist
+		print("assist", self.show_assist)
+		if self.show_assist then
+		  self.toggle_assist_indicator.visible = true
+		  return nil
+		else
+		  self.toggle_assist_indicator.visible = false
+		  return nil
+		end
+	  else
+		return nil
+	  end
+	elseif (case_66_ == "ToggleAnimationArea") then
+	  if self.option_view.visible then
+		self.b_animation = not self.b_animation
+		if self.b_animation then
+		  self.toggle_animation_indicator.visible = true
+		else
+		  self.toggle_animation_indicator.visible = false
+		end
+		return print("animation", self.b_animation)
+	  else
+		return nil
+	  end
+	elseif (case_66_ == "ToggleScoreViewArea") then
+	  if self.option_view.visible then
+		print("toggle score view")
+		if self.score_view.visible then
+		  self.toggle_score_indicator.visible = false
+		  self.score_view.visible = false
+		  return nil
+		else
+		  self.toggle_score_indicator.visible = true
+		  self.score_view.visible = true
+		  return nil
+		end
+	  else
+		return nil
+	  end
 	else
 	  return nil
 	end
@@ -704,12 +793,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_66_ = (nil ~= event)
-  if and_66_ then
+  local and_77_ = (nil ~= event)
+  if and_77_ then
 	local e = event
-	and_66_ = Variant.is(e, InputEventMouseButton)
+	and_77_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_66_ then
+  if and_77_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()

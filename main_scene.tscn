@@ -96,6 +96,9 @@ albedo_texture = ExtResource("10_qwutr")
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_671wp")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qwutr"]
+size = Vector3(1.11, 1.06, 0.04)
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_7ycvg"]
 viewport_path = NodePath("SubViewport")
 
@@ -103,6 +106,9 @@ viewport_path = NodePath("SubViewport")
 resource_local_to_scene = true
 transparency = 1
 albedo_texture = SubResource("ViewportTexture_7ycvg")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_671wp"]
+size = Vector3(1.435, 0.13, 0.2)
 
 [node name="MainScene" type="Node3D" unique_id=251194673]
 
@@ -288,6 +294,11 @@ text = "2"
 transform = Transform3D(0.51707745, -0.14357796, 0.13686237, -0.0006184229, 0.03500044, 2.3316374, -0.28826123, -0.25762245, 0.24049887, -1.9638243, 0.0019046664, 1.2467896)
 mesh = SubResource("QuadMesh_7ycvg")
 
+[node name="OptionArea" type="Area3D" parent="OptionInfo" unique_id=435336927]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OptionInfo/OptionArea" unique_id=868228191]
+shape = SubResource("BoxShape3D_qwutr")
+
 [node name="OptionView" type="Node3D" parent="." unique_id=525605798]
 visible = false
 
@@ -295,6 +306,34 @@ visible = false
 transform = Transform3D(1.9822532, 0, 0, 0, 0.3085549, 2.8400655, 0, -1.961208, 0.44682467, -1.1695368, 0.30437744, 0.62452805)
 mesh = SubResource("QuadMesh_7ycvg")
 surface_material_override/0 = SubResource("StandardMaterial3D_wr18j")
+
+[node name="ToggleOptionArea" type="Area3D" parent="OptionView" unique_id=1192766483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4375029, 0.18928277, 1.1470295)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OptionView/ToggleOptionArea" unique_id=518472277]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06938803, 0, 0)
+shape = SubResource("BoxShape3D_671wp")
+
+[node name="ToggleAssistArea" type="Area3D" parent="OptionView" unique_id=356375323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4375029, 0.18928277, 0.104169786)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OptionView/ToggleAssistArea" unique_id=1043270688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06938803, 0, 0)
+shape = SubResource("BoxShape3D_671wp")
+
+[node name="ToggleAnimationArea" type="Area3D" parent="OptionView" unique_id=1657759098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4375029, 0.18928277, 0.29610682)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OptionView/ToggleAnimationArea" unique_id=151064331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06938803, 0, 0)
+shape = SubResource("BoxShape3D_671wp")
+
+[node name="ToggleScoreViewArea" type="Area3D" parent="OptionView" unique_id=1583706665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4375029, 0.18928277, 0.47461325)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OptionView/ToggleScoreViewArea" unique_id=475615875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06938803, 0, 0)
+shape = SubResource("BoxShape3D_671wp")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1876198083]
 transparent_bg = true
