@@ -740,9 +740,9 @@
               (print "assist" self.show_assist)
               (if self.show_assist
                 (set self.toggle_assist_indicator.visible true)
-                (set self.toggle_assist_indicator.visible false)))
+                (set self.toggle_assist_indicator.visible false))
               (self:clearAssists)
-              (self:putAssists))
+              (self:putAssists)))
           "ToggleAnimationArea"
           (if self.option_view.visible
             (do
