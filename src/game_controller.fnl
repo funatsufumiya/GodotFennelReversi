@@ -5,7 +5,18 @@
 (local N 8)
 (local states {})
 (local discs {})
-; (local cur_turn_state true)
+
+(fn GameController.is_black [self b]
+  (if (= b true) true false))
+
+(fn GameController.is_white [self b]
+  (not (self:is_black b)))
+
+(macro set_black [v]
+  `(set ,v true))
+
+(macro set_white [v]
+  `(set ,v false))
 
 (fn GameController.get_turn_name [self]
   (if (= self.cur_turn_state true) "black" "white"))
@@ -29,6 +40,11 @@
 (fn GameController.get_state_str [self x y]
   (let [st (self:get_state x y)]
     (case st nil "." true "o" false "x")))
+
+(fn GameController.clear_states [self]
+  (for [x 1 N]
+    (for [y 1 N]
+      (self:set_state x y nil))))
 
 (fn GameController.init_states [self]
   (for [i 1 (* N N)]
@@ -140,13 +156,20 @@
   (self:newDiscFlippedAt 4 4)
   (self:newDiscFlippedAt 5 5)
   (self:newDiscAt 4 5)
-  (self:newDiscAt 5 4)
-  ; (self:newDiscFlippedAt 1 1)
-  ; (self:flipDiscAt 1 1)
-  )
+  (self:newDiscAt 5 4))
 
 (fn GameController.restart [self]
-  (print "restart not implemented yet"))
+  (print "restarted")
+  (self:clear_states)
+  (self:clearDiscs)
+  (self:initDiscs)
+
+  (set self.finished false)
+  
+  (if (not (self:is_black self.cur_turn_state)) (do
+    (self.disc_for_indicate:flip)
+    (set_black self.cur_turn_state)
+    )))
 
 ; =======================================
 ; =======================================
