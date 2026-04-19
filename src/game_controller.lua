@@ -86,6 +86,12 @@ GameController.print_states = function(self)
   end
   return nil
 end
+GameController.print_score = function(self)
+  local a_sum = self:disc_count_side(true)
+  local b_sum = self:disc_count_side(false)
+  print("black: ", a_sum)
+  return print("white: ", b_sum)
+end
 GameController.get_width = function(self)
   return (self.right_bottom_pos.x - self.left_top_pos.x)
 end
@@ -223,6 +229,7 @@ GameController._process = function(self, delta)
   if Input:is_action_just_pressed("DoDebug") then
 	print(self:get_timestamp())
 	self:print_states()
+	self:print_score()
   else
   end
   if Input:is_action_just_pressed("ToggleAssist") then
@@ -556,7 +563,7 @@ GameController.check_need_pass = function(self)
   end
   return flag_3f
 end
-GameController.check_finished = function(self)
+GameController.is_disc_sum_nn = function(self)
   local sum
   do
 	local sm = 0
@@ -570,6 +577,31 @@ GameController.check_finished = function(self)
 	sum = sm
   end
   return (sum == (N * N))
+end
+GameController.disc_count_side = function(self, side)
+  local sum
+  do
+	local sm = 0
+	for _, v in pairs(states) do
+	  if (not (v == nil) and (v == side)) then
+		sm = (sm + 1)
+	  else
+		sm = sm
+	  end
+	end
+	sum = sm
+  end
+  return sum
+end
+GameController.is_all_the_same_color = function(self)
+  local a_sum = self:disc_count_side(true)
+  local b_sum = self:disc_count_side(false)
+  return (not ((a_sum == 0) and (b_sum == 0)) and ((a_sum == 0) or (b_sum == 0)))
+end
+GameController.check_finished = function(self)
+  local check1 = self:is_disc_sum_nn()
+  local check2 = self:is_all_the_same_color()
+  return (check1 and check2)
 end
 GameController.judge_finished = function(self)
   if self:check_finished() then
@@ -628,12 +660,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_59_ = (nil ~= event)
-  if and_59_ then
+  local and_60_ = (nil ~= event)
+  if and_60_ then
 	local e = event
-	and_59_ = Variant.is(e, InputEventMouseButton)
+	and_60_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_59_ then
+  if and_60_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()

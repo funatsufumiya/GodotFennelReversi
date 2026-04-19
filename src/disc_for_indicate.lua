@@ -1,6 +1,6 @@
 local DiscForIndicate = {extends = Node3D, class_name = "DiscForIndicate"}
 local init_offset_y = 0.1
-local flip_offset_y = 0.2
+local flip_offset_y = 0.25
 local init_anim_duration = 0.3
 local flip_anim_duration = 0.3
 local pi = 3.141592

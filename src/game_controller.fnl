@@ -64,6 +64,12 @@
   (for [i 1 N]
     (print (self:get_state_raw i))))
 
+(fn GameController.print_score [self]
+  (let [a_sum (self:disc_count_side true)
+        b_sum (self:disc_count_side false)]
+      (print "black: " a_sum)
+      (print "white: " b_sum)))
+
 (fn GameController.get_width [self]
   (- self.right_bottom_pos.x self.left_top_pos.x))
 
@@ -224,6 +230,7 @@
     (do
       (print (self:get_timestamp))
       (self:print_states)
+      (self:print_score)
     ))
 
   (if (Input:is_action_just_pressed "ToggleAssist")
@@ -514,12 +521,31 @@
   ; (print "need_pass" flag?)
   flag?)
 
-(fn GameController.check_finished [self]
-  ; TODO: check all the same color or not
+(fn GameController.is_disc_sum_nn [self]
   (let [sum (accumulate [sm 0 _ v (pairs states)]
               (if (not (= v nil)) (+ sm 1) sm))]
     ; (print "sum" sum)
     (= sum (* N N))))
+
+(fn GameController.disc_count_side [self side]
+  (let [sum (accumulate [sm 0 _ v (pairs states)]
+              (if (and (not (= v nil)) (= v side)) (+ sm 1) sm))]
+    sum))
+
+(fn GameController.is_all_the_same_color [self]
+  (let [a_sum (self:disc_count_side true)
+        b_sum (self:disc_count_side false)]
+    ; (print "black sum" a_sum)
+    ; (print "white sum" b_sum)
+    (and 
+      (not (and (= a_sum 0) (= b_sum 0)))
+      (or (= a_sum 0) (= b_sum 0)))))
+
+(fn GameController.check_finished [self]
+  ; TODO: check all the same color or not
+  (let [check1 (self:is_disc_sum_nn)
+        check2 (self:is_all_the_same_color)]
+    (and check1 check2)))
 
 (fn GameController.judge_finished [self]
   (if (self:check_finished)
