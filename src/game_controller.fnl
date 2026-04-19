@@ -202,8 +202,6 @@
   (print "restarted")
   (self:clear_states)
   (self:clearDiscs)
-  (self:clearAssists)
-  (self:putAssists)
   (self:initDiscs)
   (self:update_score)
 
@@ -212,7 +210,10 @@
   (if (not (self:is_black self.cur_turn_state)) (do
     (self.disc_for_indicate:flip)
     (set_black self.cur_turn_state)
-    )))
+    ))
+
+  (self:clearAssists)
+  (self:putAssists))
 
 ; =======================================
 ; =======================================
