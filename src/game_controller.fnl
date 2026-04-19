@@ -70,6 +70,12 @@
       (print "black: " a_sum)
       (print "white: " b_sum)))
 
+(fn GameController.update_score [self]
+  (let [a_sum (self:disc_count_side true)
+        b_sum (self:disc_count_side false)]
+      (set self.black_count_label.text (str a_sum))
+      (set self.white_count_label.text (str b_sum))))
+
 (fn GameController.get_width [self]
   (- self.right_bottom_pos.x self.left_top_pos.x))
 
@@ -198,6 +204,10 @@
   (set self.left_top_pos self.left_top_marker.global_position)
   (set self.right_bottom_pos self.right_bottom_marker.global_position)
 
+  (set self.black_count_label (Finder:find_child_by_name self.root "BlackCountLabel"))
+  (set self.white_count_label (Finder:find_child_by_name self.root "WhiteCountLabel"))
+  (set self.score_view (Finder:find_child_by_name self.root "ScoreView"))
+
   (set self.x0 self.left_top_pos.x)
   (set self.y0 self.left_top_pos.z)
   (set self.width (self:get_width))
@@ -237,6 +247,15 @@
     (do
       (set self.show_assist (not self.show_assist))
       (print "assist" self.show_assist)
+    ))
+
+  (if (Input:is_action_just_pressed "ToggleScore")
+    (do
+      (print "toggle score view")
+      ; (print self.score_view)
+      (if self.score_view.visible
+        (set self.score_view.visible false)
+        (set self.score_view.visible true))
     ))
 
   (if (Input:is_action_just_pressed "ToggleAnimation")
@@ -586,7 +605,9 @@
               (self:judge_finished)
               (set self.cur_turn_state (not self.cur_turn_state)))))
 
-          ))))
+          )))
+
+        (self:update_score))
 
 (fn GameController.try_raycast [self]
   (let [result (self:get_raycast_result)]

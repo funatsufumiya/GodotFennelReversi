@@ -5,6 +5,7 @@
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
 [ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
 [ext_resource type="Script" uid="uid://denamml3n2jol" path="res://src/disc_for_indicate.lua" id="5_8mm7a"]
+[ext_resource type="Texture2D" uid="uid://b0yknosery45b" path="res://big_files/grey-grainy-swirl-texture-background_78370-3633-blurred.png" id="6_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://cxd8iremns1vw" path="res://prefabs/chess_pawn.tscn" id="7_nfk4m"]
 [ext_resource type="PackedScene" uid="uid://kc0mx4yvmr4t" path="res://prefabs/pen.tscn" id="8_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://bqunn1a835h1u" path="res://big_files/coin.gltf" id="8_66tet"]
@@ -65,6 +66,24 @@ auto_exposure_speed = 0.8
 dof_blur_far_distance = 1.44
 dof_blur_near_distance = 0.01
 auto_exposure_min_sensitivity = 8.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k1qkk"]
+albedo_color = Color(0.46, 0.46, 0.46, 1)
+metallic_specular = 0.15
+roughness = 0.56
+roughness_texture = ExtResource("6_7ycvg")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8m7cm"]
+material = SubResource("StandardMaterial3D_k1qkk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xcp8"]
+albedo_color = Color(0, 0, 0, 1)
+metallic_specular = 0.09
+roughness = 0.79
+roughness_texture = ExtResource("6_7ycvg")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qk65b"]
+material = SubResource("StandardMaterial3D_1xcp8")
 
 [node name="MainScene" type="Node3D" unique_id=251194673]
 
@@ -189,3 +208,59 @@ transform = Transform3D(8.6653806e-10, 0.019824084, -0.0026468607, 0.02, -8.7422
 
 [node name="pen" parent="." unique_id=503359214 instance=ExtResource("8_7ycvg")]
 transform = Transform3D(0.0036580323, 0, -0.012474728, 0, 0.012999999, 0, 0.012474728, 0, 0.0036580323, 2.1064222, 0.014719367, -0.6884514)
+
+[node name="ScoreView" type="Node3D" parent="." unique_id=1928756683]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 1.9986615, -0.0083179325, 0.8783879)
+visible = false
+
+[node name="SmallBlack" type="Node3D" parent="ScoreView" unique_id=436235556]
+transform = Transform3D(0.465, 0, 0, 0, -2.0325796e-08, -0.465, 0, 0.465, -2.0325796e-08, -0.20318317, -0.012900233, -0.033121526)
+
+[node name="Offset" type="Node3D" parent="ScoreView/SmallBlack" unique_id=1937274685]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="Scaler" type="Node3D" parent="ScoreView/SmallBlack/Offset" unique_id=1000265250]
+transform = Transform3D(0.30000004, 0, 0, 0, 0.30000004, 0, 0, 0, 0.30000004, 0, 0, 0)
+
+[node name="Rot" type="Node3D" parent="ScoreView/SmallBlack/Offset/Scaler" unique_id=877869348]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="White" type="MeshInstance3D" parent="ScoreView/SmallBlack/Offset/Scaler/Rot" unique_id=1271850804]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.04025877, 0, 0, 0, 1.0000001, 0, -0.04081578, 0)
+mesh = SubResource("CylinderMesh_8m7cm")
+
+[node name="Black" type="MeshInstance3D" parent="ScoreView/SmallBlack/Offset/Scaler/Rot" unique_id=345787475]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.04025877, 0, 0, 0, 1.0000001, 0, 0.040441785, 0)
+mesh = SubResource("CylinderMesh_qk65b")
+
+[node name="SmallWhite" type="Node3D" parent="ScoreView" unique_id=841976121]
+transform = Transform3D(0.465, 0, 0, 0, -2.0325796e-08, -0.465, 0, 0.465, -2.0325796e-08, -0.20318317, -0.23958743, -0.033121537)
+
+[node name="Offset" type="Node3D" parent="ScoreView/SmallWhite" unique_id=2080072770]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="Scaler" type="Node3D" parent="ScoreView/SmallWhite/Offset" unique_id=260546484]
+transform = Transform3D(0.30000004, 0, 0, 0, 0.30000004, 0, 0, 0, 0.30000004, 0, 0, 0)
+
+[node name="Rot" type="Node3D" parent="ScoreView/SmallWhite/Offset/Scaler" unique_id=1682778118]
+transform = Transform3D(0.99999994, 0, 0, 0, -0.99999994, 8.742277e-08, 0, -8.742277e-08, -0.99999994, 0, 0, 0)
+
+[node name="White" type="MeshInstance3D" parent="ScoreView/SmallWhite/Offset/Scaler/Rot" unique_id=1584264111]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.04025877, 0, 0, 0, 1.0000001, 0, -0.04081578, 0)
+mesh = SubResource("CylinderMesh_8m7cm")
+
+[node name="Black" type="MeshInstance3D" parent="ScoreView/SmallWhite/Offset/Scaler/Rot" unique_id=323174286]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.04025877, 0, 0, 0, 1.0000001, 0, 0.040441785, 0)
+mesh = SubResource("CylinderMesh_qk65b")
+
+[node name="BlackCountLabel" type="Label3D" parent="ScoreView" unique_id=1904295037]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+modulate = Color(0.55, 0.55, 0.55, 0.49803922)
+outline_modulate = Color(0, 0, 0, 0.2901961)
+text = "2"
+
+[node name="WhiteCountLabel" type="Label3D" parent="ScoreView" unique_id=125245544]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, -0.23150957, -1.0244548e-08)
+modulate = Color(0.55, 0.55, 0.55, 0.49803922)
+outline_modulate = Color(0, 0, 0, 0.2901961)
+text = "2"

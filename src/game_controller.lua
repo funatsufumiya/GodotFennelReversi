@@ -92,6 +92,13 @@ GameController.print_score = function(self)
   print("black: ", a_sum)
   return print("white: ", b_sum)
 end
+GameController.update_score = function(self)
+  local a_sum = self:disc_count_side(true)
+  local b_sum = self:disc_count_side(false)
+  self.black_count_label.text = str(a_sum)
+  self.white_count_label.text = str(b_sum)
+  return nil
+end
 GameController.get_width = function(self)
   return (self.right_bottom_pos.x - self.left_top_pos.x)
 end
@@ -207,6 +214,9 @@ GameController._ready = function(self)
   self.right_bottom_marker = Finder:find_child_by_name(self.root, "RightBottomMarker")
   self.left_top_pos = self.left_top_marker.global_position
   self.right_bottom_pos = self.right_bottom_marker.global_position
+  self.black_count_label = Finder:find_child_by_name(self.root, "BlackCountLabel")
+  self.white_count_label = Finder:find_child_by_name(self.root, "WhiteCountLabel")
+  self.score_view = Finder:find_child_by_name(self.root, "ScoreView")
   self.x0 = self.left_top_pos.x
   self.y0 = self.left_top_pos.z
   self.width = self:get_width()
@@ -235,6 +245,15 @@ GameController._process = function(self, delta)
   if Input:is_action_just_pressed("ToggleAssist") then
 	self.show_assist = not self.show_assist
 	print("assist", self.show_assist)
+  else
+  end
+  if Input:is_action_just_pressed("ToggleScore") then
+	print("toggle score view")
+	if self.score_view.visible then
+	  self.score_view.visible = false
+	else
+	  self.score_view.visible = true
+	end
   else
   end
   if Input:is_action_just_pressed("ToggleAnimation") then
@@ -282,50 +301,50 @@ GameController.flip_discs = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _14_(e)
+	local function _16_(e)
 	  return not not e
 	end
-	n = _14_
+	n = _16_
 	local f1
-	local function _15_(x0, y0)
+	local function _17_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _15_
+	f1 = _17_
 	local f2
-	local function _16_(x0, y0)
+	local function _18_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _16_
+	f2 = _18_
 	local f3
-	local function _17_(x0, y0)
+	local function _19_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _17_
+	f3 = _19_
 	local f4
-	local function _18_(x0, y0)
+	local function _20_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _18_
+	f4 = _20_
 	local f5
-	local function _19_(x0, y0)
+	local function _21_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _19_
+	f5 = _21_
 	local f6
-	local function _20_(x0, y0)
+	local function _22_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _20_
+	f6 = _22_
 	local f7
-	local function _21_(x0, y0)
+	local function _23_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _21_
+	f7 = _23_
 	local f8
-	local function _22_(x0, y0)
+	local function _24_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _22_
+	f8 = _24_
 	local c1 = self:check_and_flip_accum_states(x, y, s, f1)
 	local c2 = self:check_and_flip_accum_states(x, y, s, f2)
 	local c3 = self:check_and_flip_accum_states(x, y, s, f3)
@@ -459,10 +478,10 @@ GameController.able_judge1 = function(self, x, y, state)
   local disc7 = self:get_disc((x - 1), (y + 1))
   local disc8 = self:get_disc((x + 1), (y + 1))
   local n
-  local function _35_(e)
+  local function _37_(e)
 	return not not e
   end
-  n = _35_
+  n = _37_
   return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
 end
 GameController.is_able_to_put = function(self, x, y, state)
@@ -471,50 +490,50 @@ GameController.is_able_to_put = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _36_(e)
+	local function _38_(e)
 	  return not not e
 	end
-	n = _36_
+	n = _38_
 	local f1
-	local function _37_(x0, y0)
+	local function _39_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _37_
+	f1 = _39_
 	local f2
-	local function _38_(x0, y0)
+	local function _40_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _38_
+	f2 = _40_
 	local f3
-	local function _39_(x0, y0)
+	local function _41_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _39_
+	f3 = _41_
 	local f4
-	local function _40_(x0, y0)
+	local function _42_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _40_
+	f4 = _42_
 	local f5
-	local function _41_(x0, y0)
+	local function _43_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _41_
+	f5 = _43_
 	local f6
-	local function _42_(x0, y0)
+	local function _44_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _42_
+	f6 = _44_
 	local f7
-	local function _43_(x0, y0)
+	local function _45_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _43_
+	f7 = _45_
 	local f8
-	local function _44_(x0, y0)
+	local function _46_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _44_
+	f8 = _46_
 	local c1 = self:check_accum_states(x, y, s, f1)
 	local c2 = self:check_accum_states(x, y, s, f2)
 	local c3 = self:check_accum_states(x, y, s, f3)
@@ -612,40 +631,39 @@ GameController.judge_finished = function(self)
   end
 end
 GameController.judge_next_touch = function(self, position)
-  local x = position.x
-  local y = position.z
-  local px = ((x - self.x0) / self.width)
-  local py = ((y - self.y0) / self.height)
-  local nx = (floor((px * N)) + 1)
-  local ny = (floor((py * N)) + 1)
-  local already_exist = not (self:get_state(nx, ny) == nil)
-  local ok_to_put = self:is_able_to_put(nx, ny, self.cur_turn_state)
-  if (not already_exist and ok_to_put) then
-	if self.cur_turn_state then
-	  self:newDiscAt(nx, ny)
-	else
-	  self:newDiscFlippedAt(nx, ny)
-	end
-	self:flip_discs(nx, ny, self.cur_turn_state)
-	self:flip_indicate_disc()
-	self:judge_finished()
-	self.cur_turn_state = not self.cur_turn_state
-	if not self.finished then
-	  if self:check_need_pass() then
-		print(self:get_turn_name(), "pass!!")
-		self:flip_indicate_disc()
-		self:judge_finished()
-		self.cur_turn_state = not self.cur_turn_state
-		return nil
+  do
+	local x = position.x
+	local y = position.z
+	local px = ((x - self.x0) / self.width)
+	local py = ((y - self.y0) / self.height)
+	local nx = (floor((px * N)) + 1)
+	local ny = (floor((py * N)) + 1)
+	local already_exist = not (self:get_state(nx, ny) == nil)
+	local ok_to_put = self:is_able_to_put(nx, ny, self.cur_turn_state)
+	if (not already_exist and ok_to_put) then
+	  if self.cur_turn_state then
+		self:newDiscAt(nx, ny)
 	  else
-		return nil
+		self:newDiscFlippedAt(nx, ny)
+	  end
+	  self:flip_discs(nx, ny, self.cur_turn_state)
+	  self:flip_indicate_disc()
+	  self:judge_finished()
+	  self.cur_turn_state = not self.cur_turn_state
+	  if not self.finished then
+		if self:check_need_pass() then
+		  print(self:get_turn_name(), "pass!!")
+		  self:flip_indicate_disc()
+		  self:judge_finished()
+		  self.cur_turn_state = not self.cur_turn_state
+		else
+		end
+	  else
 	  end
 	else
-	  return nil
 	end
-  else
-	return nil
   end
+  return self:update_score()
 end
 GameController.try_raycast = function(self)
   local result = self:get_raycast_result()
@@ -660,12 +678,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_60_ = (nil ~= event)
-  if and_60_ then
+  local and_62_ = (nil ~= event)
+  if and_62_ then
 	local e = event
-	and_60_ = Variant.is(e, InputEventMouseButton)
+	and_62_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_60_ then
+  if and_62_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()
