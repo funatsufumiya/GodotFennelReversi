@@ -254,6 +254,7 @@ GameController._ready = function(self)
   self.right_bottom_marker = Finder:find_child_by_name(self.root, "RightBottomMarker")
   self.left_top_pos = self.left_top_marker.global_position
   self.right_bottom_pos = self.right_bottom_marker.global_position
+  self.pass_label = Finder:find_child_by_name(self.root, "PassLabel")
   self.black_count_label = Finder:find_child_by_name(self.root, "BlackCountLabel")
   self.white_count_label = Finder:find_child_by_name(self.root, "WhiteCountLabel")
   self.score_view = Finder:find_child_by_name(self.root, "ScoreView")
@@ -731,15 +732,16 @@ end
 GameController.check_finished = function(self)
   local check1 = self:is_disc_sum_nn()
   local check2 = self:is_all_the_same_color()
-  return (check1 and check2)
+  return (check1 or check2)
 end
 GameController.judge_finished = function(self)
-  if self:check_finished() then
+  local finished = self:check_finished()
+  if finished then
     self.finished = true
-    return print("finished!!!!!!!")
+    print("finished!!!!!!!")
   else
-    return nil
   end
+  return finished
 end
 GameController.judge_next_touch = function(self, position)
   do
@@ -766,6 +768,10 @@ GameController.judge_next_touch = function(self, position)
           print(self:get_turn_name(), "pass!!")
           self:flip_indicate_disc()
           self:judge_finished()
+          if not self.finished then
+            self.pass_label:show()
+          else
+          end
           self.cur_turn_state = not self.cur_turn_state
         else
         end
@@ -781,10 +787,10 @@ end
 GameController.try_raycast = function(self)
   local result = self:get_raycast_result()
   if (not (result == nil) and not (result.collider == nil)) then
-    local case_69_ = result.collider.name
-    if (case_69_ == "BoardArea") then
+    local case_70_ = result.collider.name
+    if (case_70_ == "BoardArea") then
       return self:judge_next_touch(result.position)
-    elseif (case_69_ == "OptionArea") then
+    elseif (case_70_ == "OptionArea") then
       print("option area hit")
       if not self.option_view.visible then
         self:option_area_enabled(true)
@@ -793,7 +799,7 @@ GameController.try_raycast = function(self)
       else
         return nil
       end
-    elseif (case_69_ == "ToggleOptionArea") then
+    elseif (case_70_ == "ToggleOptionArea") then
       print("toggle option area hit")
       if self.option_view.visible then
         self:option_area_enabled(false)
@@ -802,7 +808,7 @@ GameController.try_raycast = function(self)
       else
         return nil
       end
-    elseif (case_69_ == "ToggleAssistArea") then
+    elseif (case_70_ == "ToggleAssistArea") then
       if self.option_view.visible then
         self.show_assist = not self.show_assist
         print("assist", self.show_assist)
@@ -816,7 +822,7 @@ GameController.try_raycast = function(self)
       else
         return nil
       end
-    elseif (case_69_ == "ToggleAnimationArea") then
+    elseif (case_70_ == "ToggleAnimationArea") then
       if self.option_view.visible then
         self.b_animation = not self.b_animation
         if self.b_animation then
@@ -828,7 +834,7 @@ GameController.try_raycast = function(self)
       else
         return nil
       end
-    elseif (case_69_ == "ToggleScoreViewArea") then
+    elseif (case_70_ == "ToggleScoreViewArea") then
       if self.option_view.visible then
         print("toggle score view")
         if self.score_view.visible then
@@ -851,12 +857,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_80_ = (nil ~= event)
-  if and_80_ then
+  local and_81_ = (nil ~= event)
+  if and_81_ then
     local e = event
-    and_80_ = Variant.is(e, InputEventMouseButton)
+    and_81_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_80_ then
+  if and_81_ then
     local e = event
     if event.pressed then
       return self:try_raycast()

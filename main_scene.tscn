@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgab7dhmedhbr" path="res://src/game_controller.lua" id="1_d5x1h"]
 [ext_resource type="Texture2D" uid="uid://di6d44yrvhx5q" path="res://big_files/nathan-dumlao-J2gEgTPM_OA-unsplash-processed-min.jpg" id="2_2c62f"]
+[ext_resource type="Script" uid="uid://tpxn0xayu3g6" path="res://src/pass_label.lua" id="2_42l1d"]
 [ext_resource type="Material" uid="uid://c8qn64qmwcccm" path="res://materials/board_shader_material.tres" id="2_gyfs4"]
 [ext_resource type="PackedScene" uid="uid://bmd3ajq7un23" path="res://prefabs/disc.tscn" id="4_d5x1h"]
 [ext_resource type="Script" uid="uid://denamml3n2jol" path="res://src/disc_for_indicate.lua" id="5_8mm7a"]
@@ -116,6 +117,13 @@ size = Vector3(1.435, 0.13, 0.2)
 
 [node name="GameController" type="Node" parent="." unique_id=513717051]
 script = ExtResource("1_d5x1h")
+
+[node name="PassLabel" type="Label3D" parent="." unique_id=1247921606]
+transform = Transform3D(1, 0, 0, 0, 0.20847511, 0.9780277, 0, -0.9780277, 0.20847511, -2.0578485, 0.031592473, -0.28251225)
+visible = false
+text = "Pass !"
+font_size = 43
+script = ExtResource("2_42l1d")
 
 [node name="Board" type="MeshInstance3D" parent="." unique_id=2138596118]
 transform = Transform3D(3, 0, 0, 0, 0.074, 0, 0, 0, 3, 0, -0.026442599, 0)

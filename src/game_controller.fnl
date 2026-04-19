@@ -237,6 +237,7 @@
   (set self.left_top_pos self.left_top_marker.global_position)
   (set self.right_bottom_pos self.right_bottom_marker.global_position)
 
+  (set self.pass_label (Finder:find_child_by_name self.root "PassLabel"))
   (set self.black_count_label (Finder:find_child_by_name self.root "BlackCountLabel"))
   (set self.white_count_label (Finder:find_child_by_name self.root "WhiteCountLabel"))
   (set self.score_view (Finder:find_child_by_name self.root "ScoreView"))
@@ -664,13 +665,15 @@
 (fn GameController.check_finished [self]
   (let [check1 (self:is_disc_sum_nn)
         check2 (self:is_all_the_same_color)]
-    (and check1 check2)))
+    (or check1 check2)))
 
 (fn GameController.judge_finished [self]
-  (if (self:check_finished)
-    (do
-      (set self.finished true)
-      (print "finished!!!!!!!"))))
+  (let [finished (self:check_finished)]
+    (if finished
+      (do
+        (set self.finished true)
+        (print "finished!!!!!!!")))
+  finished))
 
 (fn GameController.judge_next_touch [self position]
   ; (print position)
@@ -699,10 +702,11 @@
         (if (not self.finished)
           (if (self:check_need_pass)
             (do
-              ; TODO: show pass message
               (print (self:get_turn_name) "pass!!")
               (self:flip_indicate_disc)
               (self:judge_finished)
+              (if (not self.finished) (do
+                (self.pass_label:show)))
               (set self.cur_turn_state (not self.cur_turn_state)))))
 
           )))
