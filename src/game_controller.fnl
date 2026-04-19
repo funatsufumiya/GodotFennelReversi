@@ -175,6 +175,7 @@
   (self:clear_states)
   (self:clearDiscs)
   (self:initDiscs)
+  (self:update_score)
 
   (set self.finished false)
   

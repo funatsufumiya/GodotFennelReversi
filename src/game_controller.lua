@@ -191,6 +191,7 @@ GameController.restart = function(self)
   self:clear_states()
   self:clearDiscs()
   self:initDiscs()
+  self:update_score()
   self.finished = false
   if not self:is_black(self.cur_turn_state) then
 	self.disc_for_indicate:flip()
