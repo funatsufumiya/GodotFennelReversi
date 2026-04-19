@@ -9,7 +9,7 @@
 
 Reversi game made with [Godot](https://godotengine.org/) 4.6 and [Fennel](https://fennel-lang.org/) language (Lisp on LuaJIT).
 
-Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2026
+Created for Spring Lisp Game Jam 2026 https://itch.io/jam/spring-lisp-game-jam-2026 , and created in 3 days, DAY1 [v1.0.0](https://github.com/funatsufumiya/GodotFennelReversi/releases/tag/v1.0.0), DAY2 [v1.2.0](https://github.com/funatsufumiya/GodotFennelReversi/releases/tag/v1.2.0), DAY3 [v1.2.2](https://github.com/funatsufumiya/GodotFennelReversi/releases/tag/v1.2.2).
 
 ## Prebuilt (downloadable, playable) executables
 
