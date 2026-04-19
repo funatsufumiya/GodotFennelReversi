@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dw27hypejki3n"]
+
+[ext_resource type="Script" uid="uid://0pmh77xgtqg6" path="res://src/assist.lua" id="1_qx0yc"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y0iy7"]
+height = 0.24
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fm83g"]
+albedo_color = Color(0.52906674, 0.5290667, 0.5290667, 1)
+
+[node name="AssistWhite" type="Node3D" unique_id=1931328084]
+script = ExtResource("1_qx0yc")
+
+[node name="Scaler" type="Node3D" parent="." unique_id=1214836202]
+transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0, 0.032335013, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Scaler" unique_id=2133745268]
+mesh = SubResource("CylinderMesh_y0iy7")
+surface_material_override/0 = SubResource("StandardMaterial3D_fm83g")

@@ -111,29 +111,29 @@ end
 GameController.get_pos_y = function(self, y)
   return (self.y0 + ((y - 0.5) * self.dh))
 end
-GameController.get_global_position = function(self, disc)
-  if not disc:is_placed() then
+GameController.get_global_position = function(self, e)
+  if not e:is_placed() then
 	return Vector3(0, 0, 0)
   else
-	return disc.global_position
+	return e.global_position
   end
 end
-GameController.move = function(self, disc, x, y)
+GameController.move = function(self, e, x, y)
   local nx = self:get_pos_x(x)
   local ny = self:get_pos_y(y)
-  local gp = self:get_global_position(disc)
+  local gp = self:get_global_position(e)
   gp.x = nx
   gp.z = ny
-  disc.global_position = gp
+  e.global_position = gp
   return nil
 end
-GameController.move_deferred = function(self, disc, x, y)
+GameController.move_deferred = function(self, e, x, y)
   local nx = self:get_pos_x(x)
   local ny = self:get_pos_y(y)
-  local gp = self:get_global_position(disc)
+  local gp = self:get_global_position(e)
   gp.x = nx
   gp.z = ny
-  return Utils:set_global_position_deferred(disc, gp)
+  return Utils:set_global_position_deferred(e, gp)
 end
 GameController.newDiscAt = function(self, x, y)
   local disc = self:newDisc()
@@ -173,12 +173,47 @@ GameController.newDisc = function(self)
   disc:set_y(nil)
   return disc
 end
+GameController.newAssist = function(self, black_or_white)
+  local e
+  if self:is_black(black_or_white) then
+	e = self.assist_black_prefab:instantiate()
+  else
+	e = self.assist_white_prefab:instantiate()
+  end
+  Utils:add_child_deferred(self.root, e)
+  return e
+end
+GameController.newAssitAt = function(self, black_or_white, x, y)
+  local e = self:newAssist(black_or_white)
+  self:move_deferred(e, x, y)
+  return e
+end
 GameController.clearDiscs = function(self)
   local discs0 = Finder:find_children_by_type(self.root, "Disc")
   for _, disc in pairs(discs0) do
 	disc:queue_free()
   end
   return nil
+end
+GameController.clearAssists = function(self)
+  local es = Finder:find_children_by_type(self.root, "Assist")
+  for _, e in pairs(es) do
+	e:queue_free()
+  end
+  return nil
+end
+GameController.putAssists = function(self)
+  if self.show_assist then
+	local lst = self:list_able_to_put()
+	for k, v in pairs(lst) do
+	  local x = v[0]
+	  local y = v[1]
+	  self:newAssitAt(self.cur_turn_state, x, y)
+	end
+	return nil
+  else
+	return nil
+  end
 end
 GameController.initDiscs = function(self)
   self:newDiscFlippedAt(4, 4)
@@ -190,6 +225,8 @@ GameController.restart = function(self)
   print("restarted")
   self:clear_states()
   self:clearDiscs()
+  self:clearAssists()
+  self:putAssists()
   self:initDiscs()
   self:update_score()
   self.finished = false
@@ -208,6 +245,8 @@ GameController._ready = function(self)
   self.preloaded = Preloaded:singleton()
   self.root = Finder:get_root()
   self.disc_prefab = self.preloaded.disc_prefab
+  self.assist_black_prefab = self.preloaded.assist_black_prefab
+  self.assist_white_prefab = self.preloaded.assist_white_prefab
   self.disc_for_indicate = Finder:find_child_by_name(self.root, "DiscForIndicate")
   self.disc_for_indicate:set_game_controller(self)
   self.left_top_marker = Finder:find_child_by_name(self.root, "LeftTopMarker")
@@ -241,6 +280,8 @@ GameController._ready = function(self)
 	self:option_area_enabled(false)
   end
   self:clearDiscs()
+  self:clearAssists()
+  self:putAssists()
   self:initDiscs()
   self.cur_turn_state = true
   return nil
@@ -264,6 +305,8 @@ GameController._process = function(self, delta)
 	else
 	  self.toggle_assist_indicator.visible = false
 	end
+	self:clearAssists()
+	self:putAssists()
   else
   end
   if Input:is_action_just_pressed("ToggleScore") then
@@ -356,50 +399,50 @@ GameController.flip_discs = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _22_(e)
+	local function _24_(e)
 	  return not not e
 	end
-	n = _22_
+	n = _24_
 	local f1
-	local function _23_(x0, y0)
+	local function _25_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _23_
+	f1 = _25_
 	local f2
-	local function _24_(x0, y0)
+	local function _26_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _24_
+	f2 = _26_
 	local f3
-	local function _25_(x0, y0)
+	local function _27_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _25_
+	f3 = _27_
 	local f4
-	local function _26_(x0, y0)
+	local function _28_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _26_
+	f4 = _28_
 	local f5
-	local function _27_(x0, y0)
+	local function _29_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _27_
+	f5 = _29_
 	local f6
-	local function _28_(x0, y0)
+	local function _30_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _28_
+	f6 = _30_
 	local f7
-	local function _29_(x0, y0)
+	local function _31_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _29_
+	f7 = _31_
 	local f8
-	local function _30_(x0, y0)
+	local function _32_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _30_
+	f8 = _32_
 	local c1 = self:check_and_flip_accum_states(x, y, s, f1)
 	local c2 = self:check_and_flip_accum_states(x, y, s, f2)
 	local c3 = self:check_and_flip_accum_states(x, y, s, f3)
@@ -533,62 +576,63 @@ GameController.able_judge1 = function(self, x, y, state)
   local disc7 = self:get_disc((x - 1), (y + 1))
   local disc8 = self:get_disc((x + 1), (y + 1))
   local n
-  local function _43_(e)
+  local function _45_(e)
 	return not not e
   end
-  n = _43_
+  n = _45_
   return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
 end
 GameController.is_able_to_put = function(self, x, y, state)
-  if not self:able_judge1(x, y, state) then
+  local already_exist = not (self:get_state(x, y) == nil)
+  if (already_exist or not self:able_judge1(x, y, state)) then
 	return false
   else
 	local s = state
 	local n
-	local function _44_(e)
+	local function _46_(e)
 	  return not not e
 	end
-	n = _44_
+	n = _46_
 	local f1
-	local function _45_(x0, y0)
+	local function _47_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _45_
+	f1 = _47_
 	local f2
-	local function _46_(x0, y0)
+	local function _48_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _46_
+	f2 = _48_
 	local f3
-	local function _47_(x0, y0)
+	local function _49_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _47_
+	f3 = _49_
 	local f4
-	local function _48_(x0, y0)
+	local function _50_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _48_
+	f4 = _50_
 	local f5
-	local function _49_(x0, y0)
+	local function _51_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _49_
+	f5 = _51_
 	local f6
-	local function _50_(x0, y0)
+	local function _52_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _50_
+	f6 = _52_
 	local f7
-	local function _51_(x0, y0)
+	local function _53_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _51_
+	f7 = _53_
 	local f8
-	local function _52_(x0, y0)
+	local function _54_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _52_
+	f8 = _54_
 	local c1 = self:check_accum_states(x, y, s, f1)
 	local c2 = self:check_accum_states(x, y, s, f2)
 	local c3 = self:check_accum_states(x, y, s, f3)
@@ -603,6 +647,18 @@ end
 GameController.flip_indicate_disc = function(self)
   local d = self.disc_for_indicate
   return d:flip()
+end
+GameController.list_able_to_put = function(self)
+  local lst = Array()
+  for x = 1, N do
+	for y = 1, N do
+	  if self:is_able_to_put(x, y, self.cur_turn_state) then
+		lst:push_back(Array({x, y}))
+	  else
+	  end
+	end
+  end
+  return lst
 end
 GameController.check_need_pass = function(self)
   local flag_3f = false
@@ -718,15 +774,17 @@ GameController.judge_next_touch = function(self, position)
 	else
 	end
   end
+  self:clearAssists()
+  self:putAssists()
   return self:update_score()
 end
 GameController.try_raycast = function(self)
   local result = self:get_raycast_result()
   if (not (result == nil) and not (result.collider == nil)) then
-	local case_66_ = result.collider.name
-	if (case_66_ == "BoardArea") then
+	local case_69_ = result.collider.name
+	if (case_69_ == "BoardArea") then
 	  return self:judge_next_touch(result.position)
-	elseif (case_66_ == "OptionArea") then
+	elseif (case_69_ == "OptionArea") then
 	  print("option area hit")
 	  if not self.option_view.visible then
 		self:option_area_enabled(true)
@@ -735,7 +793,7 @@ GameController.try_raycast = function(self)
 	  else
 		return nil
 	  end
-	elseif (case_66_ == "ToggleOptionArea") then
+	elseif (case_69_ == "ToggleOptionArea") then
 	  print("toggle option area hit")
 	  if self.option_view.visible then
 		self:option_area_enabled(false)
@@ -744,7 +802,7 @@ GameController.try_raycast = function(self)
 	  else
 		return nil
 	  end
-	elseif (case_66_ == "ToggleAssistArea") then
+	elseif (case_69_ == "ToggleAssistArea") then
 	  if self.option_view.visible then
 		self.show_assist = not self.show_assist
 		print("assist", self.show_assist)
@@ -755,10 +813,12 @@ GameController.try_raycast = function(self)
 		  self.toggle_assist_indicator.visible = false
 		  return nil
 		end
+	  elseif self:clearAssists() then
+		return self:putAssists()
 	  else
 		return nil
 	  end
-	elseif (case_66_ == "ToggleAnimationArea") then
+	elseif (case_69_ == "ToggleAnimationArea") then
 	  if self.option_view.visible then
 		self.b_animation = not self.b_animation
 		if self.b_animation then
@@ -770,7 +830,7 @@ GameController.try_raycast = function(self)
 	  else
 		return nil
 	  end
-	elseif (case_66_ == "ToggleScoreViewArea") then
+	elseif (case_69_ == "ToggleScoreViewArea") then
 	  if self.option_view.visible then
 		print("toggle score view")
 		if self.score_view.visible then
@@ -793,12 +853,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_77_ = (nil ~= event)
-  if and_77_ then
+  local and_80_ = (nil ~= event)
+  if and_80_ then
 	local e = event
-	and_77_ = Variant.is(e, InputEventMouseButton)
+	and_80_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_77_ then
+  if and_80_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()

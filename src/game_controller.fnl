@@ -88,31 +88,31 @@
 (fn GameController.get_pos_y [self y]
   (+ self.y0 (* (- y 0.5) self.dh)))
 
-(fn GameController.get_global_position [self disc]
-  (if (not (disc:is_placed)) (Vector3 0 0 0) disc.global_position))
+(fn GameController.get_global_position [self e]
+  (if (not (e:is_placed)) (Vector3 0 0 0) e.global_position))
 
-(fn GameController.move [self disc x y]
+(fn GameController.move [self e x y]
   (let [nx (self:get_pos_x x)
         ny (self:get_pos_y y)
-        gp (self:get_global_position disc)]
+        gp (self:get_global_position e)]
 
     ; (print "nx" nx "ny" ny)
     (set gp.x nx)
     (set gp.z ny)
-    (set disc.global_position gp)
+    (set e.global_position gp)
     ; (Utils:set_global_position_deferred disc gp)
     ))
 
-(fn GameController.move_deferred [self disc x y]
+(fn GameController.move_deferred [self e x y]
   (let [nx (self:get_pos_x x)
         ny (self:get_pos_y y)
-        gp (self:get_global_position disc)]
+        gp (self:get_global_position e)]
 
     ; (print "nx" nx "ny" ny)
     (set gp.x nx)
     (set gp.z ny)
     ; (set disc.global_position gp)
-    (Utils:set_global_position_deferred disc gp)
+    (Utils:set_global_position_deferred e gp)
     ))
 
 (fn GameController.newDiscAt [self x y]
@@ -155,6 +155,19 @@
     (disc:set_y nil)
     disc))
 
+(fn GameController.newAssist [self black_or_white]
+  (let [e (if (self:is_black black_or_white)
+              (self.assist_black_prefab:instantiate)
+              (self.assist_white_prefab:instantiate))]
+    ; (print self.root)
+    (Utils:add_child_deferred self.root e)
+    e))
+
+(fn GameController.newAssitAt [self black_or_white x y]
+  (let [e (self:newAssist black_or_white)]
+    (self:move_deferred e x y)
+    e))
+
 (fn GameController.clearDiscs [self]
   (let [discs (Finder:find_children_by_type self.root "Disc")]
     ; (print discs)
@@ -163,6 +176,21 @@
       (disc:queue_free)
       ; (print disc)
       )))
+
+(fn GameController.clearAssists [self]
+  (let [es (Finder:find_children_by_type self.root "Assist")]
+    (each [_ e (pairs es)]
+      (e:queue_free)
+      )))
+
+(fn GameController.putAssists [self]
+  (if self.show_assist (do
+    (let [lst (self:list_able_to_put)]
+      (each [k v (pairs lst)]
+        (let [x (. v 0)
+              y (. v 1)]
+          (self:newAssitAt self.cur_turn_state x y))))
+  )))
 
 (fn GameController.initDiscs [self]
   (self:newDiscFlippedAt 4 4)
@@ -174,6 +202,8 @@
   (print "restarted")
   (self:clear_states)
   (self:clearDiscs)
+  (self:clearAssists)
+  (self:putAssists)
   (self:initDiscs)
   (self:update_score)
 
@@ -196,6 +226,8 @@
   (set self.preloaded (Preloaded:singleton))
   (set self.root (Finder:get_root))
   (set self.disc_prefab self.preloaded.disc_prefab)
+  (set self.assist_black_prefab self.preloaded.assist_black_prefab)
+  (set self.assist_white_prefab self.preloaded.assist_white_prefab)
 
   (set self.disc_for_indicate (Finder:find_child_by_name self.root "DiscForIndicate"))
   (self.disc_for_indicate:set_game_controller self)
@@ -234,6 +266,8 @@
   ; (print self.left_top_marker)
   ; (print self.right_bottom_marker)
   (self:clearDiscs)
+  (self:clearAssists)
+  (self:putAssists)
   (self:initDiscs)
 
   ; (self:print_states)
@@ -263,6 +297,8 @@
       (if self.show_assist
         (set self.toggle_assist_indicator.visible true)
         (set self.toggle_assist_indicator.visible false))
+      (self:clearAssists)
+      (self:putAssists)
     ))
 
   (if (Input:is_action_just_pressed "ToggleScore")
@@ -520,42 +556,52 @@
       )))
 
 (fn GameController.is_able_to_put [self x y state]
-  (if (not (self:able_judge1 x y state))
-    false
-    (let [
-      s state
-      n (fn [e] (not (not e)))
-      f1 (fn [x y] [(- x 1) y])
-      f2 (fn [x y] [x (- y 1)])
-      f3 (fn [x y] [(+ x 1) y])
-      f4 (fn [x y] [x (+ y 1)])
-      f5 (fn [x y] [(- x 1) (- y 1)])
-      f6 (fn [x y] [(+ x 1) (- y 1)])
-      f7 (fn [x y] [(- x 1) (+ y 1)])
-      f8 (fn [x y] [(+ x 1) (+ y 1)])
-      c1 (self:check_accum_states x y s f1)
-      c2 (self:check_accum_states x y s f2)
-      c3 (self:check_accum_states x y s f3)
-      c4 (self:check_accum_states x y s f4)
-      c5 (self:check_accum_states x y s f5)
-      c6 (self:check_accum_states x y s f6)
-      c7 (self:check_accum_states x y s f7)
-      c8 (self:check_accum_states x y s f8)
-      ]
-      (or
-        (n c1)
-        (n c2)
-        (n c3)
-        (n c4)
-        (n c5)
-        (n c6)
-        (n c7)
-        (n c8)
-        ))))
+  (let [already_exist (not (= (self:get_state x y) nil))]
+    (if (or already_exist (not (self:able_judge1 x y state)))
+      false
+      (let [
+        s state
+        n (fn [e] (not (not e)))
+        f1 (fn [x y] [(- x 1) y])
+        f2 (fn [x y] [x (- y 1)])
+        f3 (fn [x y] [(+ x 1) y])
+        f4 (fn [x y] [x (+ y 1)])
+        f5 (fn [x y] [(- x 1) (- y 1)])
+        f6 (fn [x y] [(+ x 1) (- y 1)])
+        f7 (fn [x y] [(- x 1) (+ y 1)])
+        f8 (fn [x y] [(+ x 1) (+ y 1)])
+        c1 (self:check_accum_states x y s f1)
+        c2 (self:check_accum_states x y s f2)
+        c3 (self:check_accum_states x y s f3)
+        c4 (self:check_accum_states x y s f4)
+        c5 (self:check_accum_states x y s f5)
+        c6 (self:check_accum_states x y s f6)
+        c7 (self:check_accum_states x y s f7)
+        c8 (self:check_accum_states x y s f8)
+        ]
+        (or
+          (n c1)
+          (n c2)
+          (n c3)
+          (n c4)
+          (n c5)
+          (n c6)
+          (n c7)
+          (n c8)
+          )))))
 
 (fn GameController.flip_indicate_disc [self]
   (let [d self.disc_for_indicate]
     (d:flip)))
+
+(fn GameController.list_able_to_put [self]
+  (var lst (Array))
+  (for [x 1 N]
+    (for [y 1 N]
+      (if (self:is_able_to_put x y self.cur_turn_state)
+        (do 
+          (lst:push_back (Array [x y]))))))
+  lst)
 
 (fn GameController.check_need_pass [self]
   (var flag? false)
@@ -616,7 +662,6 @@
       (or (= a_sum 0) (= b_sum 0)))))
 
 (fn GameController.check_finished [self]
-  ; TODO: check all the same color or not
   (let [check1 (self:is_disc_sum_nn)
         check2 (self:is_all_the_same_color)]
     (and check1 check2)))
@@ -662,6 +707,8 @@
 
           )))
 
+        (self:clearAssists)
+        (self:putAssists)
         (self:update_score))
 
 (fn GameController.try_raycast [self]
@@ -693,7 +740,9 @@
               (print "assist" self.show_assist)
               (if self.show_assist
                 (set self.toggle_assist_indicator.visible true)
-                (set self.toggle_assist_indicator.visible false))))
+                (set self.toggle_assist_indicator.visible false)))
+              (self:clearAssists)
+              (self:putAssists))
           "ToggleAnimationArea"
           (if self.option_view.visible
             (do

@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bqunn1a835h1u" path="res://big_files/coin.gltf" id="8_66tet"]
 [ext_resource type="Texture2D" uid="uid://dc45qul8hw77h" path="res://press_o_key_to_show_option.png" id="10_qwutr"]
 [ext_resource type="PackedScene" uid="uid://coa70o6b2jcw6" path="res://prefabs/gui.tscn" id="10_wr18j"]
+[ext_resource type="PackedScene" uid="uid://oci1rai8cc00" path="res://prefabs/assist_black.tscn" id="12_671wp"]
+[ext_resource type="PackedScene" uid="uid://dw27hypejki3n" path="res://prefabs/assist_white.tscn" id="13_mo76n"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
@@ -340,3 +342,9 @@ transparent_bg = true
 size = Vector2i(300, 300)
 
 [node name="GUI" parent="SubViewport" unique_id=1800858572 instance=ExtResource("10_wr18j")]
+
+[node name="AssistBlack" parent="." unique_id=1931328084 instance=ExtResource("12_671wp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2841969, 0, 0.56828463)
+
+[node name="AssistWhite" parent="." unique_id=2021718499 instance=ExtResource("13_mo76n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9365829, 0, 0.5844937)
