@@ -207,6 +207,11 @@
   (set self.black_count_label (Finder:find_child_by_name self.root "BlackCountLabel"))
   (set self.white_count_label (Finder:find_child_by_name self.root "WhiteCountLabel"))
   (set self.score_view (Finder:find_child_by_name self.root "ScoreView"))
+  (set self.option_view (Finder:find_child_by_name self.root "OptionView"))
+  (set self.toggle_animation_indicator (Finder:find_child_by_name self.root "ToggleAnimationIndicator"))
+  (set self.toggle_score_indicator (Finder:find_child_by_name self.root "ToggleScoreIndicator"))
+  (set self.toggle_assist_indicator (Finder:find_child_by_name self.root "ToggleAssistIndicator"))
+
 
   (set self.x0 self.left_top_pos.x)
   (set self.y0 self.left_top_pos.z)
@@ -247,6 +252,9 @@
     (do
       (set self.show_assist (not self.show_assist))
       (print "assist" self.show_assist)
+      (if self.show_assist
+        (set self.toggle_assist_indicator.visible true)
+        (set self.toggle_assist_indicator.visible false))
     ))
 
   (if (Input:is_action_just_pressed "ToggleScore")
@@ -254,13 +262,27 @@
       (print "toggle score view")
       ; (print self.score_view)
       (if self.score_view.visible
-        (set self.score_view.visible false)
-        (set self.score_view.visible true))
-    ))
+        (do
+          (set self.toggle_score_indicator.visible false)
+          (set self.score_view.visible false))
+        (do
+          (set self.toggle_score_indicator.visible true)
+          (set self.score_view.visible true)))))
+
+  (if (Input:is_action_just_pressed "ToggleOptionView")
+    (do
+      (print "toggle option view")
+      ; (print self.option_view)
+      (if self.option_view.visible
+        (set self.option_view.visible false)
+        (set self.option_view.visible true))))
 
   (if (Input:is_action_just_pressed "ToggleAnimation")
     (do
       (set self.b_animation (not self.b_animation))
+      (if self.b_animation
+        (set self.toggle_animation_indicator.visible true)
+        (set self.toggle_animation_indicator.visible false))
       (print "animation" self.b_animation)
     ))
 

@@ -217,6 +217,10 @@ GameController._ready = function(self)
   self.black_count_label = Finder:find_child_by_name(self.root, "BlackCountLabel")
   self.white_count_label = Finder:find_child_by_name(self.root, "WhiteCountLabel")
   self.score_view = Finder:find_child_by_name(self.root, "ScoreView")
+  self.option_view = Finder:find_child_by_name(self.root, "OptionView")
+  self.toggle_animation_indicator = Finder:find_child_by_name(self.root, "ToggleAnimationIndicator")
+  self.toggle_score_indicator = Finder:find_child_by_name(self.root, "ToggleScoreIndicator")
+  self.toggle_assist_indicator = Finder:find_child_by_name(self.root, "ToggleAssistIndicator")
   self.x0 = self.left_top_pos.x
   self.y0 = self.left_top_pos.z
   self.width = self:get_width()
@@ -245,19 +249,40 @@ GameController._process = function(self, delta)
   if Input:is_action_just_pressed("ToggleAssist") then
 	self.show_assist = not self.show_assist
 	print("assist", self.show_assist)
+	if self.show_assist then
+	  self.toggle_assist_indicator.visible = true
+	else
+	  self.toggle_assist_indicator.visible = false
+	end
   else
   end
   if Input:is_action_just_pressed("ToggleScore") then
 	print("toggle score view")
 	if self.score_view.visible then
+	  self.toggle_score_indicator.visible = false
 	  self.score_view.visible = false
 	else
+	  self.toggle_score_indicator.visible = true
 	  self.score_view.visible = true
+	end
+  else
+  end
+  if Input:is_action_just_pressed("ToggleOptionView") then
+	print("toggle option view")
+	if self.option_view.visible then
+	  self.option_view.visible = false
+	else
+	  self.option_view.visible = true
 	end
   else
   end
   if Input:is_action_just_pressed("ToggleAnimation") then
 	self.b_animation = not self.b_animation
+	if self.b_animation then
+	  self.toggle_animation_indicator.visible = true
+	else
+	  self.toggle_animation_indicator.visible = false
+	end
 	print("animation", self.b_animation)
   else
   end
@@ -301,50 +326,50 @@ GameController.flip_discs = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _16_(e)
+	local function _20_(e)
 	  return not not e
 	end
-	n = _16_
+	n = _20_
 	local f1
-	local function _17_(x0, y0)
+	local function _21_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _17_
+	f1 = _21_
 	local f2
-	local function _18_(x0, y0)
+	local function _22_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _18_
+	f2 = _22_
 	local f3
-	local function _19_(x0, y0)
+	local function _23_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _19_
+	f3 = _23_
 	local f4
-	local function _20_(x0, y0)
+	local function _24_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _20_
+	f4 = _24_
 	local f5
-	local function _21_(x0, y0)
+	local function _25_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _21_
+	f5 = _25_
 	local f6
-	local function _22_(x0, y0)
+	local function _26_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _22_
+	f6 = _26_
 	local f7
-	local function _23_(x0, y0)
+	local function _27_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _23_
+	f7 = _27_
 	local f8
-	local function _24_(x0, y0)
+	local function _28_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _24_
+	f8 = _28_
 	local c1 = self:check_and_flip_accum_states(x, y, s, f1)
 	local c2 = self:check_and_flip_accum_states(x, y, s, f2)
 	local c3 = self:check_and_flip_accum_states(x, y, s, f3)
@@ -478,10 +503,10 @@ GameController.able_judge1 = function(self, x, y, state)
   local disc7 = self:get_disc((x - 1), (y + 1))
   local disc8 = self:get_disc((x + 1), (y + 1))
   local n
-  local function _37_(e)
+  local function _41_(e)
 	return not not e
   end
-  n = _37_
+  n = _41_
   return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
 end
 GameController.is_able_to_put = function(self, x, y, state)
@@ -490,50 +515,50 @@ GameController.is_able_to_put = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _38_(e)
+	local function _42_(e)
 	  return not not e
 	end
-	n = _38_
+	n = _42_
 	local f1
-	local function _39_(x0, y0)
+	local function _43_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _39_
+	f1 = _43_
 	local f2
-	local function _40_(x0, y0)
+	local function _44_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _40_
+	f2 = _44_
 	local f3
-	local function _41_(x0, y0)
+	local function _45_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _41_
+	f3 = _45_
 	local f4
-	local function _42_(x0, y0)
+	local function _46_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _42_
+	f4 = _46_
 	local f5
-	local function _43_(x0, y0)
+	local function _47_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _43_
+	f5 = _47_
 	local f6
-	local function _44_(x0, y0)
+	local function _48_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _44_
+	f6 = _48_
 	local f7
-	local function _45_(x0, y0)
+	local function _49_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _45_
+	f7 = _49_
 	local f8
-	local function _46_(x0, y0)
+	local function _50_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _46_
+	f8 = _50_
 	local c1 = self:check_accum_states(x, y, s, f1)
 	local c2 = self:check_accum_states(x, y, s, f2)
 	local c3 = self:check_accum_states(x, y, s, f3)
@@ -678,12 +703,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_62_ = (nil ~= event)
-  if and_62_ then
+  local and_66_ = (nil ~= event)
+  if and_66_ then
 	local e = event
-	and_62_ = Variant.is(e, InputEventMouseButton)
+	and_66_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_62_ then
+  if and_66_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()

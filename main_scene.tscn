@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cxd8iremns1vw" path="res://prefabs/chess_pawn.tscn" id="7_nfk4m"]
 [ext_resource type="PackedScene" uid="uid://kc0mx4yvmr4t" path="res://prefabs/pen.tscn" id="8_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://bqunn1a835h1u" path="res://big_files/coin.gltf" id="8_66tet"]
+[ext_resource type="Texture2D" uid="uid://dc45qul8hw77h" path="res://press_o_key_to_show_option.png" id="10_qwutr"]
+[ext_resource type="PackedScene" uid="uid://coa70o6b2jcw6" path="res://prefabs/gui.tscn" id="10_wr18j"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyfs4"]
 size = Vector2(1, 1)
@@ -84,6 +86,23 @@ roughness_texture = ExtResource("6_7ycvg")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qk65b"]
 material = SubResource("StandardMaterial3D_1xcp8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_671wp"]
+transparency = 1
+albedo_color = Color(0.4891498, 0.30957314, 0.21152848, 1)
+albedo_texture = ExtResource("10_qwutr")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7ycvg"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_671wp")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7ycvg"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr18j"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_7ycvg")
 
 [node name="MainScene" type="Node3D" unique_id=251194673]
 
@@ -264,3 +283,21 @@ transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, -0.23150
 modulate = Color(0.55, 0.55, 0.55, 0.49803922)
 outline_modulate = Color(0, 0, 0, 0.2901961)
 text = "2"
+
+[node name="OptionInfo" type="MeshInstance3D" parent="." unique_id=1181683194]
+transform = Transform3D(0.51707745, -0.14357796, 0.13686237, -0.0006184229, 0.03500044, 2.3316374, -0.28826123, -0.25762245, 0.24049887, -1.9638243, 0.0019046664, 1.2467896)
+mesh = SubResource("QuadMesh_7ycvg")
+
+[node name="OptionView" type="Node3D" parent="." unique_id=525605798]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="OptionView" unique_id=75892330]
+transform = Transform3D(1.9822532, 0, 0, 0, 0.3085549, 2.8400655, 0, -1.961208, 0.44682467, -1.1695368, 0.30437744, 0.62452805)
+mesh = SubResource("QuadMesh_7ycvg")
+surface_material_override/0 = SubResource("StandardMaterial3D_wr18j")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1876198083]
+transparent_bg = true
+size = Vector2i(300, 300)
+
+[node name="GUI" parent="SubViewport" unique_id=1800858572 instance=ExtResource("10_wr18j")]
