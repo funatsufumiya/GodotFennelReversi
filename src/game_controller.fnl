@@ -145,6 +145,12 @@
   ; (self:flipDiscAt 1 1)
   )
 
+(fn GameController.restart [self]
+  (print "restart not implemented yet"))
+
+; =======================================
+; =======================================
+
 (fn GameController._ready [self]
   (set self.is_dirty true)
 
@@ -182,6 +188,9 @@
 
   (set self.cur_turn_state true))
 
+; =======================================  
+; =======================================
+
 (fn GameController._process [self delta]
   (if self.is_dirty
     (do
@@ -204,6 +213,11 @@
     (do
       (set self.b_animation (not self.b_animation))
       (print "animation" self.b_animation)
+    ))
+
+  (if (Input:is_action_just_pressed "Restart")
+    (do
+      (self:restart)
     ))
 
   (if (Input:is_action_just_pressed "Exit")

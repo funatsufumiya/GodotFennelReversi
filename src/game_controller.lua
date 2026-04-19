@@ -155,6 +155,9 @@ GameController.initDiscs = function(self)
   self:newDiscAt(4, 5)
   return self:newDiscAt(5, 4)
 end
+GameController.restart = function(self)
+  return print("restart not implemented yet")
+end
 GameController._ready = function(self)
   self.is_dirty = true
   self:init_states()
@@ -203,6 +206,10 @@ GameController._process = function(self, delta)
 	print("animation", self.b_animation)
   else
   end
+  if Input:is_action_just_pressed("Restart") then
+	self:restart()
+  else
+  end
   if Input:is_action_just_pressed("Exit") then
 	local tree = self:get_tree()
 	return tree:quit()
@@ -239,50 +246,50 @@ GameController.flip_discs = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _11_(e)
+	local function _12_(e)
 	  return not not e
 	end
-	n = _11_
+	n = _12_
 	local f1
-	local function _12_(x0, y0)
+	local function _13_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _12_
+	f1 = _13_
 	local f2
-	local function _13_(x0, y0)
+	local function _14_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _13_
+	f2 = _14_
 	local f3
-	local function _14_(x0, y0)
+	local function _15_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _14_
+	f3 = _15_
 	local f4
-	local function _15_(x0, y0)
+	local function _16_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _15_
+	f4 = _16_
 	local f5
-	local function _16_(x0, y0)
+	local function _17_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _16_
+	f5 = _17_
 	local f6
-	local function _17_(x0, y0)
+	local function _18_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _17_
+	f6 = _18_
 	local f7
-	local function _18_(x0, y0)
+	local function _19_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _18_
+	f7 = _19_
 	local f8
-	local function _19_(x0, y0)
+	local function _20_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _19_
+	f8 = _20_
 	local c1 = self:check_and_flip_accum_states(x, y, s, f1)
 	local c2 = self:check_and_flip_accum_states(x, y, s, f2)
 	local c3 = self:check_and_flip_accum_states(x, y, s, f3)
@@ -416,10 +423,10 @@ GameController.able_judge1 = function(self, x, y, state)
   local disc7 = self:get_disc((x - 1), (y + 1))
   local disc8 = self:get_disc((x + 1), (y + 1))
   local n
-  local function _32_(e)
+  local function _33_(e)
 	return not not e
   end
-  n = _32_
+  n = _33_
   return (n(disc1) or n(disc2) or n(disc3) or n(disc4) or n(disc5) or n(disc6) or n(disc7) or n(disc8))
 end
 GameController.is_able_to_put = function(self, x, y, state)
@@ -428,50 +435,50 @@ GameController.is_able_to_put = function(self, x, y, state)
   else
 	local s = state
 	local n
-	local function _33_(e)
+	local function _34_(e)
 	  return not not e
 	end
-	n = _33_
+	n = _34_
 	local f1
-	local function _34_(x0, y0)
+	local function _35_(x0, y0)
 	  return {(x0 - 1), y0}
 	end
-	f1 = _34_
+	f1 = _35_
 	local f2
-	local function _35_(x0, y0)
+	local function _36_(x0, y0)
 	  return {x0, (y0 - 1)}
 	end
-	f2 = _35_
+	f2 = _36_
 	local f3
-	local function _36_(x0, y0)
+	local function _37_(x0, y0)
 	  return {(x0 + 1), y0}
 	end
-	f3 = _36_
+	f3 = _37_
 	local f4
-	local function _37_(x0, y0)
+	local function _38_(x0, y0)
 	  return {x0, (y0 + 1)}
 	end
-	f4 = _37_
+	f4 = _38_
 	local f5
-	local function _38_(x0, y0)
+	local function _39_(x0, y0)
 	  return {(x0 - 1), (y0 - 1)}
 	end
-	f5 = _38_
+	f5 = _39_
 	local f6
-	local function _39_(x0, y0)
+	local function _40_(x0, y0)
 	  return {(x0 + 1), (y0 - 1)}
 	end
-	f6 = _39_
+	f6 = _40_
 	local f7
-	local function _40_(x0, y0)
+	local function _41_(x0, y0)
 	  return {(x0 - 1), (y0 + 1)}
 	end
-	f7 = _40_
+	f7 = _41_
 	local f8
-	local function _41_(x0, y0)
+	local function _42_(x0, y0)
 	  return {(x0 + 1), (y0 + 1)}
 	end
-	f8 = _41_
+	f8 = _42_
 	local c1 = self:check_accum_states(x, y, s, f1)
 	local c2 = self:check_accum_states(x, y, s, f2)
 	local c3 = self:check_accum_states(x, y, s, f3)
@@ -592,12 +599,12 @@ GameController.try_raycast = function(self)
   end
 end
 GameController._input = function(self, event)
-  local and_56_ = (nil ~= event)
-  if and_56_ then
+  local and_57_ = (nil ~= event)
+  if and_57_ then
 	local e = event
-	and_56_ = Variant.is(e, InputEventMouseButton)
+	and_57_ = Variant.is(e, InputEventMouseButton)
   end
-  if and_56_ then
+  if and_57_ then
 	local e = event
 	if event.pressed then
 	  return self:try_raycast()
