@@ -20,6 +20,14 @@ Please check [Releases](https://github.com/funatsufumiya/GodotFennelReversi/rele
 - Windows: [GodotFennelReversi_windows_x64.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.2.2/GodotFennelReversi_windows_x64.zip)
 - Mac: [GodotFennelReversi_mac.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.2.2/GodotFennelReversi_mac.zip)
 
+## Options
+
+<img width="400px" src="./docs/screenshot_option.png" />
+
+<img width="400px" src="./docs/screenshot_assist_and_score.png" />
+
+[![docs/playing_anim_with_option.gif](docs/playing_anim_with_option.gif)](docs/playing_anim_with_option.gif) (Animation GIF)
+
 ## Git submodule
 
 Some resources are managed by git submodule. Be sure to update submodule also.
