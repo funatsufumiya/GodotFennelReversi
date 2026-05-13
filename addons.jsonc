@@ -57,15 +57,20 @@
       "checkout": "6325563",
       "subfolder": "addons/shaderV"
     },
+    // "finder": {
+    //   "url": "https://github.com/funatsufumiya/godot_finder_bin",
+    //   "checkout": "v0.2.2",
+    // },
     "finder": {
-      "url": "https://github.com/funatsufumiya/godot_finder_bin",
-      "checkout": "v0.2.2",
+      "url": "https://github.com/funatsufumiya/godot_finder_gdscript",
+      "checkout": "78f3e366",
+      "subfolder": "addons/finder"
     },
-    "dotenv": {
-      "url": "https://github.com/TheLsbt/godot_dotenv",
-      "checkout": "main",
-      "subfolder": "addons/dotenv"
-    },
+    // "dotenv": {
+    //   "url": "https://github.com/TheLsbt/godot_dotenv",
+    //   "checkout": "main",
+    //   "subfolder": "addons/dotenv"
+    // },
     // "SunshineClouds2": {
     //   "url": "https://github.com/Bonkahe/SunshineClouds2",
     //   "source": "remote",
@@ -73,14 +78,14 @@
     //   "subfolder": "addons/SunshineClouds2"
     // },
     "lua-gdextension": {
-      "url": "https://github.com/gilzoide/lua-gdextension/releases/download/0.8.0/lua-gdextension+luajit.zip",
+      "url": "https://github.com/gilzoide/lua-gdextension/releases/download/0.8.0/lua-gdextension.zip",
       "source": "zip",
       "subfolder": "addons/lua-gdextension"
     },
-    "gdUnit4": {
-      "url": "https://github.com/funatsufumiya/gdUnit4",
-      "checkout": "v6.1.2-a",
-      "subfolder": "addons/gdUnit4"
-    },
+    // "gdUnit4": {
+    //   "url": "https://github.com/funatsufumiya/gdUnit4",
+    //   "checkout": "v6.1.2-a",
+    //   "subfolder": "addons/gdUnit4"
+    // },
   }
 }

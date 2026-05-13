@@ -5,3 +5,4 @@
 /android/
 /reports
 *.tmp
+/dist_*
