@@ -20,6 +20,15 @@ Please check [Releases](https://github.com/funatsufumiya/GodotFennelReversi/rele
 - Windows: [GodotFennelReversi_windows_x64.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.2.2/GodotFennelReversi_windows_x64.zip)
 - Mac: [GodotFennelReversi_mac.zip](https://github.com/funatsufumiya/GodotFennelReversi/releases/download/v1.2.2/GodotFennelReversi_mac.zip)
 
+## Web version (playable in browser)
+
+> [!Warning]
+> * Web version is experimental. Rendering quality would be ugly or weird.
+> * Loading time is very long. Be patient.
+
+You can play in browser (Desktop browser is assumed.)
+https://funatsufumiya.github.io/GodotFennelReversi/GodotFennelReversi.html
+
 ## Options
 
 <img width="400px" src="./docs/screenshot_option.png" />
